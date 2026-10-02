@@ -2407,5 +2407,15 @@ function mathTasks(t,i){
 })();
 </script>
 <style id="fix-board-clicks">.boardLessonPanel,.boardCourseHome{pointer-events:auto}.boardSelectedArea,.boardOpenedSubject,.boardTasks,.clearTask,.clearChoices,.clearChoice,.clearTask button,.clearTask input,.clearTask textarea{pointer-events:auto}</style>
-</body>
+<script id="task-click-isolation">
+(function(){
+  var board=document.getElementById("boardArea");
+  if(!board)return;
+  board.addEventListener("pointerdown",function(e){
+    if(e.target.closest(".boardSelectedArea .boardTask, .boardSelectedArea .clearTask, .boardSelectedArea button, .boardSelectedArea input, .boardSelectedArea textarea")){
+      e.stopImmediatePropagation();
+    }
+  },true);
+})();
+</script></body>
 </html>
