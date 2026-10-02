@@ -37,7 +37,7 @@ body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-wid
 .boardSelectedArea{margin-top:18px}.boardOpenedSubject,.movePanel{background:#fff;border:2px solid #e8e2f3;border-radius:26px;padding:22px;box-shadow:0 14px 35px #4b3b8a12}
 .openedSubjectTop{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #eeeaf5;padding-bottom:15px;margin-bottom:16px}.openedSubjectTop h3{margin:8px 0 0;font-size:23px}.bigDice{font-size:76px;text-align:center;margin:8px 0}.moveText{text-align:center;font-size:22px;font-weight:800;padding:20px;background:#f5f1ff;border-radius:20px;margin-bottom:16px}.movePanel{text-align:center}
 @media(max-width:900px){.lessonChoiceCloud{grid-template-columns:1fr 1fr}}@media(max-width:600px){.lessonChoiceCloud{grid-template-columns:1fr}.openedSubjectTop{align-items:flex-start;flex-direction:column}}
-</style><style id="board-click-fix">.board #courseMap{z-index:100!important;pointer-events:auto!important}.board #courseMap .boardLessonCard,.board #courseMap .courseNode,.board #courseMap button{position:relative;z-index:101;pointer-events:auto!important;cursor:pointer!important;touch-action:manipulation}.board #courseMap .boardLessonList{position:relative;z-index:101}</style></head>
+</style><style id="board-click-fix">.board #courseMap{z-index:100!important;pointer-events:auto!important}.board #courseMap .boardLessonCard,.board #courseMap .courseNode,.board #courseMap button{position:relative;z-index:101;pointer-events:auto!important;cursor:pointer!important;touch-action:manipulation}.board #courseMap .boardLessonList{position:relative;z-index:101}</style><style id="board-lesson-final-ui">.lessonChoiceCard:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.15)}.boardLessonCard small,.boardLessonCard em{display:block;line-height:1.35}.boardOpenedSubject .muted{margin-top:6px}.taskCard{margin:14px 0;padding:18px;border-radius:18px;background:#faf8ff}</style></head>
 <body>
 <div class="app">
 <aside class="side"><div class="logo">Просто <span>учись</span></div><div class="nav">
@@ -150,13 +150,17 @@ function boardTaskView(box,t,idx,state){
   if(t.type!="c"&&t.type!="i"&&t.type!="o"&&t.type!="pair"&&t.type!="color")box.querySelector(".boardDone").onclick=function(){ok("Задание выполнено. Разберите способ решения вместе.")};
 }
 function openBoardLesson(num,gr){
-  var m=$("courseMap"),R=A("russian",gr)[num],M=A("math",gr)[num];if(!m)return;
-  var rTasks=make("russian",gr,R,num),mTasks=make("math",gr,M,num);
+  var m=$("courseMap");if(!m)return;
+  var RA=A("russian",gr),MA=A("math",gr),R=RA[num]||"",M=MA[num]||"";
+  var hasR=!!R,hasM=!!M;
+  var rTasks=[],mTasks=[];
+  try{if(hasR)rTasks=make("russian",gr,R,num)||[]}catch(e){console.error("Russian lesson error",e)}
+  try{if(hasM)mTasks=make("math",gr,M,num)||[]}catch(e){console.error("Math lesson error",e)}
   m.innerHTML='<div class="boardLessonPanel"><button class="secondary boardBack">← Все уроки</button>'+
     '<div class="boardLessonHead"><span class="n">Урок '+(num+1)+'</span><h2>Урок '+(num+1)+'</h2><div class="muted">Выбери, чем занимаемся сейчас. Задания откроются прямо здесь, на доске.</div></div>'+
     '<div class="lessonChoiceCloud">'+
-      '<button class="lessonChoiceCard russianChoice"><span class="choiceIcon">📖</span><strong>Русский язык</strong><small>'+E(R)+'</small><b>Открыть задания →</b></button>'+
-      '<button class="lessonChoiceCard mathChoice"><span class="choiceIcon">🔢</span><strong>Математика</strong><small>'+E(M)+'</small><b>Открыть задания →</b></button>'+
+      '<button class="lessonChoiceCard russianChoice" '+(hasR?"":"disabled")+'><span class="choiceIcon">📖</span><strong>Русский язык</strong><small>'+(hasR?E(R):"КТП по русскому языку завершён")+'</small><b>'+(hasR?"Открыть задания →":"Все уроки КТП пройдены")+'</b></button>'+
+      '<button class="lessonChoiceCard mathChoice" '+(hasM?"":"disabled")+'><span class="choiceIcon">🔢</span><strong>Математика</strong><small>'+(hasM?E(M):"КТП по математике завершён")+'</small><b>'+(hasM?"Открыть задания →":"Все уроки КТП пройдены")+'</b></button>'+
       '<button class="lessonChoiceCard moveChoice"><span class="choiceIcon">🎲</span><strong>Физкультминутка</strong><small>Кубик выбирает движение</small><b>Бросить кубик →</b></button>'+
     '</div>'+
     '<div class="boardSelectedArea"></div></div>';
@@ -164,17 +168,20 @@ function openBoardLesson(num,gr){
   var area=m.querySelector(".boardSelectedArea");
   function showSubject(kind){
     var tasks=kind=="russian"?rTasks:mTasks,title=kind=="russian"?R:M,icon=kind=="russian"?"📖":"🔢";
-    area.innerHTML='<section class="boardOpenedSubject '+kind+'Opened"><div class="openedSubjectTop"><div><span class="n">'+icon+' '+(kind=="russian"?"Русский язык":"Математика")+'</span><h3>'+E(title)+'</h3></div><button class="secondary closeBoardSubject">Свернуть</button></div><div class="boardTasks"></div></section>';
+    if(!title)return;
+    area.innerHTML='<section class="boardOpenedSubject '+kind+'Opened"><div class="openedSubjectTop"><div><span class="n">'+icon+' '+(kind=="russian"?"Русский язык":"Математика")+'</span><h3>'+E(title)+'</h3><div class="muted">Тема строго по КТП. Здесь ребёнок выполняет задания прямо на доске.</div></div><button class="secondary closeBoardSubject">Свернуть</button></div><div class="boardTasks"></div></section>';
     var wrap=area.querySelector(".boardTasks");
-    tasks.forEach(function(t,i){var b=document.createElement("div");boardTaskView(b,t,i,{done:false});wrap.appendChild(b)});
+    if(!tasks.length)wrap.innerHTML='<div class="taskCard"><h3>Задания готовятся</h3><p>Для этой темы пока нет интерактивного блока. Сама тема КТП сохранена.</p></div>';
+    tasks.forEach(function(t,i){var b=document.createElement("div");try{boardTaskView(b,t,i,{done:false});}catch(e){b.innerHTML='<div class="taskCard"><h3>Задание '+(i+1)+'</h3><p>Разберите это задание вместе с ребёнком в тетради.</p></div>';console.error(e)}wrap.appendChild(b)});
     area.scrollIntoView({behavior:"smooth",block:"start"});
     area.querySelector(".closeBoardSubject").onclick=function(){area.innerHTML=""};
   }
-  m.querySelector(".russianChoice").onclick=function(){showSubject("russian")};
-  m.querySelector(".mathChoice").onclick=function(){showSubject("math")};
-  m.querySelector(".moveChoice").onclick=function(){
+  if(hasR)m.querySelector(".russianChoice").onclick=function(e){e.preventDefault();e.stopPropagation();showSubject("russian")};
+  if(hasM)m.querySelector(".mathChoice").onclick=function(e){e.preventDefault();e.stopPropagation();showSubject("math")};
+  m.querySelector(".moveChoice").onclick=function(e){
+    e.preventDefault();e.stopPropagation();
     var moves=["Потянись к солнышку — 3 раза вверх.","Лягушка — 5 лёгких приседаний.","Самолёт — разведи руки и сделай 3 поворота.","Дерево — покачайся вправо-влево 10 секунд.","Хлопки — 5 хлопков над головой.","Пружинка — 5 лёгких прыжков.","Замри — двигайся 10 секунд и замри.","Кошечка — потянись и выгни спинку.","Ветер — помаши руками, как ветками.","Робот — 5 шагов на месте.","Мишка — потопай 6 раз.","Радуга — нарисуй руками большую дугу."];
-    var n=Math.floor(Math.random()*6)+1;
+    var n=Math.floor(Math.random()*moves.length)+1;
     area.innerHTML='<section class="movePanel"><div class="openedSubjectTop"><div><span class="n">🎲 Физкультминутка</span><h3>Кубик выбрал движение №'+n+'</h3></div><button class="secondary closeMove">Свернуть</button></div><div class="bigDice">⚄</div><div class="moveText">'+E(moves[n-1])+'</div><button class="primary rollBoardDice">🎲 Бросить ещё раз</button></section>';
     area.querySelector(".rollBoardDice").onclick=function(){m.querySelector(".moveChoice").click()};
     area.querySelector(".closeMove").onclick=function(){area.innerHTML=""};
@@ -183,9 +190,12 @@ function openBoardLesson(num,gr){
 }
 function renderBoardCourse(){
   var m=$("courseMap");if(!m)return;
-  var gr=+$("boardGrade").value||1,R=A("russian",gr),M=A("math",gr),count=Math.min(R.length,M.length);
-  m.innerHTML='<div class="boardCourseHome"><div class="boardCourseTitle">📚 Программа уроков · '+gr+' класс</div><div class="muted">Нажми на урок — появятся три блока: русский, математика и физкультминутка.</div><div class="boardLessonList">'+Array.from({length:count},function(_,i){return'<button class="boardLessonCard" data-i="'+i+'"><span>Урок '+(i+1)+'</span><b>Открыть урок</b><small>Русский язык · '+E(R[i])+'</small><em>🔢 Математика · '+E(M[i])+'</em></button>'}).join("")+'</div></div>';
-  m.querySelectorAll(".boardLessonCard").forEach(function(n){n.onclick=function(){openBoardLesson(+n.dataset.i,gr)}});
+  var gr=+$("boardGrade").value||1, R=A("russian",gr), M=A("math",gr), count=Math.max(R.length,M.length);
+  m.innerHTML='<div class="boardCourseHome"><div class="boardCourseTitle">📚 Программа уроков · '+gr+' класс</div><div class="muted">Нажми на урок — появятся Русский язык, Математика и физкультминутка. Каждый предмет идёт в своём порядке КТП.</div><div class="boardLessonList">'+Array.from({length:count},function(_,i){
+    var rr=R[i],mm=M[i];
+    return '<button class="boardLessonCard" data-i="'+i+'"><span>Урок '+(i+1)+'</span><b>Открыть урок</b><small>📖 Русский язык · '+(rr?E(rr):"КТП по русскому языку завершён")+'</small><em>🔢 Математика · '+(mm?E(mm):"КТП по математике завершён")+'</em></button>';
+  }).join("")+'</div></div>';
+  m.querySelectorAll(".boardLessonCard").forEach(function(n){n.onclick=function(e){e.preventDefault();e.stopPropagation();openBoardLesson(+n.dataset.i,gr)}});
 }
 function rollWarmup(){var x=["⚀","⚁","⚂","⚃","⚄","⚅"],i=Math.floor(Math.random()*x.length);$("dice").textContent=x[i];var w=[["Потянись к солнышку","Потянись вверх 3 раза."],["Хлопки","5 хлопков над головой."],["Дерево","Покачайся вправо-влево."],["Пружинка","5 лёгких приседаний."],["Самолёт","3 поворота."],["Замри","Двигайся 10 секунд и замри."]][i];$("warmupTitle").textContent=w[0];$("warmupText").textContent=w[1]}
 function applyBoardView(){var w=$("boardWorld");if(w)w.style.transform="translate("+window.boardView.x+"px,"+window.boardView.y+"px) scale("+window.boardView.scale+")";if($("zoomLabel"))$("zoomLabel").textContent=Math.round(window.boardView.scale*100)+"%"} function setBoardZoom(v){window.boardView.scale=Math.max(.35,Math.min(2.5,v));applyBoardView()} function initBoard(){renderBoardCourse();window.boardView.x=-80;window.boardView.y=-70;window.boardView.scale=.78;applyBoardView()} function addBoardObject(type){var w=$("boardWorld"),e=document.createElement("div");e.className="boardObject "+(type=="text"?"textObject":type=="reaction"||type=="sticker"?"reaction":"shapeObject");e.style.left="200px";e.style.top="150px";e.textContent=type=="text"?(prompt("Текст","Новая заметка")||"Новая заметка"):type=="reaction"?"👍":type=="sticker"?"⭐":"";w&&w.appendChild(e)} function downloadBoard(){var a=document.createElement("a");a.href="data:text/plain;charset=utf-8,"+encodeURIComponent("Просто учись — доска");a.download="prosto-uchis-board.txt";a.click()} window.boardView={x:-2600,y:-1800,scale:1};window.openLesson=openLesson;window.openBoardLesson=openBoardLesson;
