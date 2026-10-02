@@ -2413,5 +2413,30 @@ function mathTasks(t,i){
 </script>
 
 
+<style id="lesson1-finish-css">.lessonFinish button{pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer!important}</style><script id="lesson1-finish-flow">
+(function(){
+  function finishUI(){
+    const area=document.querySelector(".boardSelectedArea");
+    if(!area || area.querySelector(".lessonFinish")) return;
+    const box=document.createElement("section");
+    box.className="lessonFinish";
+    box.style.cssText="margin:18px 0;padding:22px;border-radius:18px;background:#f7f4ff;border:1px solid #e5def5";
+    box.innerHTML='<h3 style="margin:0 0 12px">🌟 Завершение урока</h3>'+
+      '<p style="margin:0 0 14px;font-size:16px">Ответь устно: что нового ты сегодня узнал(а) на уроке?</p>'+
+      '<div style="display:flex;gap:10px;flex-wrap:wrap">'+
+      '<button class="primary finishDone">✓ Ответил(а)</button>'+
+      '<button class="secondary finishClose">Вернуться к выбору предмета</button></div>'+
+      '<div class="finishMsg" style="margin-top:12px;font-weight:700;min-height:20px"></div>';
+    area.appendChild(box);
+    box.querySelector(".finishDone").onclick=function(){box.querySelector(".finishMsg").textContent="Отлично! Урок завершён. 🎉";};
+    box.querySelector(".finishClose").onclick=function(){area.innerHTML="";};
+  }
+  const old=window.openBoardLesson;
+  window.openBoardLesson=function(num,gr){
+    old(num,gr);
+    if(num===0 && gr===1) setTimeout(finishUI,100);
+  };
+})();
+</script>
 </body>
 </html>
