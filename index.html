@@ -2294,5 +2294,117 @@ function mathTasks(t,i){
   setTimeout(function(){installNoteButton();restoreNotes();},80);
 })();
 </script>
+
+<style id="lesson1-clear-task-ui">
+.clearTask{padding:20px;border:1px solid #e7e2f0;border-radius:18px;background:#fff;margin-bottom:14px}
+.clearTask h4{margin:0 0 10px;font-size:18px}
+.clearTask .instruction{font-size:16px;line-height:1.45;margin-bottom:14px}
+.clearTask .answerLabel{font-size:13px;font-weight:800;color:#655d78;margin:12px 0 6px}
+.clearTask input{font-size:18px;padding:12px 14px;border:2px solid #ddd7ea;border-radius:12px;min-width:240px}
+.clearTask textarea{font-size:16px;padding:12px 14px;border:2px solid #ddd7ea;border-radius:12px;width:min(620px,100%);min-height:100px;resize:vertical}
+.clearTask button{margin:5px}
+.clearChoices{display:flex;gap:10px;flex-wrap:wrap}
+.clearChoice{padding:12px 16px;border:2px solid #ddd7ea;border-radius:12px;background:#fff;cursor:pointer;font-weight:700}
+.clearChoice.good{border-color:#48a868;background:#eaf8ee}.clearChoice.bad{border-color:#e16a6a;background:#fff0f0}
+.clearResult{margin-top:10px;font-weight:700;min-height:22px}
+.clearTask .oral{background:#f5f2ff;padding:12px 14px;border-radius:12px}
+</style>
+<script id="lesson1-clear-task-script">
+(function(){
+  const RU=[
+    {type:"choice",q:"Задание 1. Выбери ситуацию, в которой используется устная речь.",o:["Ребёнок разговаривает с учителем.","Ребёнок пишет предложение в тетради.","Ребёнок пишет записку другу."],c:0},
+    {type:"choice",q:"Задание 2. Выбери ситуацию, в которой используется письменная речь.",o:["Ребёнок рассказывает о своём дне.","Ребёнок записывает предложение в тетради.","Ребёнок отвечает учителю вслух."],c:1},
+    {type:"pair",q:"Задание 3. Определи вид речи в каждой ситуации.",pairs:[["«Я рассказываю маме, как прошёл день.»","Устная речь"],["«Я записываю в тетрадь предложение.»","Письменная речь"]]},
+    {type:"oral",q:"Задание 4. Расскажи 2–3 предложения о себе или о своём утре. Говори понятно, не спеши и слушай собеседника.",note:"Ответ устный. Поле для записи не нужно.",button:"Готово — ответ рассказан"},
+    {type:"text",q:"Задание 5. Запиши одно короткое предложение о своём утре. Начни предложение с заглавной буквы и поставь точку.",placeholder:"Напиши предложение здесь",button:"Проверили запись"}
+  ];
+  const MA=[
+    {type:"choice",q:"Задание 1. Где мы используем математику в жизни?",o:["Когда считаем предметы, сравниваем, измеряем и решаем задачи.","Только на уроке математики.","Только когда пишем цифры."],c:0},
+    {type:"input",q:"Задание 2. Посчитай предметы и запиши число: 🍎 🍎 🍎 🍎 🍎 🍎 🍎 🍎",a:"8",placeholder:"Сколько яблок?"},
+    {type:"choice",q:"Задание 3. В первой группе 5 яблок, во второй — 5 мячей. Выбери правильное утверждение.",o:["В первой группе больше.","Во второй группе больше.","В обеих группах предметов поровну."],c:2},
+    {type:"choice",q:"Задание 4. Книга лежит слева от карандаша. Где находится карандаш относительно книги?",o:["Слева.","Справа.","Сверху."],c:1},
+    {type:"oral",q:"Задание 5. Возьми 8–10 любых предметов. Отсчитай их по одному. Затем сравни две группы и скажи: где больше, где меньше или поровну.",note:"Ответ устный и выполняется с настоящими предметами. Поле для записи не нужно.",button:"Готово — проверили устно"}
+  ];
+
+  function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+  function taskHTML(t,i){
+    let h='<div class="clearTask"><h4>Задание '+(i+1)+'</h4><div class="instruction">'+esc(t.q.replace(/^Задание \d+\.\s*/,""))+'</div>';
+    if(t.type==="choice"){
+      h+='<div class="clearChoices">'+t.o.map((x,j)=>'<button class="clearChoice" data-c="'+j+'">'+esc(x)+'</button>').join("")+'</div><div class="clearResult"></div>';
+    } else if(t.type==="input"){
+      h+='<div class="answerLabel">Ответ:</div><div><input class="clearInput" placeholder="'+esc(t.placeholder||"Введите ответ")+'"><button class="primary clearCheck">Проверить</button></div><div class="clearResult"></div>';
+    } else if(t.type==="text"){
+      h+='<div class="answerLabel">Ответ:</div><textarea placeholder="'+esc(t.placeholder||"Напиши ответ")+'"></textarea><br><button class="primary clearDone">'+esc(t.button)+'</button><div class="clearResult"></div>';
+    } else if(t.type==="oral"){
+      h+='<div class="oral">🗣️ '+esc(t.note)+'</div><button class="primary clearDone">'+esc(t.button)+'</button><div class="clearResult"></div>';
+    } else if(t.type==="pair"){
+      h+='<div class="answerLabel">Нажми на ситуацию, затем выбери её вид речи:</div><div class="clearChoices">'+t.pairs.map((p,j)=>'<button class="clearChoice pairSituation" data-pair="'+j+'">'+esc(p[0])+'</button>').join("")+'</div><div class="clearChoices pairAnswers" style="margin-top:8px"><button class="clearChoice" data-kind="0">Устная речь</button><button class="clearChoice" data-kind="1">Письменная речь</button></div><div class="clearResult"></div>';
+    }
+    return h+"</div>";
+  }
+
+  function renderClearLesson(kind,title,tasks){
+    const area=document.querySelector(".boardSelectedArea"); if(!area)return;
+    area.innerHTML='<section class="boardOpenedSubject '+kind+'Opened"><div class="openedSubjectTop"><div><span class="n">'+(kind==="russian"?"📖 Русский язык":"🔢 Математика")+'</span><h3>'+esc(title)+'</h3><div class="muted">Задания с понятным условием. У каждого задания есть свой способ ответа.</div></div><button class="secondary closeBoardSubject">Свернуть</button></div><div class="boardTasks">'+tasks.map(taskHTML).join("")+'</div></section>';
+    const wrap=area.querySelector(".boardTasks");
+    wrap.querySelectorAll(".clearTask").forEach((box,idx)=>{
+      const t=tasks[idx], res=box.querySelector(".clearResult");
+      if(t.type==="choice"){
+        box.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{
+          const good=+b.dataset.c===t.c;
+          box.querySelectorAll("[data-c]").forEach(x=>x.classList.remove("good","bad"));
+          b.classList.add(good?"good":"bad");
+          res.textContent=good?"✓ Верно!":"Попробуй ещё раз.";
+        });
+      }
+      if(t.type==="input"){
+        box.querySelector(".clearCheck").onclick=()=>{
+          const val=box.querySelector(".clearInput").value.trim().toLowerCase();
+          res.textContent=val===String(t.a).toLowerCase()?"✓ Верно!":"Проверь ответ и попробуй ещё раз.";
+        };
+      }
+      if(t.type==="text"){
+        box.querySelector(".clearDone").onclick=()=>{
+          res.textContent=box.querySelector("textarea").value.trim()?"✓ Запись готова. Теперь проверь её в тетради вместе с учителем.":"Сначала напиши предложение.";
+        };
+      }
+      if(t.type==="oral"){
+        box.querySelector(".clearDone").onclick=()=>res.textContent="✓ Отлично. Устное задание выполнено.";
+      }
+      if(t.type==="pair"){
+        let selected=-1, done=[];
+        box.querySelectorAll(".pairSituation").forEach(b=>b.onclick=()=>{
+          selected=+b.dataset.pair;
+          box.querySelectorAll(".pairSituation").forEach(x=>x.classList.remove("good","bad"));
+          b.classList.add("good");
+          res.textContent="Теперь выбери вид речи.";
+        });
+        box.querySelectorAll("[data-kind]").forEach(b=>b.onclick=()=>{
+          if(selected<0){res.textContent="Сначала выбери ситуацию.";return;}
+          const good=+b.dataset.kind=== (selected===0?0:1);
+          if(good){done.push(selected);box.querySelector('[data-pair="'+selected+'"]').classList.add("good");res.textContent=done.length===2?"✓ Обе ситуации распределены верно!":"✓ Верно. Выбери следующую ситуацию.";}
+          else res.textContent="Это другой вид речи. Попробуй ещё раз.";
+        });
+      }
+    });
+    area.querySelector(".closeBoardSubject").onclick=()=>area.innerHTML="";
+    area.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  const previous=window.openBoardLesson;
+  window.openBoardLesson=function(num,gr){
+    previous(num,gr);
+    if(num!==0 || gr!==1)return;
+    const panel=document.querySelector(".boardLessonPanel"); if(!panel)return;
+    const RA=window.curriculum?.russian?.[1]||[];
+    const MA=window.curriculum?.math?.[1]||[];
+    const R=RA[0]||"Наша речь. Устная и письменная речь";
+    const M=MA[0]||"Учебник математики. Роль математики в жизни людей и общества";
+    const r=panel.querySelector(".russianChoice"), m=panel.querySelector(".mathChoice");
+    if(r)r.onclick=e=>{e.preventDefault();e.stopPropagation();renderClearLesson("russian",R,RU)};
+    if(m)m.onclick=e=>{e.preventDefault();e.stopPropagation();renderClearLesson("math",M,MA)};
+  };
+})();
+</script>
 </body>
 </html>
