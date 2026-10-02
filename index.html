@@ -2438,5 +2438,61 @@ function mathTasks(t,i){
   };
 })();
 </script>
-</body>
+<style id="all-lessons-ui">
+.allLessonPack{margin-top:18px;display:grid;gap:14px}.allLessonTask{padding:18px;border:1px solid #e7e2f0;border-radius:18px;background:#fff}.allLessonTask h4{margin:0 0 8px}.allLessonTask .allQ{font-size:18px;font-weight:800;margin-bottom:12px}.allChoices{display:flex;flex-wrap:wrap;gap:9px}.allChoice{padding:12px 15px;border:2px solid #e2ddec;border-radius:13px;background:#fff;font-weight:800;cursor:pointer}.allChoice:hover{border-color:#9b8aff}.allChoice.good{border-color:#43c98a;background:#eafff3}.allChoice.bad{border-color:#ff718d;background:#fff0f3}.allAnswer{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f5f2fb;min-height:20px}.allLessonTask textarea{width:min(680px,100%);min-height:90px;padding:12px;border:2px solid #ddd7ea;border-radius:13px;font:inherit}.allLessonTask .allDone{margin-top:9px}.allTopicTag{display:inline-block;padding:5px 9px;border-radius:99px;background:#eeeaff;color:#654de1;font-size:11px;font-weight:900}
+</style><script id="all-lessons-script">
+(function(){
+  function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+  function subjectLabel(k){return k==="russian"?"📖 Русский язык":"🔢 Математика";}
+  function buildTasks(kind,title,num){
+    const other=kind==="russian"?"Математика":"Русский язык";
+    const action=kind==="russian"?"прочитать, произнести или записать слова и предложения":"посчитать, сравнить или измерить";
+    return [
+      {type:"choice",q:"Какой теме соответствует это задание?",o:[title,other+" — другая тема","Свободное рисование"],c:0},
+      {type:"oral",q:"Скажи своими словами, что ты сегодня изучаешь по теме «"+title+"». Назови хотя бы один пример.",note:"Ответ устный. Учитель слушает объяснение ребёнка.",button:"✓ Ответ дан"},
+      {type:"choice",q:"Что будем делать на этом уроке?",o:[action,"Только смотреть картинки","Ничего не выполнять"],c:0},
+      {type:"text",q:kind==="russian"?"Запиши один короткий пример по теме урока. Учитель проверяет запись вместе с ребёнком.":"Запиши один числовой пример или результат наблюдения по теме урока. Учитель проверяет запись вместе с ребёнком.",placeholder:"Запиши ответ здесь",button:"✓ Запись готова"},
+      {type:"oral",q:"Придумай свой пример по теме и объясни его учителю.",note:"Ответ устный. Не нужно заполнять поле.",button:"✓ Пример объяснён"},
+      {type:"choice",q:"Перед переходом дальше: готов(а) объяснить, чему научился(ась) на уроке?",o:["Да, могу объяснить.","Пока не знаю.","Нет, задание не выполняю."],c:0}
+    ];
+  }
+  function renderAllSubject(kind,title,num){
+    const area=document.querySelector(".boardSelectedArea"); if(!area)return;
+    const tasks=buildTasks(kind,title,num);
+    area.innerHTML='<section class="boardOpenedSubject '+kind+'Opened"><div class="openedSubjectTop"><div><span class="n">'+subjectLabel(kind)+'</span><h3>Урок '+(num+1)+'. '+esc(title)+'</h3><div class="muted">Практика составлена непосредственно по формулировке темы КТП. Ребёнок отвечает устно, а учитель нажимает выбранный ответ.</div></div><button class="secondary allClose">Свернуть</button></div><div class="allLessonPack">'+tasks.map((t,i)=>{
+      let h='<div class="allLessonTask"><span class="allTopicTag">Задание '+(i+1)+'</span><div class="allQ">'+esc(t.q)+'</div>';
+      if(t.type==="choice")h+='<div class="allChoices">'+t.o.map((x,j)=>'<button class="allChoice" data-a="'+j+'">'+esc(x)+'</button>').join("")+'</div>';
+      else if(t.type==="oral")h+='<div class="oral">🗣️ '+esc(t.note)+'</div><button class="primary allDone">'+esc(t.button)+'</button>';
+      else h+='<textarea placeholder="'+esc(t.placeholder)+'"></textarea><br><button class="primary allDone">'+esc(t.button)+'</button>';
+      return h+'<div class="allAnswer"></div></div>';
+    }).join("")+'</div></section>';
+    area.querySelectorAll(".allLessonTask").forEach((box,i)=>{
+      const t=tasks[i],ans=box.querySelector(".allAnswer");
+      if(t.type==="choice")box.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{
+        const ok=+b.dataset.a===t.c;
+        box.querySelectorAll("[data-a]").forEach(x=>x.classList.remove("good","bad"));
+        b.classList.add(ok?"good":"bad");
+        ans.textContent=ok?"✓ Верно!":"✗ Неверно. Попробуй ещё раз.";
+      });
+      else box.querySelector(".allDone").onclick=()=>{
+        if(t.type==="text"&&!box.querySelector("textarea").value.trim()){ans.textContent="Сначала напиши ответ.";return;}
+        ans.textContent="✓ Готово!";
+      };
+    });
+    area.querySelector(".allClose").onclick=()=>area.innerHTML="";
+    area.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  const prev=window.openBoardLesson;
+  window.openBoardLesson=function(num,gr){
+    prev(num,gr);
+    if(gr!==1 || num===0)return;
+    const panel=document.querySelector(".boardLessonPanel"); if(!panel)return;
+    const R=(window.curriculum&&window.curriculum.russian&&window.curriculum.russian[1]||[])[num];
+    const M=(window.curriculum&&window.curriculum.math&&window.curriculum.math[1]||[])[num];
+    const r=panel.querySelector(".russianChoice"),m=panel.querySelector(".mathChoice");
+    if(r&&R)r.onclick=e=>{e.preventDefault();e.stopPropagation();renderAllSubject("russian",R,num);};
+    if(m&&M)m.onclick=e=>{e.preventDefault();e.stopPropagation();renderAllSubject("math",M,num);};
+  };
+})();
+</script></body>
 </html>
