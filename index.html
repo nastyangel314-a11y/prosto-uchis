@@ -37,7 +37,7 @@ body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-wid
 .boardSelectedArea{margin-top:18px}.boardOpenedSubject,.movePanel{background:#fff;border:2px solid #e8e2f3;border-radius:26px;padding:22px;box-shadow:0 14px 35px #4b3b8a12}
 .openedSubjectTop{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #eeeaf5;padding-bottom:15px;margin-bottom:16px}.openedSubjectTop h3{margin:8px 0 0;font-size:23px}.bigDice{font-size:76px;text-align:center;margin:8px 0}.moveText{text-align:center;font-size:22px;font-weight:800;padding:20px;background:#f5f1ff;border-radius:20px;margin-bottom:16px}.movePanel{text-align:center}
 @media(max-width:900px){.lessonChoiceCloud{grid-template-columns:1fr 1fr}}@media(max-width:600px){.lessonChoiceCloud{grid-template-columns:1fr}.openedSubjectTop{align-items:flex-start;flex-direction:column}}
-</style></head>
+</style><style id="board-click-fix">.board #courseMap{z-index:100!important;pointer-events:auto!important}.board #courseMap .boardLessonCard,.board #courseMap .courseNode,.board #courseMap button{position:relative;z-index:101;pointer-events:auto!important;cursor:pointer!important;touch-action:manipulation}.board #courseMap .boardLessonList{position:relative;z-index:101}</style></head>
 <body>
 <div class="app">
 <aside class="side"><div class="logo">Просто <span>учись</span></div><div class="nav">
@@ -188,7 +188,22 @@ function renderBoardCourse(){
   m.querySelectorAll(".boardLessonCard").forEach(function(n){n.onclick=function(){openBoardLesson(+n.dataset.i,gr)}});
 }
 function rollWarmup(){var x=["⚀","⚁","⚂","⚃","⚄","⚅"],i=Math.floor(Math.random()*x.length);$("dice").textContent=x[i];var w=[["Потянись к солнышку","Потянись вверх 3 раза."],["Хлопки","5 хлопков над головой."],["Дерево","Покачайся вправо-влево."],["Пружинка","5 лёгких приседаний."],["Самолёт","3 поворота."],["Замри","Двигайся 10 секунд и замри."]][i];$("warmupTitle").textContent=w[0];$("warmupText").textContent=w[1]}
-function applyBoardView(){var w=$("boardWorld");if(w)w.style.transform="translate("+window.boardView.x+"px,"+window.boardView.y+"px) scale("+window.boardView.scale+")";if($("zoomLabel"))$("zoomLabel").textContent=Math.round(window.boardView.scale*100)+"%"} function setBoardZoom(v){window.boardView.scale=Math.max(.35,Math.min(2.5,v));applyBoardView()} function initBoard(){renderBoardCourse();window.boardView.x=-80;window.boardView.y=-70;window.boardView.scale=.78;applyBoardView()} function addBoardObject(type){var w=$("boardWorld"),e=document.createElement("div");e.className="boardObject "+(type=="text"?"textObject":type=="reaction"||type=="sticker"?"reaction":"shapeObject");e.style.left="200px";e.style.top="150px";e.textContent=type=="text"?(prompt("Текст","Новая заметка")||"Новая заметка"):type=="reaction"?"👍":type=="sticker"?"⭐":"";w&&w.appendChild(e)} function downloadBoard(){var a=document.createElement("a");a.href="data:text/plain;charset=utf-8,"+encodeURIComponent("Просто учись — доска");a.download="prosto-uchis-board.txt";a.click()} window.boardView={x:-2600,y:-1800,scale:1};window.openLesson=openLesson;window.openBoardLesson=openBoardLesson;window.renderProgram=renderProgram;window.renderLessons=renderLessons;window.renderTask=renderTask;window.renderBoardCourse=renderBoardCourse;window.rollWarmup=rollWarmup;window.applyBoardView=applyBoardView;window.setBoardZoom=setBoardZoom;window.initBoard=initBoard;window.addBoardObject=addBoardObject;window.downloadBoard=downloadBoard;
+function applyBoardView(){var w=$("boardWorld");if(w)w.style.transform="translate("+window.boardView.x+"px,"+window.boardView.y+"px) scale("+window.boardView.scale+")";if($("zoomLabel"))$("zoomLabel").textContent=Math.round(window.boardView.scale*100)+"%"} function setBoardZoom(v){window.boardView.scale=Math.max(.35,Math.min(2.5,v));applyBoardView()} function initBoard(){renderBoardCourse();window.boardView.x=-80;window.boardView.y=-70;window.boardView.scale=.78;applyBoardView()} function addBoardObject(type){var w=$("boardWorld"),e=document.createElement("div");e.className="boardObject "+(type=="text"?"textObject":type=="reaction"||type=="sticker"?"reaction":"shapeObject");e.style.left="200px";e.style.top="150px";e.textContent=type=="text"?(prompt("Текст","Новая заметка")||"Новая заметка"):type=="reaction"?"👍":type=="sticker"?"⭐":"";w&&w.appendChild(e)} function downloadBoard(){var a=document.createElement("a");a.href="data:text/plain;charset=utf-8,"+encodeURIComponent("Просто учись — доска");a.download="prosto-uchis-board.txt";a.click()} window.boardView={x:-2600,y:-1800,scale:1};window.openLesson=openLesson;window.openBoardLesson=openBoardLesson;
+(function(){
+ var board=document.getElementById("boardArea");
+ if(!board||board.dataset.lessonClicks==="1")return;
+ board.dataset.lessonClicks="1";
+ board.addEventListener("pointerdown",function(e){
+   var card=e.target.closest(".boardLessonCard,.courseNode,.lessonChoiceCard,.boardSubjectHead,.moveChoice");
+   if(card){e.stopPropagation();}
+ },true);
+ board.addEventListener("click",function(e){
+   var card=e.target.closest(".boardLessonCard");
+   if(card){e.preventDefault();e.stopPropagation();var gr=+(document.getElementById("boardGrade")||{}).value||1;openBoardLesson(+(card.dataset.i||0),gr);return;}
+   var node=e.target.closest(".courseNode");
+   if(node){e.preventDefault();e.stopPropagation();openLesson(node.dataset.s,decodeURIComponent(node.dataset.t||""));return;}
+ },true);
+})();window.renderProgram=renderProgram;window.renderLessons=renderLessons;window.renderTask=renderTask;window.renderBoardCourse=renderBoardCourse;window.rollWarmup=rollWarmup;window.applyBoardView=applyBoardView;window.setBoardZoom=setBoardZoom;window.initBoard=initBoard;window.addBoardObject=addBoardObject;window.downloadBoard=downloadBoard;
 })();</script>
 <script>
 const curriculum={math:{
