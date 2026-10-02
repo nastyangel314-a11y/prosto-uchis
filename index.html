@@ -25,6 +25,9 @@
 .boardSubjectContent{display:none;padding:0 24px 24px}.boardSubjectBlock.open .boardSubjectContent{display:block}.boardSubjectBlock.open .boardSubjectHead{background:#eeeaff;color:#5c48cc}
 .boardTasks{display:grid;gap:12px}.boardTask{padding:18px;border:1px solid #ebe6f4;border-radius:19px;background:#fcfbff}.boardTaskNum{font-size:11px;color:#7259e8;font-weight:900;text-transform:uppercase}.boardTaskQ{font-size:18px;font-weight:800;margin:7px 0 13px}.boardChoices,.boardSequence,.boardColorWords{display:flex;flex-wrap:wrap;gap:9px}.boardChoice,.boardSeq,.boardColorWord,.boardPairL,.boardPairR{padding:12px 16px;border:2px solid #e4dfef;background:#fff;border-radius:14px;font-weight:800;cursor:pointer}.boardChoice.sel,.boardSeq.used,.boardPairL.sel,.boardPairR.sel{border-color:#6f58e9;background:#eeeaff}.boardChoice.badChoice{border-color:#ff8aa0;background:#fff0f3}.boardInputRow{display:flex;gap:9px}.boardInput{padding:13px 15px;border:2px solid #e4dfef;border-radius:14px;font-size:16px}.boardPairs{display:grid;grid-template-columns:1fr 1fr;gap:18px}.boardPairs>div{display:grid;gap:8px}.boardColorWord{transition:.2s}.boardMiniHint,.boardNotebook{margin:8px 0;padding:12px 14px;border-radius:14px;background:#f3f0ff;color:#67617d}.boardTaskResult{margin-top:10px;padding:8px 12px;border-radius:12px}.boardTaskResult.good{background:#e9fff3;color:#17814d}.boardTaskResult.bad{background:#fff0f3;color:#b43d58}
 @media(max-width:900px){.boardCourseHome,.boardLessonPanel{width:92%}.boardLessonList{grid-template-columns:1fr 1fr}}@media(max-width:600px){.boardLessonList{grid-template-columns:1fr}.boardPairs{grid-template-columns:1fr}.boardInputRow{flex-direction:column}}
+</style><style id="pair-lesson-style">
+.pairHub{max-width:1280px;margin:0 auto}.pairHero{background:linear-gradient(135deg,#efe9ff,#fff2f8 55%,#e8f8ff);border:1px solid #e5def6;border-radius:28px;padding:26px;box-shadow:0 18px 55px #4b3b8a12}.pairHeroTop{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.pairKicker{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#7056ef}.pairHero h1{font-size:40px;line-height:1.05;margin:7px 0}.pairHero p{font-size:17px;color:#626579;max-width:760px}.pairActions{display:flex;gap:8px;flex-wrap:wrap}.pairToolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:18px}.pairToolbar select{padding:11px 13px;border:1px solid #ded9ee;border-radius:12px;background:#fff;font-weight:800}.pairProgress{height:10px;background:#e8e4f2;border-radius:99px;overflow:hidden;margin-top:18px}.pairProgress i{display:block;height:100%;background:linear-gradient(90deg,#7359f5,#ff71b8);width:0}.pairGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}.pairCard{background:#fff;border:1px solid #e7e2ef;border-radius:22px;padding:20px;box-shadow:0 10px 30px #4b3b8a0d}.pairCard.done{border-color:#55c98e;background:#f3fff8}.pairNum{display:inline-flex;padding:5px 9px;border-radius:99px;background:#eeeaff;color:#654de1;font-size:11px;font-weight:900}.pairCard h3{margin:10px 0 7px}.pairCard .pairMeta{color:#777b8d;min-height:40px}.pairLesson{max-width:1320px;margin:0 auto}.pairTop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.pairTitle{font-size:28px;font-weight:900}.pairTopActions{display:flex;gap:8px;flex-wrap:wrap}.pairStrip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}.pairTab{padding:13px 15px;border-radius:16px;background:#f1eef8;color:#777b8d;font-weight:900;text-align:center}.pairTab.active{background:#7158f5;color:#fff}.pairTab.done{background:#e8fff2;color:#238a5a}.pairStage{background:#fff;border:1px solid #e5e1ef;border-radius:28px;min-height:620px;box-shadow:0 18px 60px #4b3b8a16;overflow:hidden}.pairStageHead{padding:18px 22px;border-bottom:1px solid #eeeaf5;background:linear-gradient(90deg,#faf8ff,#fff)}.pairStageHead .small{font-size:12px;color:#7d8193;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.pairStageHead h2{margin:5px 0;font-size:27px}.pairStageHead p{margin:0;color:#676b7c}.pairBody{padding:24px}.pairMission{background:linear-gradient(135deg,#fff3cb,#f1eaff);border-radius:24px;padding:22px;position:relative;overflow:hidden}.pairMission:after{content:"✦";position:absolute;right:28px;top:12px;font-size:64px;color:#ffffff88}.pairMission h3{font-size:26px;margin:0 0 8px}.pairMission p{font-size:17px;color:#5f6172;margin:0}.pairTask{margin-top:18px;border:1px solid #e8e4f0;border-radius:22px;padding:20px;background:#fff}.pairTaskTitle{font-size:22px;font-weight:900;line-height:1.25}.pairTaskHint{margin-top:7px;color:#777b8d}.pairOptions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.pairOption{min-height:105px;border:2px solid #e5e1ef;border-radius:18px;background:#fbfaff;padding:15px;font-weight:900;text-align:center;display:grid;place-items:center;cursor:pointer}.pairOption:hover{border-color:#9b8aff;transform:translateY(-2px)}.pairOption.selected{border-color:#7158f5;background:#f0edff}.pairOption.correct{border-color:#43c98a;background:#eafff3}.pairOption.wrong{border-color:#ff718d;background:#fff0f3}.pairFeedback{margin-top:14px;padding:13px 15px;border-radius:15px;background:#f4f2fb;color:#5f6172;display:none}.pairFeedback.show{display:block}.pairNav{display:flex;justify-content:space-between;gap:8px;margin-top:16px}.bookMock{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.bookPage{min-height:170px;border-radius:20px;background:#fff;border:2px solid #e7e2ef;padding:18px;box-shadow:0 8px 22px #4b3b8a0c}.bookPage.cover{background:linear-gradient(145deg,#e8ddff,#fff1f6)}.bookPage .big{font-size:50px}.bookPage b{display:block;font-size:19px;margin-top:9px}.bookPage span{display:block;color:#777b8d;margin-top:5px}.sortBins{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.sortBin{min-height:180px;border:2px dashed #cfc8e2;border-radius:20px;padding:14px;background:#fbfaff}.sortBin.good{background:#f0fff7;border-color:#8dd9b1}.sortBin.bad{background:#fff5f6;border-color:#f0a0b0}.sortBin h4{margin:0 0 10px}.sortCards{display:flex;gap:8px;flex-wrap:wrap}.sortCard{padding:10px 12px;border-radius:13px;background:#fff;border:2px solid #e4dfec;font-weight:800;cursor:pointer}.sortCard.used{opacity:.35;pointer-events:none}.sortPool{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.sequenceRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.seqChoice{padding:13px 16px;border-radius:15px;border:2px solid #e3dfec;background:#fff;font-weight:900;cursor:pointer}.seqChoice.used{opacity:.35}.seqLine{margin-top:14px;min-height:54px;padding:10px;border-radius:16px;background:#f7f5fb;display:flex;gap:8px;flex-wrap:wrap}.counterArea{margin-top:16px;padding:18px;border-radius:20px;background:#f8f7fc}.objects{display:flex;gap:9px;flex-wrap:wrap;font-size:34px;min-height:55px}.counterInput{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}.counterInput input{width:110px;padding:13px;border:2px solid #e3dfec;border-radius:14px}.pairGroups{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.groupBox{padding:16px;border-radius:20px;background:#faf9fd;border:2px solid #e4e0ed}.groupObjects{display:flex;gap:7px;flex-wrap:wrap;font-size:31px;margin-top:10px}.pairMatchState{margin-top:12px;color:#6c7082;font-weight:800}.placeBoard{display:grid;grid-template-columns:repeat(3,90px);gap:7px;justify-content:center;margin-top:18px}.placeCell{height:78px;border:2px solid #e3dfec;border-radius:16px;background:#fff;display:grid;place-items:center;font-size:34px;cursor:pointer}.placeCell:hover{border-color:#9b8aff}.teacherCard{background:linear-gradient(135deg,#edf8ff,#f6efff);border-radius:20px;padding:18px;margin-top:16px}.teacherCard b{font-size:18px}.teacherCard ul{margin:10px 0 0;padding-left:20px;line-height:1.6}.pairDone{display:none;margin-top:18px;padding:20px;border-radius:22px;background:linear-gradient(135deg,#e6fff0,#fff4c9);text-align:center}.pairDone.show{display:block}.pairDone h3{margin:5px 0}.pairBreak{max-width:900px;margin:50px auto;background:linear-gradient(135deg,#e8f8ff,#fff0f7);border-radius:30px;padding:40px;text-align:center}.pairBreak .emoji{font-size:70px}.pairBreak h2{font-size:34px;margin:10px 0}.pairFullscreen{position:fixed;right:18px;bottom:18px;z-index:1000}@media(max-width:800px){.pairGrid,.pairGroups,.sortBins,.bookMock{grid-template-columns:1fr}.pairOptions{grid-template-columns:1fr 1fr}.pairStrip{grid-template-columns:1fr}.pairHeroTop{flex-direction:column}.pairBody{padding:14px}.pairStage{min-height:560px}}
+body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-width:none;padding:12px;background:#f7f7fb}body.pairPresent .pairLesson{max-width:1500px}body.pairPresent .pairStage{min-height:calc(100vh - 150px)}body.pairPresent .pairFullscreen{display:none}
 </style></head>
 <body>
 <div class="app">
@@ -56,7 +59,7 @@
 <div class="studentBoardCard classBoard"><div class="classBoardInfo"><div><h2 style="margin:0">Доска <span id="profileBoardClass"></span> класса</h2><div class="muted">Одна общая доска класса, а прогресс и результаты — отдельно у каждого ученика.</div></div><button class="primary" id="openStudentBoard">Открыть доску</button></div><div class="classBoardSubjects"><span>🔤 Русский</span><span>➗ Математика</span><span>📖 Литература</span><span>🌍 Окружающий мир</span></div></div>
 </div>
 <div>
-<div class="studentBoardCard"><h2 style="margin-top:0">Сегодня</h2><div class="muted">Русский → физкультминутка → математика.</div><br><button class="primary" id="startStudentLesson">Начать занятие</button><button class="secondary" id="studentProgramBtn" style="margin-left:8px">Программа ученика</button></div>
+<div class="studentBoardCard"><h2 style="margin-top:0">Сегодня</h2><div class="muted">Русский → физкультминутка → математика.</div><br><button class="primary" id="startStudentPairLesson">▶ Начать занятие</button><button class="secondary" id="studentProgramBtn" style="margin-left:8px">Программа ученика</button></div>
 <div class="studentBoardCard" style="margin-top:16px"><h2 style="margin-top:0">Последние результаты</h2><div id="profileResults" class="muted">Пока нет результатов.</div></div>
 </div>
 </div>
@@ -1706,5 +1709,245 @@ function mathTasks(t,i){
   };
 })();
 </script>
-</body>
+<script id="pair-lesson-engine">
+(function(){
+  const esc=function(s){return String(s).replace(/[&<>"]/g,function(ch){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]})};
+  const azbuka=[
+    "«Азбука» – первая учебная книга. (Урок-путешествие)",
+    "Речь устная и письменная. Предложение.",
+    "Слово и предложение",
+    "Слог. (Урок-игра)",
+    "Ударение (Урок игра-путешествие)",
+    "Звуки в окружающем мире и в речи",
+    "Звуки в словах",
+    "Слог-слияние (Урок-игра)",
+    "Повторение и обобщение пройденного материала. Любимые сказки. (Урок-сказка)",
+    "Гласный звук [а], буквы А, а",
+    "Гласный звук [о], буквы О, о",
+    "Гласный звук [и], буквы И, и (Урок-путешествие)",
+    "Гласный звук [ы], буква ы (Урок-викторина)",
+    "Гласный звук [у], буквы У, у"
+  ];
+  const math=[
+    "Учебник математики. Роль математики в жизни людей и общества.",
+    "Счет предметов (с использованием количественных и порядковых числительных). Сравнение групп предметов.",
+    "Пространственные представления, взаимное расположение предметов: выше-ниже, слева-справа, сверху-снизу, между, за",
+    "Временные представления: сначала, потом, до, после, раньше, позже.",
+    "Сравнение групп предметов: на сколько больше? на сколько меньше?",
+    "На сколько больше (меньше)? Счёт. Сравнение групп предметов. Пространственные представления.",
+    "Закрепление пройденного материала.",
+    "Проверочная работа по теме: «Пространственные временные представления»",
+    "Понятия «много», «один». Письмо цифры 1",
+    "Числа 1, 2. Письмо цифры 2",
+    "Число 3. Письмо цифры 3",
+    "Знаки +, -, =. «Прибавить», «вычесть», «получится».",
+    "Число 4. Письмо цифры 4.",
+    "Длина. Отношения «длиннее», «короче», «одинаковые по длине»."
+  ];
+  const pairTitles=function(n){return{a:azbuka[n-1]||"Следующий урок Азбуки",m:math[n-1]||"Следующий урок математики"}};
+  let P={num:1,phase:"a",idx:0,doneA:false,doneM:false,started:false};
+  function studentName(){try{const s=window.currentStudent&&currentStudent();return s?s.name:"Демонстрационный режим"}catch(_){return"Демонстрационный режим"}}
+  function mount(){
+    if(document.getElementById("pairHub"))return;
+    const main=document.querySelector(".main");
+    if(!main)return;
+    main.insertAdjacentHTML("beforeend",'<section id="pairHub" class="page" style="display:none"></section><section id="pairLesson" class="page" style="display:none"></section>');
+  }
+  function taskPack(num,phase){
+    if(num===1&&phase==="a")return[
+      {type:"info",title:"Старт путешествия",text:"Сегодня знакомимся с первой учебной книгой — «Азбукой». Сначала исследуем книгу, потом научимся бережно с ней работать.",button:"Открыть путешествие"},
+      {type:"match",title:"Найди элементы учебной книги",hint:"Соедини название и описание.",left:["Обложка","Титульный лист","Иллюстрации","Закладка"],right:["Помогает отметить место, где остановились","Картинки, которые помогают понять материал","Первая внешняя часть книги","Страница с названием книги и авторами"],pairs:[2,3,1,0]},
+      {type:"sort",title:"Как поступает настоящий ученик?",hint:"Разложи поступки в две корзины.",items:["Бережно перевернуть страницу","Загнуть уголок страницы","Положить закладку","Порвать страницу","Слушать учителя","Рисовать на странице учебника"],good:["Бережно перевернуть страницу","Положить закладку","Слушать учителя"],bad:["Загнуть уголок страницы","Порвать страницу","Рисовать на странице учебника"]},
+      {type:"sequence",title:"Собери правильный порядок на уроке",hint:"Поставь действия по порядку.",items:["Слушаю задание","Поднимаю руку","Отвечаю громко и понятно","Слушаю ответ товарища"],order:[0,1,2,3]},
+      {type:"pick",title:"Что поможет сохранить книгу?",hint:"Выбери несколько правильных действий.",options:["Закладка","Аккуратно переворачивать страницы","Загибать уголки","Рисовать фломастером"],correct:[0,1]},
+      {type:"teacher",title:"Задание вместе с ребёнком",text:"Откройте настоящую «Азбуку». Попросите ребёнка показать обложку, титульный лист и иллюстрации. Затем попросите объяснить одно правило бережного обращения с книгой.",button:"Мы сделали это"}
+    ];
+    if(num===1&&phase==="m")return[
+      {type:"info",title:"Математика вокруг нас",text:"Первый урок начинается не с цифр. Посмотрим, где математика встречается в обычной жизни, и научимся считать и сравнивать предметы.",button:"Поехали"},
+      {type:"count",title:"Сколько предметов?",hint:"Посчитайте вслух вместе с ребёнком и введите число.",items:["🍎","🍎","🍎","🍎","🍎","🍎","🍎","🍎"],answer:8},
+      {type:"count",title:"Считаем ещё раз",hint:"Теперь не спеши. Посчитай каждый предмет по одному.",items:["🧸","🧸","🧸","🧸","🧸","🧸","🧸","🧸","🧸"],answer:9},
+      {type:"pair",title:"Поровну или нет?",hint:"Соедини каждый предмет слева с предметом справа.",left:["🍎","🍎","🍎","🍎","🍎"],right:["⭐","⭐","⭐","⭐","⭐"]},
+      {type:"place",title:"Где находится предмет?",hint:"Поставь звёздочку справа от домика.",target:"right"},
+      {type:"sequence",title:"Что сначала, а что потом?",hint:"Собери цепочку событий.",items:["Проснулся","Пошёл в школу","Вернулся домой","Лёг спать"],order:[0,1,2,3]},
+      {type:"teacher",title:"Мини-работа с учителем",text:"Возьмите 8–10 любых предметов. Попросите ребёнка отсчитать заданное количество, затем сравните две группы предметов и обсудите: поровну, больше или меньше.",button:"Завершить математику"}
+    ];
+    if(phase==="a"){
+      const t=azbuka[num-1]||"Урок Азбуки";
+      if(num===2)return[
+        {type:"pick",title:"Речь можно услышать или увидеть",hint:"Что относится к устной речи?",options:["Разговор","Запись предложения в тетради","Сообщение, которое произносим вслух"],correct:[0,2]},
+        {type:"sort",title:"Раздели примеры речи",items:["Я говорю","Я читаю запись","Я рассказываю","Я записываю"],good:["Я говорю","Я рассказываю"],bad:["Я читаю запись","Я записываю"]},
+        {type:"teacher",title:"Скажи и послушай",text:"Попросите ребёнка рассказать 2–3 предложения о первом школьном дне. Затем спросите: это устная или письменная речь?",button:"Готово"}
+      ];
+      if(num===3)return[
+        {type:"sequence",title:"Собери предложение",items:["Маша","читает","книгу"],order:[0,1,2]},
+        {type:"pick",title:"Сколько слов?",options:["2","3","4"],correct:[1]},
+        {type:"teacher",title:"Предложение по картинке",text:"Покажите любую сюжетную картинку и попросите ребёнка составить предложение. Учитель помогает построить схему предложения.",button:"Готово"}
+      ];
+      if(num===4)return[
+        {type:"syllables",title:"Хлопаем слоги",words:[["мама",2],["машина",3],["дом",1],["малина",3]]},
+        {type:"pick",title:"Сколько слогов в «малина»?",options:["2","3","4"],correct:[1]},
+        {type:"teacher",title:"Составь свои слова",text:"Назовите вместе 2 слова из 2 слогов и 2 слова из 3 слогов. Можно сопровождать каждый слог хлопком.",button:"Готово"}
+      ];
+      if(num===5)return[
+        {type:"stress",title:"Позови слово",words:[["мама",0],["рука",1],["машина",1],["малина",1]]},
+        {type:"teacher",title:"Ударение в живой речи",text:"Произнесите слова «мама», «рука», «машина». Ребёнок должен усилить голосом ударный слог и показать его на схеме.",button:"Готово"}
+      ];
+      if(num===6)return[
+        {type:"sort",title:"Какие звуки нас окружают?",items:["Хлопок","Слово «мама»","Звонок","Лай собаки"],good:["Хлопок","Звонок","Лай собаки"],bad:["Слово «мама»"]},
+        {type:"pick",title:"Что мы делаем со звуками речи?",options:["Произносим и слышим","Только видим","Только пишем"],correct:[0]},
+        {type:"teacher",title:"Слушаем вокруг",text:"Попросите ребёнка назвать 2 неречевых звука вокруг и один речевой звук.",button:"Готово"}
+      ];
+      if(num===7)return[
+        {type:"sound",title:"Разберём слово",word:"мама",sounds:["м","а","м","а"]},
+        {type:"pick",title:"Первый звук в «мама»?",options:["м","а","с"],correct:[0]},
+        {type:"teacher",title:"Слово по модели",text:"Вместе назовите количество звуков и их последовательность в слове «мама».",button:"Готово"}
+      ];
+      if(num===8)return[
+        {type:"syllableBuild",title:"Собери слова из слогов",words:[["ма","ма"],["са","ша"],["ра","ма"]]},
+        {type:"pick",title:"Где слог-слияние?",options:["ма","м"],correct:[0]},
+        {type:"teacher",title:"Покажи схему",text:"Составьте одно слово из слогов и покажите, где слияние.",button:"Готово"}
+      ];
+      if(num===9)return[
+        {type:"pick",title:"Что уже умеем?",options:["Предложение состоит из слов","Слово можно делить на слоги","В слове бывает ударный слог","Ничего из этого"],correct:[0,1,2]},
+        {type:"teacher",title:"Мини-повторение",text:"Попросите ребёнка придумать предложение, разделить одно слово на слоги и показать ударный слог.",button:"Готово"}
+      ];
+      if(num>=10&&num<=14){
+        const letters=["А","О","И","Ы","У"],letter=letters[num-10];
+        return[
+          {type:"sound",title:"Новый гласный звук",word:letter==="А"?"астры":letter==="О"?"окуни":letter==="И"?"иголка":letter==="Ы"?"шары":"утки",sounds:letter==="А"?["а","с","т","р","ы"]:letter==="О"?["о","к","у","н","и"]:letter==="И"?["и","г","о","л","к","а"]:letter==="Ы"?["ш","а","р","ы"]:["у","т","к","и"]},
+          {type:"pick",title:"Какой звук изучаем?",options:["гласный","согласный"],correct:[0]},
+          {type:"teacher",title:"Найдём букву в словах",text:"Назовите 3 слова с новым звуком и найдите букву на странице «Азбуки». Для урока 13 отдельно обратите внимание, что ы — строчная буква.",button:"Готово"}
+        ];
+      }
+      return[{type:"teacher",title:t,text:"Откройте соответствующую страницу «Азбуки» и проведите работу по КТП. Здесь появится полный интерактивный пакет этого урока.",button:"Открыть урок"}];
+    }
+    const t=math[num-1]||"Урок математики";
+    if(num===2)return[
+      {type:"count",title:"Счёт предметов",hint:"Отсчитай 6 предметов.",items:["🍎","🍎","🍎","🍎","🍎","🍎","🍎","🍎"],answer:6},
+      {type:"pair",title:"Сравни две группы",left:["🟡","🟡","🟡","🟡"],right:["🔵","🔵","🔵","🔵","🔵"]},
+      {type:"teacher",title:"Скажи словами",text:"Попросите ребёнка назвать группы количественными и порядковыми числительными: первый, второй… Затем спросите, где предметов больше.",button:"Готово"}
+    ];
+    if(num===3)return[
+      {type:"place",title:"Выше или ниже?",hint:"Поставь звёздочку над домиком.",target:"above"},
+      {type:"place",title:"Слева или справа?",hint:"Поставь звёздочку слева от домика.",target:"left"},
+      {type:"teacher",title:"Опиши расположение",text:"Разложите 3 предмета и попросите ребёнка описать: выше, ниже, слева, справа, между, за.",button:"Готово"}
+    ];
+    if(num===4)return[
+      {type:"sequence",title:"Что было сначала?",items:["Проснулся","Позавтракал","Пошёл в школу","Вернулся домой"],order:[0,1,2,3]},
+      {type:"pick",title:"Что значит «потом»?",options:["после события","до события","вместо события"],correct:[0]},
+      {type:"teacher",title:"Расскажи свой день",text:"Попросите ребёнка назвать три события по порядку и использовать слова «сначала», «потом», «после».",button:"Готово"}
+    ];
+    if(num===5)return[
+      {type:"pair",title:"Сравниваем группы",left:["🍎","🍎","🍎","🍎","🍎"],right:["⭐","⭐","⭐"]},
+      {type:"pick",title:"В какой группе больше?",options:["яблок","звёзд","поровну"],correct:[0]},
+      {type:"teacher",title:"На сколько больше?",text:"Покажите две группы 5 и 3 предмета. Ребёнок должен ответить: на сколько больше и объяснить через пары.",button:"Готово"}
+    ];
+    if(num===6)return[
+      {type:"pair",title:"Сравни и объясни",left:["🟢","🟢","🟢","🟢"],right:["🔵","🔵","🔵","🔵","🔵","🔵"]},
+      {type:"place",title:"Повторяем расположение",hint:"Поставь звёздочку между двумя предметами.",target:"between"},
+      {type:"teacher",title:"Устная цепочка",text:"Сосчитайте группу, сравните с другой и затем опишите расположение предметов.",button:"Готово"}
+    ];
+    if(num===7)return[
+      {type:"pick",title:"Блиц без теста",options:["Сосчитать предметы","Сравнить группы","Описать расположение","Все три действия"],correct:[3]},
+      {type:"teacher",title:"Мини-урок на столе",text:"Используйте реальные предметы: отсчитать 8, сравнить две группы, назвать положение одного предмета относительно другого.",button:"Готово"}
+    ];
+    if(num===8)return[
+      {type:"teacher",title:"Проверочная работа",text:"Проведите 20-минутный срез по пройденному: счёт, сравнение групп, расположение, порядок событий. После выполнения не просто ставьте результат — разберите ошибки вместе ещё 20 минут.",button:"Начать срез"}
+    ];
+    if(num===9)return[
+      {type:"count",title:"Много или один?",hint:"Сколько предметов?",items:["🍎"],answer:1},
+      {type:"count",title:"Считаем до 10",hint:"Отсчитай 5 предметов.",items:["🧸","🧸","🧸","🧸","🧸","🧸"],answer:5},
+      {type:"teacher",title:"Пишем цифру 1",text:"Покажите образец написания 1 в тетради и попросите ребёнка написать цифру. Учитель проверяет посадку и направление движения.",button:"Готово"}
+    ];
+    if(num===10)return[
+      {type:"count",title:"Считаем 1 и 2",hint:"Сколько предметов?",items:["⭐","⭐"],answer:2},
+      {type:"teacher",title:"Пишем цифру 2",text:"Попросите ребёнка написать 2 в тетради, затем сравнить 1 и 2.",button:"Готово"}
+    ];
+    if(num===11)return[
+      {type:"count",title:"Число 3",hint:"Посчитай три предмета.",items:["🍓","🍓","🍓"],answer:3},
+      {type:"teacher",title:"Пишем цифру 3",text:"Покажите образец цифры 3 и дайте ребёнку написать несколько раз в тетради.",button:"Готово"}
+    ];
+    if(num===12)return[
+      {type:"pick",title:"Что означает + ?",options:["прибавить","вычесть","получится"],correct:[0]},
+      {type:"pick",title:"Что означает - ?",options:["прибавить","вычесть","равно"],correct:[1]},
+      {type:"teacher",title:"Составь действие",text:"Положите 2 предмета, добавьте ещё 1 и вместе составьте запись 2 + 1 = 3.",button:"Готово"}
+    ];
+    if(num===13)return[
+      {type:"count",title:"Число 4",hint:"Посчитай четыре предмета.",items:["🍎","🍎","🍎","🍎"],answer:4},
+      {type:"teacher",title:"Пишем цифру 4",text:"Покажите образец цифры 4 и дайте ребёнку написать её в тетради.",button:"Готово"}
+    ];
+    if(num===14)return[
+      {type:"pick",title:"Что длиннее?",options:["📏 длинная полоска","📏 короткая полоска","одинаковые"],correct:[0]},
+      {type:"teacher",title:"Измеряем глазами и линейкой",text:"Сравните два отрезка или карандаша: длиннее, короче, одинаковые по длине. Затем измерьте линейкой.",button:"Готово"}
+    ];
+    return[{type:"teacher",title:t,text:"Проведите урок по КТП. Интерактивный пакет этого урока будет расширен в следующем блоке.",button:"Готово"}];
+  }
+  function ensure(){mount();const hub=document.getElementById("pairHub");const lesson=document.getElementById("pairLesson");if(!hub||!lesson)return;renderHub(hub);renderLesson(lesson)}
+  function renderHub(el){
+    const n=14;
+    el.innerHTML='<div class="pairHub"><div class="pairHero"><div class="pairHeroTop"><div><div class="pairKicker">Просто учись • готовое занятие</div><h1>Уроки идут парами: Азбука → математика</h1><p>Один номер урока — один готовый маршрут. Репетитору не нужно собирать материалы: нажал «Начать», показал экран и пошёл по шагам.</p></div><div class="pairActions"><button class="primary" id="pairStartNext">▶ Начать с урока 1</button><button class="secondary" id="pairPresentHub">⛶ Режим показа</button></div></div><div class="pairToolbar"><label>Класс <select id="pairGrade"><option value="1">1 класс</option></select></label><span class="badge">Сейчас готовим 1 класс</span></div><div class="pairProgress"><i style="width:7%"></i></div></div><div class="pairGrid">'+Array.from({length:n},function(_,i){const x=pairTitles(i+1);return'<div class="pairCard '+(i===0?"done":"")+'"><span class="pairNum">Урок '+(i+1)+'</span><h3>Азбука + математика</h3><div class="pairMeta"><b>🔤</b> '+esc(x.a)+'<br><b>➗</b> '+esc(x.m)+'</div><br><button class="secondary pairOpen" data-n="'+(i+1)+'">Открыть урок '+(i+1)+'</button></div>'}).join("")+'</div></div>';
+    document.getElementById("pairStartNext").onclick=function(){startPair(1)};
+    document.getElementById("pairPresentHub").onclick=present;
+    el.querySelectorAll(".pairOpen").forEach(function(b){b.onclick=function(){startPair(+b.dataset.n)}});
+  }
+  function startPair(num){
+    P={num:num,phase:"a",idx:0,doneA:false,doneM:false,started:true};
+    localStorage.setItem("pu_last_pair_lesson",""+num);
+    show("pairLesson");
+    renderLesson(document.getElementById("pairLesson"));
+  }
+  function renderLesson(el){
+    const x=pairTitles(P.num),phase=P.phase==="a"?"Азбука":"Математика";
+    const tasks=taskPack(P.num,P.phase);if(P.idx>=tasks.length)P.idx=tasks.length-1;
+    const t=tasks[Math.max(0,P.idx)];
+    el.innerHTML='<div class="pairLesson"><div class="pairTop"><div><div class="pairKicker">Занятие '+P.num+' • '+esc(studentName())+'</div><div class="pairTitle">'+(P.phase==="a"?"🔤 Азбука":"➗ Математика")+'</div></div><div class="pairTopActions"><button class="secondary" id="pairBack">← К урокам</button><button class="secondary" id="pairFull">⛶ На весь экран</button></div></div><div class="pairStrip"><div class="pairTab '+(P.phase==="a"?"active":"done")+'">🔤 Азбука · 20 мин</div><div class="pairTab '+(P.phase==="break"?"active":"")+'">🧘 Перерыв · 3 мин</div><div class="pairTab '+(P.phase==="m"?"active":"")+'">➗ Математика · 20 мин</div></div>'+(P.phase==="break"?breakHtml():stageHtml(x,phase,t,tasks.length))+'</div>';
+    document.getElementById("pairBack").onclick=function(){show("pairHub");renderHub(document.getElementById("pairHub"))};
+    document.getElementById("pairFull").onclick=present;
+    if(P.phase==="break"){document.getElementById("pairContinue").onclick=function(){P.phase="m";P.idx=0;renderLesson(el)};return}
+    bindTask(el,t,tasks.length);
+  }
+  function stageHtml(x,phase,t,total){
+    return '<div class="pairStage"><div class="pairStageHead"><div class="small">КТП · урок '+P.num+'</div><h2>'+esc(phase==="Азбука"?x.a:x.m)+'</h2><p>'+esc(phase==="Азбука"?"Работаем с «Азбукой»: смотрим, говорим, собираем, объясняем.":"Считаем, сравниваем, моделируем и работаем с реальными предметами.")+'</p></div><div class="pairBody"><div class="pairMission"><h3>'+(P.idx===0?"Сегодняшняя миссия":"Продолжаем")+'</h3><p>'+esc(t.title||"Задание")+'</p></div><div class="pairTask"><div class="pairTaskTitle">'+esc(t.title||"Задание")+'</div>'+(t.hint?'<div class="pairTaskHint">'+esc(t.hint)+'</div>':'')+'<div id="pairTaskArea"></div><div id="pairFeedback" class="pairFeedback"></div><div class="pairNav"><button class="secondary" id="pairPrev" '+(P.idx===0?"disabled":"")+'>← Назад</button><button class="primary" id="pairNext">Дальше →</button></div></div><div class="pairDone" id="pairDone"><div style="font-size:36px">⭐ ⭐ ⭐</div><h3>Часть урока готова!</h3><p>Переходим дальше.</p></div></div></div>';
+  }
+  function breakHtml(){return'<div class="pairBreak"><div class="emoji">🧘‍♀️🌈</div><h2>Перерыв</h2><p>Встаём, потягиваемся, делаем 3 глубоких вдоха и немного двигаемся.</p><button class="primary" id="pairContinue">Продолжить: математика →</button></div>'}
+  function feedback(ok,msg){const f=document.getElementById("pairFeedback");f.textContent=(ok?"✓ Отлично! ":"Попробуем ещё. ")+(msg||"");f.className="pairFeedback show"}
+  function bindTask(el,t,total){
+    const a=document.getElementById("pairTaskArea");
+    if(t.type==="info"){a.innerHTML='<div class="teacherCard"><b>Сегодня работаем вместе</b><p>'+esc(t.text)+'</p></div><button class="primary" id="taskDone" style="margin-top:14px">'+esc(t.button)+'</button>';document.getElementById("taskDone").onclick=function(){feedback(true,"Начинаем!");markAndNext()}}
+    else if(t.type==="teacher"){a.innerHTML='<div class="teacherCard"><b>🧑‍🏫 Задание учителя</b><p>'+esc(t.text)+'</p><ul><li>Ребёнок отвечает устно или в тетради.</li><li>Вы фиксируете результат на доске.</li><li>Не торопимся: здесь важнее объяснение, чем клик.</li></ul></div><button class="primary" id="taskDone" style="margin-top:14px">'+esc(t.button)+'</button>';document.getElementById("taskDone").onclick=function(){feedback(true,"Отмечено.");markAndNext()}}
+    else if(t.type==="pick"){a.innerHTML='<div class="pairOptions">'+t.options.map(function(o,i){return'<button class="pairOption" data-i="'+i+'">'+esc(o)+'</button>'}).join("")+'</div><button class="primary" id="checkPick" style="margin-top:14px">Проверить</button>';let sel=[];a.querySelectorAll(".pairOption").forEach(function(b){b.onclick=function(){const i=+b.dataset.i;if(t.correct.length===1){sel=[i];a.querySelectorAll(".pairOption").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}else{if(sel.indexOf(i)>=0){sel=sel.filter(x=>x!==i);b.classList.remove("selected")}else{sel.push(i);b.classList.add("selected")}}}});document.getElementById("checkPick").onclick=function(){const ok=sel.length===t.correct.length&&sel.slice().sort().join(",")===t.correct.slice().sort().join(",");feedback(ok,ok?"Можно идти дальше.":"Подумай ещё раз и объясни ответ ребёнку.");if(ok)setTimeout(markAndNext,350)}}
+    else if(t.type==="sort"){a.innerHTML='<div class="sortPool" id="sortPool">'+t.items.map(function(x,i){return'<button class="sortCard" data-i="'+i+'">'+esc(x)+'</button>'}).join("")+'</div><div class="sortBins"><div class="sortBin good" id="goodBin"><h4>🟢 Бережно / правильно</h4><div class="sortCards"></div></div><div class="sortBin bad" id="badBin"><h4>🔴 Нельзя</h4><div class="sortCards"></div></div></div><button class="primary" id="checkSort" style="margin-top:14px">Проверить раскладку</button>';let placed={};a.querySelectorAll(".sortCard").forEach(function(b){b.onclick=function(){const i=+b.dataset.i;if(placed[i])return;const good=t.good.indexOf(t.items[i])>=0;const bin=document.querySelector(good?"#goodBin .sortCards":"#badBin .sortCards");const clone=b.cloneNode(true);clone.classList.add("used");bin.appendChild(clone);placed[i]=good?"good":"bad"}});document.getElementById("checkSort").onclick=function(){const ok=Object.keys(placed).length===t.items.length&&t.items.every(function(x,i){return placed[i]===(t.good.indexOf(x)>=0?"good":"bad")});feedback(ok,ok?"Всё разложено верно.":"Проверь, куда положили каждый поступок.");if(ok)setTimeout(markAndNext,350)}}
+    else if(t.type==="sequence"){a.innerHTML='<div class="sequenceRow" id="seqChoices">'+t.items.map(function(x,i){return'<button class="seqChoice" data-i="'+i+'">'+esc(x)+'</button>'}).join("")+'</div><div class="seqLine" id="seqLine">Порядок: <span class="muted">нажмите карточки по очереди</span></div><button class="primary" id="checkSeq" style="margin-top:14px">Проверить порядок</button>';let q=[];a.querySelectorAll(".seqChoice").forEach(function(b){b.onclick=function(){if(b.classList.contains("used"))return;b.classList.add("used");q.push(+b.dataset.i);document.getElementById("seqLine").innerHTML=q.map(function(i,n){return'<span class="badge">'+(n+1)+'. '+esc(t.items[i])+'</span>'}).join(" ")}});document.getElementById("checkSeq").onclick=function(){const ok=q.join(",")===t.order.join(",");feedback(ok,ok?"Отличная последовательность.":"Собери события ещё раз.");if(ok)setTimeout(markAndNext,350)}}
+    else if(t.type==="count"){a.innerHTML='<div class="counterArea"><div class="objects">'+t.items.map(function(x){return'<span>'+x+'</span>'}).join("")+'</div><div class="counterInput"><label>Ответ ребёнка:</label><input id="countAns" type="number" min="0" placeholder="?"><button class="primary" id="checkCount">Проверить</button></div></div>';document.getElementById("checkCount").onclick=function(){const ok=+document.getElementById("countAns").value===t.answer;feedback(ok,ok?"Посчитали спокойно, один предмет за другим.":"Пересчитай, касаясь каждого предмета пальцем.");if(ok)setTimeout(markAndNext,350)}}
+    else if(t.type==="pair"){a.innerHTML='<div class="pairGroups"><div class="groupBox"><b>Левая группа</b><div class="groupObjects" id="leftGroup">'+t.left.map(function(x,i){return'<button class="pairOption" style="min-height:58px" data-side="l" data-i="'+i+'">'+x+'</button>'}).join("")+'</div></div><div class="groupBox"><b>Правая группа</b><div class="groupObjects" id="rightGroup">'+t.right.map(function(x,i){return'<button class="pairOption" style="min-height:58px" data-side="r" data-i="'+i+'">'+x+'</button>'}).join("")+'</div></div></div><div class="pairMatchState" id="pairMatchState">Соедини предметы по парам.</div><button class="primary" id="checkPairs" style="margin-top:14px">Проверить пары</button>';let l=null,r=null,usedL=[],usedR=[];a.querySelectorAll(".pairOption").forEach(function(b){b.onclick=function(){const side=b.dataset.side,i=+b.dataset.i;if(side==="l"){l=i;a.querySelectorAll('[data-side="l"]').forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}else{r=i;a.querySelectorAll('[data-side="r"]').forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}if(l!==null&&r!==null){usedL.push(l);usedR.push(r);a.querySelector('[data-side="l"][data-i="'+l+'"]').classList.add("correct");a.querySelector('[data-side="r"][data-i="'+r+'"]').classList.add("correct");l=null;r=null;document.getElementById("pairMatchState").textContent="Пара найдена! Соедини следующую."}}});document.getElementById("checkPairs").onclick=function(){const ok=usedL.length===Math.min(t.left.length,t.right.length);feedback(ok,ok?"Все возможные пары собраны.":"Собери пары предметов.");if(ok)setTimeout(markAndNext,350)}}
+    else if(t.type==="place"){a.innerHTML='<div class="placeBoard"><button class="placeCell" data-p="above">⬜</button><button class="placeCell" data-p="above">⬆️</button><button class="placeCell" data-p="above">⬜</button><button class="placeCell" data-p="left">⬅️</button><button class="placeCell" data-p="center">🏠</button><button class="placeCell" data-p="right">➡️</button><button class="placeCell" data-p="below">⬜</button><button class="placeCell" data-p="below">⬇️</button><button class="placeCell" data-p="below">⬜</button></div>';a.querySelectorAll(".placeCell").forEach(function(b){b.onclick=function(){const ok=b.dataset.p===t.target;feedback(ok,ok?"Точно! Теперь словами объясни положение.":"Посмотри на слова в задании: где именно должна быть звёздочка?");if(ok){b.textContent="⭐";setTimeout(markAndNext,350)}}})}
+    else if(t.type==="match"){a.innerHTML='<div class="matchGrid"><div class="matchCol" id="matchLeft">'+t.left.map(function(x,i){return'<button class="matchBtn" data-i="'+i+'">'+esc(x)+'</button>'}).join("")+'</div><div class="matchCol" id="matchRight">'+t.right.map(function(x,i){return'<button class="matchBtn" data-i="'+i+'">'+esc(x)+'</button>'}).join("")+'</div></div>';let li=null,ri=null,done=0;a.querySelectorAll(".matchBtn").forEach(function(b){b.onclick=function(){if(b.classList.contains("matched"))return;if(b.parentElement.id==="matchLeft"){li=+b.dataset.i;b.parentElement.querySelectorAll(".matchBtn").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}else{ri=+b.dataset.i;b.parentElement.querySelectorAll(".matchBtn").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}if(li!==null&&ri!==null){if(t.pairs[li]===ri){a.querySelector('#matchLeft [data-i="'+li+'"]').classList.add("matched");a.querySelector('#matchRight [data-i="'+ri+'"]').classList.add("matched");done++;feedback(true,"Есть совпадение.");if(done===t.left.length)setTimeout(markAndNext,350)}else{feedback(false,"Эта пара не подходит. Найди другое описание.")}li=null;ri=null}}})}
+    else if(t.type==="syllables"){a.innerHTML='<div class="pairOptions">'+t.words.map(function(w,i){return'<button class="pairOption" data-i="'+i+'"><b>'+esc(w[0])+'</b><span>Слогов: ?</span></button>'}).join("")+'</div>';a.querySelectorAll(".pairOption").forEach(function(b){b.onclick=function(){const i=+b.dataset.i;const ans=prompt("Сколько слогов в слове «"+t.words[i][0]+"»?");if(ans!==null){const ok=+ans===t.words[i][1];feedback(ok,ok?"Верно. Произнеси слово по слогам.":"Произнеси слово медленно и хлопай на каждый слог.");if(ok)b.classList.add("correct")}}})}
+    else if(t.type==="stress"){a.innerHTML='<div class="pairOptions">'+t.words.map(function(w,i){return'<button class="pairOption" data-i="'+i+'">'+esc(w[0])+'</button>'}).join("")+'</div><div class="tip" style="margin-top:12px">Нажми слово, затем назови ударный слог вслух. Учитель отмечает ответ.</div>';a.querySelectorAll(".pairOption").forEach(function(b){b.onclick=function(){const i=+b.dataset.i;const answer=prompt("Какой слог ударный? Введи номер слога.");if(answer!==null)feedback(+answer===t.words[i][1]+1,+answer===t.words[i][1]+1?"Отлично!":"Произнеси слово ещё раз.")}})}
+    else if(t.type==="sound"){a.innerHTML='<div class="bookMock">'+t.sounds.map(function(s,i){return'<button class="bookPage pairOption" data-i="'+i+'"><div class="big">🔵</div><b>'+esc(s)+'</b><span>звук №'+(i+1)+'</span></button>'}).join("")+'</div><div class="tip" style="margin-top:12px">Нажимай звуки по порядку и проговаривай слово.</div>';a.querySelectorAll(".pairOption").forEach(function(b){b.onclick=function(){b.classList.toggle("selected")}});const check=document.createElement("button");check.className="primary";check.textContent="Готово";check.style.marginTop="14px";check.onclick=function(){feedback(true,"Слово разобрали по звукам.");setTimeout(markAndNext,350)};a.appendChild(check)}
+    else if(t.type==="syllableBuild"){a.innerHTML='<div class="pairOptions">'+t.words.map(function(w,i){return'<button class="pairOption" data-i="'+i+'">'+esc(w.join(" • "))+'</button>'}).join("")+'</div>';a.querySelectorAll(".pairOption").forEach(function(b){b.onclick=function(){const i=+b.dataset.i;feedback(true,"Собери слово из этих слогов устно: "+t.words[i].join("-"));b.classList.add("correct")}})}
+    document.getElementById("pairPrev").onclick=function(){if(P.idx>0){P.idx--;renderLesson(document.getElementById("pairLesson"))}};
+    document.getElementById("pairNext").onclick=function(){markAndNext()};
+  }
+  function markAndNext(){
+    const tasks=taskPack(P.num,P.phase);
+    if(P.idx<tasks.length-1){P.idx++;renderLesson(document.getElementById("pairLesson"));return}
+    if(P.phase==="a"){P.doneA=true;P.phase="break";P.idx=0;renderLesson(document.getElementById("pairLesson"))}
+    else{P.doneM=true;localStorage.setItem("pu_last_pair_lesson",""+Math.min(P.num+1,14));renderLesson(document.getElementById("pairLesson"));document.getElementById("pairDone").classList.add("show");}
+  }
+  function present(){
+    document.body.classList.toggle("pairPresent");
+    if(!document.body.classList.contains("pairPresent")&&document.fullscreenElement)document.exitFullscreen().catch(function(){});
+  }
+  document.addEventListener("fullscreenchange",function(){});
+  mount();
+  const oldStart=document.getElementById("startStudentLesson");if(oldStart)oldStart.remove();
+  const newStart=document.getElementById("startStudentPairLesson");if(newStart)newStart.onclick=function(){startPair(1)};
+  document.querySelectorAll('.nav button[data-page="lessons"]').forEach(function(b){b.addEventListener("click",function(){show("pairHub");renderHub(document.getElementById("pairHub"))})});
+  document.addEventListener("click",function(e){const b=e.target.closest(".studentLesson");if(!b)return;startPair(1)});
+  const oldLessonPage=document.getElementById("lessons");if(oldLessonPage){oldLessonPage.querySelector("#lessonLibrary")&&(oldLessonPage.querySelector("#lessonLibrary").innerHTML="");}
+  const lessonNav=document.querySelector('.nav button[data-page="lessons"]');if(lessonNav){lessonNav.innerHTML="📝 Уроки";lessonNav.onclick=function(){show("pairHub");renderHub(document.getElementById("pairHub"))}}
+  window.prostoPair={start:startPair,showHub:function(){show("pairHub");renderHub(document.getElementById("pairHub"))}};
+})();
+</script></body>
 </html>
