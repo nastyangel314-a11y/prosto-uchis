@@ -2494,5 +2494,17 @@ function mathTasks(t,i){
     if(m&&M)m.onclick=e=>{e.preventDefault();e.stopPropagation();renderAllSubject("math",M,num);};
   };
 })();
-</script></body>
+</script><style id="prosto-only-grade1">#boardGrade option:not([value="1"]),#grade option:not([value="1"]){display:none!important}.subject[data-subject="reading"],.subject[data-subject="world"]{display:none!important}</style>
+<script id="prosto-only-grade1-script">
+(function(){
+  function force(){
+    ["boardGrade","grade"].forEach(id=>{const e=document.getElementById(id);if(e)e.value="1";});
+    document.querySelectorAll('.subjectBtn[data-subject="reading"],.subjectBtn[data-subject="world"]').forEach(b=>{const card=b.closest(".subject");if(card)card.style.display="none";});
+  }
+  force();
+  document.addEventListener("DOMContentLoaded",force);
+  setTimeout(force,50);setTimeout(force,300);
+})();
+</script>
+</body>
 </html>
