@@ -1207,5 +1207,246 @@ function mathTasks(t,i){
 })();
 </script>
 
+
+<script id="math-rich-v1">
+/* MATH-RICH-V1: не только тесты */
+(function(){
+  function richMathTasks(t,i){
+    const z=String(t||"").toLowerCase();
+    const tasks=[];
+    const C=(q,o,c)=>({type:"c",q:q,o:o,c:c});
+    const I=(q,a)=>({type:"i",q:q,a:String(a)});
+    const T=(q)=>({type:"t",q:q});
+    const O=(q,x,r)=>({type:"o",q:q,x:x,r:r});
+    const D=(q)=>({type:"draw",q:q});
+    const P=(q,left,right,map)=>({type:"pair",q:q,left:left,right:right,map:map});
+    const S=(q,x,groups)=>({type:"sort",q:q,x:x,groups:groups});
+
+    function addReview(){
+      if(i>0) tasks.push(T("Повторение: назови своими словами, что изучали на прошлом уроке. Затем приведи один свой пример."));
+    }
+
+    if(/проверочн|контрольн/.test(z)){
+      tasks.push(I("Реши: 7 + 2 =","9"));
+      tasks.push(I("Реши: 10 - 3 =","7"));
+      tasks.push(O("Поставь действия по порядку при решении задачи.",["прочитать условие","понять вопрос","выбрать действие","записать ответ"],["прочитать условие","понять вопрос","выбрать действие","записать ответ"]));
+      tasks.push(T("Контрольная часть: реши в тетради 2 примера и 1 задачу, которую даст учитель. После этого вместе разберите каждую ошибку."));
+      return tasks;
+    }
+
+    addReview();
+
+    if(/пространствен|выше|ниже|слева|справа|сверху|снизу|между|за/.test(z)){
+      tasks.push(P("Соедини положение и пример.",["слева","справа","между"],["🍎 слева от 📘","✏️ справа от 📘","🐻 между 🐱 и 🐶"],[0,1,2]));
+      tasks.push(O("Собери маршрут.",["старт","2 шага вправо","1 шаг вниз","финиш"],["старт","2 шага вправо","1 шаг вниз","финиш"]));
+      tasks.push(D("Нарисуй в тетради: круг над квадратом, треугольник справа от квадрата. Покажи учителю."));
+      tasks.push(C("Мяч лежит между двумя кубиками. Где он находится?",["между","за","сверху"],0));
+      return tasks;
+    }
+
+    if(/временн|сначала|потом|до|после|раньше|позже/.test(z)){
+      tasks.push(O("Поставь события утра по порядку.",["проснуться","умыться","позавтракать","пойти в школу"],["проснуться","умыться","позавтракать","пойти в школу"]));
+      tasks.push(P("Соедини слово и подходящий пример.",["сначала","потом","после"],["проснуться → завтрак","завтрак → школа","школа → обед"],[0,1,2]));
+      tasks.push(I("Событие было в 8 часов, а другое в 9 часов. Какое произошло позже? Запиши: 8 или 9","9"));
+      tasks.push(D("Нарисуй 3 картинки: что было сначала, что потом и что позже."));
+      return tasks;
+    }
+
+    if(/много|один|счет предметов|число 1|числа 1, 2|число 3|число 4|число 5|числа 6|числа 8|число 10|числа от 1 до 10/.test(z)){
+      const n=Math.min(10,Math.max(1,(i%10)+1));
+      tasks.push(I("Посчитай: "+("●".repeat(n))+"  Запиши число.",String(n)));
+      tasks.push(O("Поставь числа по возрастанию.",[String(Math.max(1,n-1)),String(n+1),String(n)], [String(Math.max(1,n-1)),String(n),String(n+1)]));
+      tasks.push(I("Какое число получится, если к "+n+" добавить 1?",String(n+1)));
+      tasks.push(D("Нарисуй "+n+" кружков в тетради. Обведи их группой и подпиши число."));
+      return tasks;
+    }
+
+    if(/состав числа/.test(z)){
+      const n=Math.min(10,Math.max(2,5+(i%6)));
+      const a=Math.floor(n/2), b=n-a;
+      tasks.push(I("Заполни: "+n+" = "+a+" + □",String(b)));
+      tasks.push(P("Соедини состав числа с подходящей записью.",[String(n),String(n+1),String(n-1)],[a+" + "+b,(a+1)+" + "+(b),a+" + "+(b-1)],[0,1,2]));
+      tasks.push(O("Собери число "+n+" из двух частей.",[String(a),"+",String(b)], [String(a),"+",String(b)]));
+      tasks.push(D("Покажи два разных состава числа "+n+" фишками или кружками."));
+      return tasks;
+    }
+
+    if(/знак|равенств|неравенств|больше|меньше|равно/.test(z)){
+      tasks.push(I("Вставь знак: 4 □ 7","<"));
+      tasks.push(I("Вставь знак: 8 □ 8","="));
+      tasks.push(O("Собери верное равенство.",["3","+","2","=","5"],["3","+","2","=","5"]));
+      tasks.push(D("Сравни в тетради две пары чисел и поставь знаки >, < или =."));
+      return tasks;
+    }
+
+    if(/точка|линия|отрезок|ломаная|многоугольник|геометр/.test(z)){
+      tasks.push(P("Соедини название и изображение.",["точка","отрезок","ломаная"],["•","────","╱╲╱"],[0,1,2]));
+      tasks.push(O("Собери ломаную из звеньев.",["звено 1","звено 2","звено 3"],["звено 1","звено 2","звено 3"]));
+      tasks.push(D("Нарисуй точку, прямую линию и отрезок. Подпиши каждую фигуру."));
+      tasks.push(C("У отрезка есть…",["два конца","один конец","три конца"],0));
+      return tasks;
+    }
+
+    if(/длина|сантиметр|дециметр/.test(z)){
+      tasks.push(I("Отрезок 5 см. Добавили ещё 2 см. Сколько стало?","7"));
+      tasks.push(I("Какой отрезок короче: 3 см или 6 см? Запиши длину более короткого.","3"));
+      tasks.push(P("Соедини величину и запись.",["5 см","1 дм","10 см"],["длина","10 сантиметров","один дециметр"],[0,2,1]));
+      tasks.push(D("Начерти отрезок длиной 4 см и измерь его линейкой."));
+      return tasks;
+    }
+
+    if(/увеличить|уменьшить/.test(z)){
+      tasks.push(I("Увеличь 5 на 2.","7"));
+      tasks.push(I("Уменьши 9 на 3.","6"));
+      tasks.push(O("Покажи ход решения: было → действие → стало.",["5","увеличили на 2","7"],["5","увеличили на 2","7"]));
+      tasks.push(T("Придумай свою задачу на увеличение или уменьшение и реши её в тетради."));
+      return tasks;
+    }
+
+    if(/сложение с 0|вычитание 0/.test(z)){
+      tasks.push(I("6 + 0 =","6"));
+      tasks.push(I("8 - 0 =","8"));
+      tasks.push(C("Что меняется, если к числу прибавить 0?",["число остаётся тем же","число становится 0","число увеличивается на 1"],0));
+      tasks.push(D("Покажи фишками, почему 5 + 0 остаётся 5."));
+      return tasks;
+    }
+
+    if(/\+1|\-1|\+2|\-2|\+3|\-3|\+4|\-4|\+5|\+6|\+7|\+8|\+9/.test(z)){
+      const m=(z.match(/[+-]\s*(1|2|3|4|5|6|7|8|9)/)||[])[0]||"+1";
+      const k=Number((m.match(/\d+/)||["1"])[0]);
+      const sign=m.includes("-")?"-":"+";
+      const base=Math.min(10,Math.max(k+1,6));
+      const ans=sign==="+"?base+k:base-k;
+      tasks.push(I("Реши: "+base+" "+sign+" "+k+" = ",String(ans)));
+      tasks.push(I("Реши ещё один пример: "+(base-1)+" "+sign+" "+k+" = ",String(sign==="+"?base-1+k:base-1-k)));
+      tasks.push(O("Покажи вычисление шагами.",sign==="+"?[String(base),"+"+k,"ответ"]:[String(base),"-"+k,"ответ"],sign==="+"?[String(base),"+"+k,"ответ"]:[String(base),"-"+k,"ответ"]));
+      tasks.push(T("Реши в тетради 3 похожих примера и объясни один из них учителю."));
+      return tasks;
+    }
+
+    if(/слагаем|сумма|перестановк/.test(z)){
+      tasks.push(I("Найди сумму: 3 + 5 =","8"));
+      tasks.push(I("Заполни: 4 + 2 = 2 + □","4"));
+      tasks.push(O("Собери два равных выражения.",["3","+","5","=","5","+","3"],["3","+","5","=","5","+","3"]));
+      tasks.push(T("Придумай два примера, где слагаемые поменялись местами, но сумма осталась той же."));
+      return tasks;
+    }
+
+    if(/задач/.test(z)){
+      tasks.push(I("У Маши было 4 карандаша. Ей дали ещё 3. Сколько стало?","7"));
+      tasks.push(I("У Пети было 8 кубиков. 2 убрали. Сколько осталось?","6"));
+      tasks.push(O("Собери задачу: условие → вопрос → решение → ответ.",["условие","вопрос","решение","ответ"],["условие","вопрос","решение","ответ"]));
+      tasks.push(T("Составь свою короткую задачу по рисунку учителя и запиши решение с ответом."));
+      return tasks;
+    }
+
+    if(/килограмм/.test(z)){
+      tasks.push(I("Мешок весит 5 кг, а другой 3 кг. На сколько килограммов первый тяжелее?","2"));
+      tasks.push(C("Что измеряют килограммами?",["массу","длину","время"],0));
+      tasks.push(P("Соедини предмет и подходящую величину.",["арбуз","карандаш","бутылка воды"],["масса","длина","вместимость"],[0,1,2]));
+      tasks.push(D("Нарисуй два предмета и подпиши, какой из них тяжелее."));
+      return tasks;
+    }
+
+    if(/литр/.test(z)){
+      tasks.push(I("В кувшине 2 л, добавили ещё 1 л. Сколько литров стало?","3"));
+      tasks.push(C("Что удобно измерять литрами?",["воду","длину стола","массу яблока"],0));
+      tasks.push(P("Соедини предмет и величину.",["бутылка","линейка","гиря"],["вместимость","длина","масса"],[0,1,2]));
+      tasks.push(D("Нарисуй сосуд, который вмещает больше другого, и объясни почему."));
+      return tasks;
+    }
+
+    if(/10 до 20|второго десятка|одного десятка|чисел от 10/.test(z)){
+      tasks.push(I("Запиши число: 1 десяток и 4 единицы.","14"));
+      tasks.push(I("Какое число идёт после 18?","19"));
+      tasks.push(O("Собери число 17.",["1 десяток","7 единиц"],["1 десяток","7 единиц"]));
+      tasks.push(D("Разложи в тетради 16 предметов на десяток и единицы."));
+      return tasks;
+    }
+
+    if(/переходом через десяток|однозначных чисел/.test(z)){
+      tasks.push(I("9 + 2 =","11"));
+      tasks.push(I("8 + 5 =","13"));
+      tasks.push(O("Разложи 9 + 3 на удобные шаги.",["9 + 1 = 10","10 + 2 = 12"],["9 + 1 = 10","10 + 2 = 12"]));
+      tasks.push(T("Реши 3 примера с переходом через десяток в тетради и объясни один способом «сначала до 10»."));
+      return tasks;
+    }
+
+    if(/связь между суммой|вычитания.*уменьшаемое|вычитаемое|разность/.test(z)){
+      tasks.push(I("Если 4 + 3 = 7, чему равно 7 - 3?","4"));
+      tasks.push(I("В примере 9 - 2 = 7 уменьшаемое — это…","9"));
+      tasks.push(P("Соедини компонент и его роль.",["уменьшаемое","вычитаемое","разность"],["из него вычитают","его вычитают","результат вычитания"],[0,1,2]));
+      tasks.push(T("Составь три связанных примера: один на сложение и два на вычитание."));
+      return tasks;
+    }
+
+    if(/логичес|закономер|классифика|высказыван|все|если/.test(z)){
+      tasks.push(O("Продолжи закономерность.",["2","4","6","8"],["2","4","6","8"]));
+      tasks.push(S("Разложи предметы по группам.",["🍎","🍐","🐶","🐱"],["фрукты","животные"]));
+      tasks.push(C("Если все круги красные, может ли один круг быть синим?",["нет","да"],0));
+      tasks.push(T("Придумай свою закономерность из 4 чисел или фигур."));
+      return tasks;
+    }
+
+    if(/повторение|обобщение|что узнали/.test(z)){
+      tasks.push(I("Реши: 6 + 3 =","9"));
+      tasks.push(I("Реши: 9 - 4 =","5"));
+      tasks.push(O("Собери план решения задачи.",["прочитать","выбрать действие","вычислить","ответить"],["прочитать","выбрать действие","вычислить","ответить"]));
+      tasks.push(T("Выбери тему, которая пока труднее всего, и реши одно задание с учителем."));
+      return tasks;
+    }
+
+    tasks.push(I("Реши пример по теме урока: 5 + 2 =","7"));
+    tasks.push(T("Реши в тетради 2 задания по теме и объясни ход решения."));
+    tasks.push(O("Собери правильный порядок действий.",["прочитать","решить","проверить"],["прочитать","решить","проверить"]));
+    tasks.push(D("Покажи решение рисунком, схемой или числовой дорожкой."));
+    return tasks;
+  }
+
+  function renderRichTask(){
+    const L=window.activeLesson,t=L.tasks[L.index],a=document.getElementById("taskArea");
+    document.getElementById("taskBadge").textContent="Задание "+(L.index+1)+" из "+L.tasks.length;
+    document.getElementById("question").textContent=t.q;
+    const res=document.getElementById("result");res.className="taskExplain";res.textContent="";L.answered=false;a.innerHTML="";
+    const E=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const finish=(ok,msg)=>{res.textContent=ok?"✓ "+(msg||"Верно!"):(msg||"Попробуй ещё раз.");res.className="taskExplain show";if(ok){L.answered=true;}};
+    if(t.type==="c"){
+      a.innerHTML='<div class="gameGrid">'+t.o.map((x,i)=>'<button class="gameCard" data-i="'+i+'">'+E(x)+'</button>').join("")+'</div>';
+      a.querySelectorAll(".gameCard").forEach(b=>b.onclick=()=>{a.querySelectorAll(".gameCard").forEach(x=>x.classList.remove("correct","wrong"));const ok=+b.dataset.i===t.c;b.classList.add(ok?"correct":"wrong");finish(ok,ok?"Верно!":"Проверь вычисление ещё раз.")});
+    }else if(t.type==="i"){
+      a.innerHTML='<div class="actions"><input id="ans" style="padding:14px;border:2px solid #e5e1ef;border-radius:15px;min-width:260px" placeholder="Запиши ответ"><button class="primary" id="check">Проверить</button></div>';
+      document.getElementById("check").onclick=()=>finish(document.getElementById("ans").value.trim().toLowerCase()===t.a.toLowerCase(),document.getElementById("ans").value.trim().toLowerCase()===t.a.toLowerCase()?"Верно!":"Сверь пример и попробуй ещё раз.");
+    }else if(t.type==="t"||t.type==="draw"){
+      a.innerHTML='<div class="tip">📝 Это не тест: ребёнок выполняет задание в тетради или на доске.</div><button class="primary" id="teacherDone" style="margin-top:12px">Готово, проверили вместе</button>';
+      document.getElementById("teacherDone").onclick=()=>finish(true,"Задание отмечено. Теперь разберите способ решения.");
+    }else if(t.type==="o"){
+      a.innerHTML='<div class="sequence">'+t.x.map((x,i)=>'<button class="seqItem" data-i="'+i+'">'+E(x)+'</button>').join("")+'</div><button class="primary" id="ord" style="margin-top:12px">Проверить порядок</button>';
+      let q=[];a.querySelectorAll(".seqItem").forEach(b=>b.onclick=()=>{if(!b.classList.contains("used")){b.classList.add("used");q.push(t.x[+b.dataset.i]);}});
+      document.getElementById("ord").onclick=()=>finish(JSON.stringify(q)===JSON.stringify(t.r),q.length===t.r.length?"Порядок верный!":"Собери все шаги по порядку.");
+    }else if(t.type==="pair"){
+      let left=-1,done=0,used={};
+      a.innerHTML='<div class="matchGrid"><div class="matchCol" id="pl">'+t.left.map((x,i)=>'<button class="matchBtn" data-i="'+i+'">'+E(x)+'</button>').join("")+'</div><div class="matchCol" id="pr">'+t.right.map((x,i)=>'<button class="matchBtn" data-i="'+i+'">'+E(x)+'</button>').join("")+'</div></div>';
+      a.querySelectorAll("#pl .matchBtn").forEach(b=>b.onclick=()=>{left=+b.dataset.i;a.querySelectorAll("#pl .matchBtn").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")});
+      a.querySelectorAll("#pr .matchBtn").forEach(b=>b.onclick=()=>{if(left<0)return;const ri=+b.dataset.i;const ok=t.map[left]===ri;if(ok){b.classList.add("matched");a.querySelector('#pl [data-i="'+left+'"]').classList.add("matched");used[left]=1;done++;left=-1;if(done===t.left.length)finish(true,"Все пары соединены верно.");}else{b.classList.add("wrong");setTimeout(()=>b.classList.remove("wrong"),400);}});
+    }else if(t.type==="sort"){
+      let k=0,okAll=true;
+      a.innerHTML='<div class="gameGrid">'+t.x.map((x,i)=>'<button class="gameCard" data-i="'+i+'">'+E(x)+'</button>').join("")+'</div><div class="actions">'+t.groups.map((g,j)=>'<button class="gameBtn" data-g="'+j+'">'+E(g)+'</button>').join("")+'</div>';
+      a.querySelectorAll(".gameCard").forEach(b=>b.onclick=()=>{if(b.classList.contains("used"))return;const g=prompt("В какую группу? "+t.groups.join(" / "));const idx=t.x.indexOf(b.textContent);const want=idx<2?0:1;const chosen=t.groups.indexOf(g);if(chosen===want){b.classList.add("correct","used");k++;if(k===t.x.length)finish(true,"Все предметы распределены верно.");}else{b.classList.add("wrong");setTimeout(()=>b.classList.remove("wrong"),400);}});
+    }
+    document.getElementById("taskDots").innerHTML=L.tasks.map((_,i)=>'<span class="taskDot '+(i<L.index?"done ":"")+(i===L.index?"current":"")+'"></span>').join("");
+  }
+
+  const oldOpen=window.openLesson;
+  window.openLesson=function(sub,title){
+    oldOpen(sub,title);
+    if(sub==="math" && window.activeLesson && window.activeLesson.g===1){
+      window.activeLesson.tasks=richMathTasks(title,window.activeLesson.index);
+      window.renderTask=renderRichTask;
+      renderRichTask();
+    }
+  };
+})();
+</script>
+
 </body>
 </html>
