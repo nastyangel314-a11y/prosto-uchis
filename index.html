@@ -37,7 +37,9 @@ body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-wid
 .boardSelectedArea{margin-top:18px}.boardOpenedSubject,.movePanel{background:#fff;border:2px solid #e8e2f3;border-radius:26px;padding:22px;box-shadow:0 14px 35px #4b3b8a12}
 .openedSubjectTop{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #eeeaf5;padding-bottom:15px;margin-bottom:16px}.openedSubjectTop h3{margin:8px 0 0;font-size:23px}.bigDice{font-size:76px;text-align:center;margin:8px 0}.moveText{text-align:center;font-size:22px;font-weight:800;padding:20px;background:#f5f1ff;border-radius:20px;margin-bottom:16px}.movePanel{text-align:center}
 @media(max-width:900px){.lessonChoiceCloud{grid-template-columns:1fr 1fr}}@media(max-width:600px){.lessonChoiceCloud{grid-template-columns:1fr}.openedSubjectTop{align-items:flex-start;flex-direction:column}}
-</style><style id="board-click-fix">.board #courseMap{z-index:100!important;pointer-events:auto!important}.board #courseMap .boardLessonCard,.board #courseMap .courseNode,.board #courseMap button{position:relative;z-index:101;pointer-events:auto!important;cursor:pointer!important;touch-action:manipulation}.board #courseMap .boardLessonList{position:relative;z-index:101}</style><style id="board-lesson-final-ui">.lessonChoiceCard:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.15)}.boardLessonCard small,.boardLessonCard em{display:block;line-height:1.35}.boardOpenedSubject .muted{margin-top:6px}.taskCard{margin:14px 0;padding:18px;border-radius:18px;background:#faf8ff}</style></head>
+</style><style id="board-click-fix">.board #courseMap{z-index:100!important;pointer-events:auto!important}.board #courseMap .boardLessonCard,.board #courseMap .courseNode,.board #courseMap button{position:relative;z-index:101;pointer-events:auto!important;cursor:pointer!important;touch-action:manipulation}.board #courseMap .boardLessonList{position:relative;z-index:101}</style><style id="board-lesson-final-ui">.lessonChoiceCard:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.15)}.boardLessonCard small,.boardLessonCard em{display:block;line-height:1.35}.boardOpenedSubject .muted{margin-top:6px}.taskCard{margin:14px 0;padding:18px;border-radius:18px;background:#faf8ff}</style><style id="board-all-lessons-fix">
+.boardJumps{display:flex!important;flex-wrap:wrap!important;gap:7px!important;max-height:180px!important;overflow:auto!important;padding:8px!important}.boardJumps button{cursor:pointer!important;pointer-events:auto!important;position:relative!important;z-index:20!important}.boardLessonCard,.lessonChoiceCard,.courseNode,.boardSubjectHead,.moveChoice,.boardObject,.clearTask,button,input,select,textarea{pointer-events:auto!important}.boardLessonCard{cursor:pointer!important}
+</style></head>
 <body>
 <div class="app">
 <aside class="side"><div class="logo">Просто <span>учись</span></div><div class="nav">
@@ -2562,67 +2564,18 @@ function mathTasks(t,i){
 })();
 </script>
 
-<script id="ALL-LESSONS-INTERACTIVE-V3">
+<script id="BOARD-INTERACTIVE-STABLE-V4">
 (function(){
-const C=(q,o,c)=>({type:"c",q:q,o:o,c:c}),I=(q,a)=>({type:"i",q:q,a:String(a)}),T=q=>({type:"t",q}),O=(q,x,r)=>({type:"o",q:q,x:x,r:r});
-const RU=[
-[/речь/,"Что относится к устной речи?",["разговор с учителем","записка","запись"],0,"Запиши одно предложение о своём утре."],
-[/текст|предложен/,"С чего начинается предложение?",["с заглавной буквы","со строчной","с цифры"],0,"Составь два связанных предложения."],
-[/диалог/,"Что важно в диалоге?",["говорить по очереди","говорить одновременно","не слушать"],0,"Запиши две реплики диалога."],
-[/роль слов|названия предметов/,"Что называет слово «красивый»?",["признак","предмет","действие"],0,"Запиши по одному слову: предмет, признак, действие."],
-[/вежлив/,"Как вежливо попросить?",["Пожалуйста, помоги мне.","Дай сейчас!","Мне надо."],0,"Составь вежливую просьбу."],
-[/многознач|противополож/,"Какая пара противоположных слов?",["большой — маленький","смелый — храбрый","дом — здание"],0,"Подбери близкую и противоположную пару."],
-[/слог|перенос/,"Что есть в каждом слоге?",["гласный звук","только согласный","только буква"],0,"Раздели два слова на слоги."],
-[/ударен/,"Как произносится ударный слог?",["с большей силой","без голоса","шёпотом"],0,"Поставь ударение в трёх словах."],
-[/звуки и буквы/,"Что мы слышим и произносим?",["звуки","буквы","цифры"],0,"Назови звуки в слове «дом»."],
-[/алфавит/,"Что такое алфавит?",["буквы в установленном порядке","набор слов","предложение"],0,"Назови первые пять букв."],
-[/гласн/,"Как произносятся гласные?",["без преграды","с преградой","только шёпотом"],0,"Назови три гласные буквы и слова с ними."],
-[/е, ё, ю, я/,"Что могут обозначать Е, Ё, Ю, Я в начале слова?",["два звука","только согласный","только один звук"],0,"Прочитай «ёлка», «яма», «юла»."],
-[/буквой э/,"Какой звук обозначает Э?",["[э]","[а]","[о]"],0,"Запиши три слова с Э."],
-[/провер|безудар/,"Что помогает проверить безударную гласную?",["проверочное слово","случайная буква","длина слова"],0,"Подбери два проверочных слова."],
-[/согласн/,"Что такое согласный звук?",["звук с преградой","гласный","буква"],0,"Назови согласные звуки в трёх словах."],
-[/удвоенн/,"Как пишется «касса»?",["касса","каса","кассаа"],0,"Запиши три слова с удвоенными согласными."],
-[/и и й/,"Какой звук обозначает Й?",["согласный","гласный","знак"],0,"Запиши три слова с И или Й."],
-[/твёрд|мягк/,"Каким может быть согласный?",["твёрдым или мягким","только гласным","только ударным"],0,"Найди твёрдые и мягкие согласные."],
-[/мягким знаком/,"Что показывает Ь в «конь»?",["мягкость согласного","отдельный звук","гласный"],0,"Запиши три слова с Ь."],
-[/восстановление текста/,"Как восстановить перепутанные предложения?",["по смыслу","по длине","наугад"],0,"Восстанови порядок трёх предложений."],
-[/звонк|глух/,"Какой звук произносится с голосом?",["звонкий","глухой","гласный"],0,"Произнеси Б–П, В–Ф, Д–Т."],
-[/на конце|парных/,"Как проверить парный согласный на конце?",["изменить слово","посчитать буквы","перенести"],0,"Подбери проверочные слова."],
-[/шипящ/,"Какие согласные шипящие?",["Ж, Ш, Ч, Щ","М, Н, Л","Б, В, Г"],0,"Прочитай скороговорку учителя."],
-[/чк|чн|чт/,"Как пишем ЧК?",["без мягкого знака","с мягким знаком","с Ъ"],0,"Запиши три слова с ЧК, ЧН или ЧТ."],
-[/жи-ши|ча-ща|чу-щу/,"Как правильно: «жираф»?",["жираф","жыраф","жераф"],0,"Запиши слова с ЖИ–ШИ, ЧА–ЩА, ЧУ–ЩУ."],
-[/заглавн/,"С какой буквы пишем имя?",["с заглавной","со строчной","с цифры"],0,"Запиши имя и город с заглавной."],
-[/сказочн/,"Что может быть на сказочной странице?",["герой, заголовок и текст","только цифры","только буквы"],0,"Создай сказочную страничку."],
-[/повторение|обобщение/,"Что помогает применить правила?",["правило, пример и проверка","угадывание","спешка"],0,"Повтори две темы и объясни правила."]
-];
-function ru(t,i){let d=RU.find(x=>x[0].test(String(t).toLowerCase()))||RU[i%RU.length],o=d[2],c=d[3];return[C(d[1],o,c),C("Что верно по теме?",[o[c],o[(c+1)%o.length],o[(c+2)%o.length]||"другой вариант"],0),C("Что делать при ошибке?",["найти правило и исправить","оставить","угадать"],0),C("Что сделать после ответа?",["проверить себя","пропустить","стереть"],0),I("Запиши ключевое слово темы","правило"),I("Ещё раз запиши ключевое слово","правило"),O("Порядок работы",["прочитать","вспомнить правило","выполнить","проверить"],["прочитать","вспомнить правило","выполнить","проверить"]),T(d[4])]}
-function math(t,i){let z=String(t).toLowerCase(),d;
-if(/пространствен/.test(z))d=["Где предмет, если он выше коробки?",["сверху","снизу","между"],0,"Поставь предметы выше, ниже, слева и справа."];
-else if(/времен/.test(z))d=["Что помогает определить порядок событий?",["сначала, потом, до, после","размер","цвет"],0,"Расскажи три события утра по порядку."];
-else if(/длина|сантиметр|дециметр/.test(z))d=["Чем измеряют длину?",["линейкой","весами","часами"],0,"Начерти и измерь отрезок."];
-else if(/килограмм|масса/.test(z))d=["Что измеряют килограммами?",["массу","длину","вместимость"],0,"Сравни два предмета по массе."];
-else if(/литр|вместим/.test(z))d=["Что измеряют литрами?",["вместимость","длину","массу"],0,"Сравни два сосуда."];
-else if(/задач/.test(z))d=["Что есть в задаче?",["условие и вопрос","только ответ","только рисунок"],0,"Составь задачу и реши её."];
-else if(/состав числа/.test(z))d=["5 = 2 + ?",["3","2","4"],0,"Покажи два состава числа."];
-else if(/равенств|неравенств|больше|меньше/.test(z))d=["Какой знак: 4 □ 7?",["<",">","="],0,"Сравни две пары чисел."];
-else if(/слагаем|сумм|перестанов/.test(z))d=["Как называются числа при сложении?",["слагаемые","разность","вычитаемое"],0,"Назови слагаемые и сумму."];
-else if(/вычит|разность/.test(z))d=["Результат вычитания называется…",["разность","сумма","слагаемое"],0,"Реши два примера на вычитание."];
-else if(/увелич/.test(z))d=["Увеличить на 2 — это…",["прибавить 2","вычесть 2","ничего"],0,"Составь пример на увеличение."];
-else if(/уменьш/.test(z))d=["Уменьшить на 3 — это…",["вычесть 3","прибавить 3","умножить"],0,"Составь пример на уменьшение."];
-else if(/логичес|закономер|классифика|высказыван/.test(z))d=["Что помогает найти закономерность?",["наблюдение и сравнение","угадывание","спешка"],0,"Придумай свой ряд или правило."];
-else if(/провероч/.test(z))d=["Перед проверочной важно…",["вспомнить правила и проверить себя","торопиться","не читать условие"],0,"Выполни два примера и задачу учителя."];
-else if(/контрольн/.test(z))d=["После контрольного задания нужно…",["проверить вычисления","сразу закрыть тетрадь","стереть ответ"],0,"Выполни мини-блок и разберите ошибки."];
-else if(/точка|линия|отрезок|ломаная|многоугольник|геометр/.test(z))d=["Что имеет два конца?",["отрезок","точка","число"],0,"Нарисуй точку, линию, отрезок и фигуру."];
-else if(/ноль/.test(z))d=["7 + 0 =",["7","0","8"],0,"Покажи, что значит ноль."];
-else if(/10 до 20|второго десятка|десятка/.test(z))d=["14 — это…",["1 десяток и 4 единицы","4 десятка и 1 единица","14 десятков"],0,"Запиши три числа второго десятка."];
-else if(/переходом через десяток/.test(z))d=["9 + 2 =",["11","10","12"],0,"Реши три примера с переходом через десяток."];
-else {let k=Math.max(1,Math.min(10,(i%10)+1));d=["Сколько предметов? "+("●".repeat(k)),[String(k),String(k-1),String(k+1)],0,"Покажи это количество и запиши цифру."];}
-let n=(i%8)+2,o=d[1],c=d[2];return[C(d[0],o,c),C("Что верно по теме?",[o[c],o[(c+1)%o.length],o[(c+2)%o.length]||"другой вариант"],0),C("Как проверить решение?",["пересчитать и объяснить","угадать","не проверять"],0),C("Что делать при ошибке?",["найти и исправить","оставить","пропустить"],0),I("Реши: "+n+" + 2",n+2),I("Реши: "+(n+2)+" - 2",n),O("Порядок работы",["прочитать","выбрать способ","решить","проверить"],["прочитать","выбрать способ","решить","проверить"]),T(d[3])]}
-const oldMake=window.make;window.make=function(s,g,t,i){if(g===1&&s==="russian")return ru(t,i);if(g===1&&s==="math")return math(t,i);return oldMake(s,g,t,i)};
-const faces=["⚀","⚁","⚂","⚃","⚄","⚅"],moves=["Потянись вверх 3 раза.","Сделай 5 лёгких приседаний.","Разведи руки и сделай 3 плавных поворота.","Покачайся вправо-влево 10 секунд.","Сделай 5 хлопков над головой.","Шагай на месте 10 секунд и замри."],oldBoard=window.openBoardLesson;
-window.openBoardLesson=function(num,gr){oldBoard(num,gr);setTimeout(()=>{const p=document.querySelector(".boardLessonPanel"),a=p&&p.querySelector(".boardSelectedArea"),b=p&&p.querySelector(".moveChoice");if(!p||!a||!b)return;b.onclick=e=>{e.preventDefault();e.stopPropagation();const i=Math.floor(Math.random()*6);a.innerHTML='<section class="movePanel"><div class="openedSubjectTop"><div><span class="n">🎲 Физкультминутка</span><h3>Кубик '+faces[i]+' · движение '+(i+1)+'</h3></div><button class="secondary closeMove">Свернуть</button></div><div class="bigDice">'+faces[i]+'</div><div class="moveText">'+moves[i]+'</div><button class="primary rollBoardDice">🎲 Бросить ещё раз</button></section>';a.querySelector(".rollBoardDice").onclick=()=>b.click();a.querySelector(".closeMove").onclick=()=>a.innerHTML=""}},0)};
-window.__ALL_KTP_LESSONS__={russian:40,math:132,tasksPerSubject:8};
+"use strict";
+const $=s=>document.querySelector(s);
+function rebuildQuick(){const box=$(".boardJumps");if(!box)return;box.innerHTML='<span class="quickLabel">Быстрый переход:</span>';for(let n=1;n<=132;n++){const b=document.createElement("button");b.type="button";b.className="quickLessonBtn";b.dataset.jump=n;b.textContent="Урок "+n;box.appendChild(b)}}
+function openJump(n){n=Math.max(1,Math.min(132,Number(n)||1));const g=Number($("#boardGrade")?.value||1);if(typeof window.openBoardLesson==="function"){window.openBoardLesson(n-1,g);return}const c=document.querySelector('.boardLessonCard[data-i="'+(n-1)+'"]');if(c)c.click()}
+function boot(){rebuildQuick();const box=$(".boardJumps");if(box&&!box.dataset.stable){box.dataset.stable="1";box.addEventListener("pointerdown",e=>{if(e.target.closest(".quickLessonBtn"))e.stopPropagation()},true);box.addEventListener("click",e=>{const b=e.target.closest(".quickLessonBtn");if(!b)return;e.preventDefault();e.stopPropagation();openJump(b.dataset.jump)},true)}
+const board=$("#boardArea");if(board&&!board.dataset.stable){board.dataset.stable="1";board.addEventListener("pointerdown",e=>{if(e.target.closest("button,input,select,textarea,.boardLessonCard,.lessonChoiceCard,.courseNode,.boardSubjectHead,.moveChoice,.clearTask,.boardObject,.quickLessonBtn"))e.stopPropagation()},true)}
+}
+const oldR=window.renderBoardCourse;if(oldR&&!oldR.__stable){window.renderBoardCourse=function(){oldR.apply(this,arguments);setTimeout(boot,0)};window.renderBoardCourse.__stable=true}
+const oldO=window.openBoardLesson;if(oldO&&!oldO.__stable){window.openBoardLesson=function(n,g){oldO.apply(this,arguments);setTimeout(()=>{$(".boardLessonPanel")?.querySelectorAll("button").forEach(b=>b.style.pointerEvents="auto")},0)};window.openBoardLesson.__stable=true}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();setTimeout(boot,200);
 })();
-</script>
-</body>
+</script></body>
 </html>
