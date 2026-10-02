@@ -324,9 +324,8 @@ renderStudents();renderProgram();renderLessons();show("home");setTimeout(initBoa
 
     board.addEventListener("pointerdown",function(e){
       if(e.button!==undefined && e.button!==0) return;
-      const interactive=e.target.closest(".courseNode,.boardLessonCard,.lessonChoiceCard,.boardSubjectHead,.moveChoice,.boardObject,button,input,select");
-      if(interactive && e.target.closest(".courseNode")) return;
-      if(interactive && !e.target.closest(".board")) return;
+      const interactive=e.target.closest(".courseNode,.boardLessonCard,.lessonChoiceCard,.boardSubjectHead,.moveChoice,.boardObject,button,input,select,textarea,.clearTask");
+      if(interactive) return;
       dragging=true;moved=false;
       const p=point(e);sx=p.x;sy=p.y;ox=window.boardView.x;oy=window.boardView.y;
       board.classList.add("panning");
@@ -2406,30 +2405,7 @@ function mathTasks(t,i){
   };
 })();
 </script>
-<style id="fix-board-clicks">.boardLessonPanel,.boardCourseHome{pointer-events:auto}.boardSelectedArea,.boardOpenedSubject,.boardTasks,.clearTask,.clearChoices,.clearChoice,.clearTask button,.clearTask input,.clearTask textarea{pointer-events:auto}</style>
-<script id="task-click-isolation">
-(function(){
-  var board=document.getElementById("boardArea");
-  if(!board)return;
-  board.addEventListener("pointerdown",function(e){
-    if(e.target.closest(".boardSelectedArea .boardTask, .boardSelectedArea .clearTask, .boardSelectedArea button, .boardSelectedArea input, .boardSelectedArea textarea")){
-      e.stopImmediatePropagation();
-    }
-  },true);
-})();
-</script><style id="teacher-answer-controls">.clearTask button,.clearTask input,.clearTask textarea{pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer}</style>
-<script id="teacher-answer-controls-js">
-(function(){
-  document.addEventListener("pointerdown",function(e){
-    var el=e.target.closest(".clearTask button,.clearTask input,.clearTask textarea");
-    if(!el)return;
-    e.stopImmediatePropagation();
-  },true);
-  document.addEventListener("click",function(e){
-    var el=e.target.closest(".clearTask button");
-    if(!el)return;
-    e.stopPropagation();
-  },true);
-})();
-</script></body>
+
+
+</body>
 </html>
