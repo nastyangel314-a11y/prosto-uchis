@@ -1936,8 +1936,9 @@ function mathTasks(t,i){
     else{P.doneM=true;localStorage.setItem("pu_last_pair_lesson",""+Math.min(P.num+1,14));renderLesson(document.getElementById("pairLesson"));document.getElementById("pairDone").classList.add("show");}
   }
   function present(){
-    document.body.classList.toggle("pairPresent");
-    if(!document.body.classList.contains("pairPresent")&&document.fullscreenElement)document.exitFullscreen().catch(function(){});
+    const on=document.body.classList.toggle("pairPresent");
+    if(on&&document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(function(){});}
+    if(!on&&document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(function(){});
   }
   document.addEventListener("fullscreenchange",function(){});
   mount();
