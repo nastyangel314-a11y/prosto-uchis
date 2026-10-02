@@ -2450,5 +2450,116 @@ function mathTasks(t,i){
   setTimeout(force,50);setTimeout(force,300);
 })();
 </script>
+
+<style id="board-course-refresh-ui">
+.boardCourseHome{padding:18px 18px 30px}
+.boardCourseTop{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px}
+.boardCourseTitle{font-size:24px;font-weight:900}
+.boardCourseSubtitle{margin-top:6px;color:#6d6b7b;line-height:1.45}
+.boardCourseStats{display:flex;gap:8px;flex-wrap:wrap}
+.boardCourseStat{padding:8px 11px;border-radius:999px;background:#f1edff;color:#6049c9;font-size:12px;font-weight:900}
+.boardRoute{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 18px;padding:12px 14px;background:#faf9fd;border:1px solid #e8e4f0;border-radius:16px}
+.boardRouteStep{padding:8px 11px;border-radius:12px;background:#fff;border:1px solid #e4dfed;font-weight:800;font-size:13px}
+.boardRouteArrow{color:#8a8598;font-weight:900}
+.boardLessonList{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.boardLessonCard{position:relative;text-align:left!important;min-height:180px!important;padding:16px!important;border-radius:20px!important;background:#fff!important;border:2px solid #e8e3f0!important;box-shadow:0 8px 20px #4b3b8a0d!important;cursor:pointer!important}
+.boardLessonCard:hover{border-color:#9b8aff!important;transform:translateY(-2px)}
+.boardLessonCard .lessonCardTop{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.boardLessonCard .lessonNumber{font-size:12px;color:#654de1;font-weight:900}
+.boardLessonCard .lessonOpen{font-size:11px;padding:5px 8px;border-radius:999px;background:#f0edff;color:#6049c9;font-weight:900}
+.boardLessonCard .boardRuTitle,.boardLessonCard .boardMathTitle{display:block;margin-top:11px;line-height:1.35}
+.boardLessonCard .boardRuTitle{color:#443b63}
+.boardLessonCard .boardMathTitle{color:#3d5c62}
+.boardLessonCard .boardRuTitle b,.boardLessonCard .boardMathTitle b{font-size:11px;color:#777285}
+.boardLessonCard .reviewBadge{display:inline-block;margin-top:10px;padding:5px 8px;border-radius:999px;background:#fff4cf;color:#8b6712;font-size:11px;font-weight:900}
+.boardLessonPanel{padding-bottom:30px}
+.boardLessonMeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.boardLessonMeta span{padding:7px 10px;border-radius:10px;background:#f7f5fb;color:#686476;font-size:12px;font-weight:800}
+.boardSubjectFlow{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:14px 0 18px}
+.boardSubjectFlow .flowItem{padding:12px;border-radius:15px;background:#faf9fd;border:1px solid #e6e1ef;text-align:center;font-weight:900}
+.boardSubjectFlow .flowBreak{font-size:20px}
+@media(max-width:700px){.boardLessonList{grid-template-columns:1fr!important}.boardSubjectFlow{grid-template-columns:1fr}.boardSubjectFlow .flowBreak{transform:rotate(90deg)}}
+</style>
+<script id="board-course-refresh-script">
+(function(){
+  const oldRenderBoardCourse=window.renderBoardCourse;
+  const oldOpenBoardLesson=window.openBoardLesson;
+
+  function decorateCourse(){
+    const home=document.querySelector(".boardCourseHome");
+    if(!home)return;
+    const title=home.querySelector(".boardCourseTitle");
+    const list=home.querySelector(".boardLessonList");
+    if(!list)return;
+
+    const cards=[...list.querySelectorAll(".boardLessonCard")];
+    const total=cards.length;
+    const oldText=home.querySelector(".muted");
+    if(title)title.outerHTML='<div class="boardCourseTop"><div><div class="boardCourseTitle">📚 Карта курса · 1 класс</div><div class="boardCourseSubtitle">Все уроки КТП собраны на одной доске. Открывай урок и проходи маршрут: <b>русский язык → физкультминутка → математика</b>.</div></div><div class="boardCourseStats"><span class="boardCourseStat">132 урока</span><span class="boardCourseStat">40 тем русского</span><span class="boardCourseStat">132 темы математики</span></div></div>';
+    if(oldText)oldText.remove();
+
+    if(!home.querySelector(".boardRoute")){
+      const route=document.createElement("div");
+      route.className="boardRoute";
+      route.innerHTML='<span class="boardRouteStep">📖 Русский язык · ~20 мин</span><span class="boardRouteArrow">→</span><span class="boardRouteStep">🎲 Физкультминутка · 2–3 мин</span><span class="boardRouteArrow">→</span><span class="boardRouteStep">🔢 Математика · ~20 мин</span>';
+      home.insertBefore(route,list);
+    }
+
+    cards.forEach((card,i)=>{
+      if(card.dataset.refreshDecorated==="1")return;
+      card.dataset.refreshDecorated="1";
+      const rr=card.querySelector("small"), mm=card.querySelector("em");
+      const rText=rr?rr.textContent.replace(/^📖 Русский язык ·\s*/,""):"";
+      const mText=mm?mm.textContent.replace(/^🔢 Математика ·\s*/,""):"";
+      card.innerHTML='<div class="lessonCardTop"><span class="lessonNumber">УРОК '+(i+1)+'</span><span class="lessonOpen">Открыть →</span></div>'+
+        '<span class="boardRuTitle"><b>📖 РУССКИЙ</b><br>'+E(rText)+'</span>'+
+        '<span class="boardMathTitle"><b>🔢 МАТЕМАТИКА</b><br>'+E(mText)+'</span>'+
+        (i>=40?'<span class="reviewBadge">↻ Русский: повторение и закрепление</span>':'');
+    });
+  }
+
+  window.renderBoardCourse=function(){
+    oldRenderBoardCourse();
+    setTimeout(decorateCourse,0);
+  };
+
+  function decorateLesson(){
+    const panel=document.querySelector(".boardLessonPanel");
+    if(!panel || panel.dataset.refreshDecorated==="1")return;
+    panel.dataset.refreshDecorated="1";
+    const head=panel.querySelector(".boardLessonHead");
+    const choice=panel.querySelector(".lessonChoiceCloud");
+    if(head){
+      const n=head.querySelector(".n")?.textContent||"";
+      const num=(n.match(/\d+/)||[""])[0];
+      const meta=document.createElement("div");
+      meta.className="boardLessonMeta";
+      meta.innerHTML='<span>📖 Сначала русский</span><span>🎲 Затем физпауза 2–3 мин</span><span>🔢 Потом математика</span>';
+      head.appendChild(meta);
+      if(+num>=41){
+        const note=document.createElement("div");
+        note.className="lesson1SourceNote";
+        note.textContent="После 40 тем русского языка этот блок работает как повторение и закрепление, пока математика продолжает идти по своему КТП.";
+        head.appendChild(note);
+      }
+    }
+    if(choice && !panel.querySelector(".boardSubjectFlow")){
+      const flow=document.createElement("div");
+      flow.className="boardSubjectFlow";
+      flow.innerHTML='<div class="flowItem">📖 Русский язык<br><small>~20 минут</small></div><div class="flowBreak">→ 🎲 →</div><div class="flowItem">🔢 Математика<br><small>~20 минут</small></div>';
+      choice.parentNode.insertBefore(flow,choice);
+    }
+  }
+
+  window.openBoardLesson=function(num,gr){
+    oldOpenBoardLesson(num,gr);
+    setTimeout(decorateLesson,0);
+  };
+
+  setTimeout(function(){
+    if(document.querySelector(".boardCourseHome"))decorateCourse();
+  },50);
+})();
+</script>
 </body>
 </html>
