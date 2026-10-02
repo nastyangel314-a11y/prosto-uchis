@@ -2168,5 +2168,131 @@ function mathTasks(t,i){
   },30);
 })();
 </script>
+
+<style id="lesson1-board-final-ui">
+.lessonChoiceCloud{display:flex!important;gap:12px;flex-wrap:wrap}
+.lessonChoiceCard.russianChoice{order:1}.lessonChoiceCard.moveChoice{order:2}.lessonChoiceCard.mathChoice{order:3}
+.lesson1SourceNote{margin-top:12px;padding:12px 14px;border-radius:14px;background:#f5f2ff;color:#625b79;font-size:13px}
+.boardStickyNote{position:absolute;z-index:50;width:230px;min-height:145px;background:#fff7a8;border:1px solid #e7d86e;box-shadow:0 10px 24px #4a3d7122;border-radius:10px;padding:34px 12px 12px}
+.boardStickyNote .stickyHead{position:absolute;left:0;right:0;top:0;height:28px;background:#f0df75;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;padding:0 7px;font-size:12px;font-weight:900}
+.boardStickyNote textarea{width:100%;min-height:95px;border:0;outline:0;background:transparent;resize:vertical;font:inherit;line-height:1.35}
+.boardStickyNote .stickyDelete{border:0;background:transparent;cursor:pointer;font-size:16px}
+.boardNoteBtn{font-size:17px!important}
+</style>
+<script id="lesson1-board-final">
+(function(){
+  const C=(q,o,c)=>({type:"c",q:q,o:o,c:c});
+  const I=(q,a)=>({type:"i",q:q,a:String(a)});
+  const T=(q)=>({type:"t",q:q});
+  const O=(q,x,r)=>({type:"o",q:q,x:x,r:r});
+  const P=(q,left,right,map)=>({type:"pair",q:q,left:left,right:right,map:map});
+
+  // Первый урок собран по формулировкам и видам деятельности из материалов КТП:
+  // русский — устная/письменная речь, речь про себя, наблюдение за собственной речью;
+  // математика — роль математики в жизни, счёт 8–10 предметов, сравнение групп,
+  // расположение предметов и порядок событий.
+  const RU1=[
+    C("Какая ситуация относится к устной речи?",["Разговор с учителем","Запись предложения в тетради","Записка"],0),
+    C("Какая ситуация относится к письменной речи?",["Сообщение, которое записали","Разговор с другом","Рассказ вслух"],0),
+    P("Соедини ситуацию с видом речи.",["Устная речь","Письменная речь"],["«Я рассказываю о своём утре»","«Я записываю предложение»"],[0,1]),
+    C("Что можно делать с речью, чтобы собеседнику было понятно?",["Говорить понятно и слушать собеседника","Говорить как можно быстрее","Не слушать ответ"],0),
+    O("Собери правильную последовательность общения.",["Слушаю собеседника","Думаю, что хочу сказать","Говорю понятно"],["Слушаю собеседника","Думаю, что хочу сказать","Говорю понятно"]),
+    T("Практика по учебнику: скажи 2–3 предложения о себе или своём утре. Затем назови, какая это речь — устная. Учитель отмечает, получилось ли говорить понятно и слушать ответ.")
+  ];
+  const M1=[
+    C("Где математика встречается в жизни?",["В школе, дома, в магазине, в играх и при измерениях","Только на уроке","Только в тетради"],0),
+    I("Посчитай предметы: 🍎 🍎 🍎 🍎 🍎 🍎 🍎 🍎","8"),
+    C("В первой группе 5 яблок, во второй 5 звёзд. Как сказать о группах?",["Поровну, предметов столько же","В первой больше","Во второй больше"],0),
+    P("Соедини предметы по парам.",["🍎","🍎","🍎","🍎","🍎"],["⭐","⭐","⭐","⭐","⭐"],[0,1,2,3,4]),
+    C("Книга лежит слева от карандаша. Где карандаш относительно книги?",["Справа","Слева","За"],0),
+    O("Расставь события по порядку.",["Проснуться","Позавтракать","Пойти в школу","Вернуться домой"],["Проснуться","Позавтракать","Пойти в школу","Вернуться домой"]),
+    T("Практика по учебнику: возьми 8–10 любых предметов. Отсчитай названное учителем количество, затем сравни две группы и словами объясни: поровну, больше или меньше.")
+  ];
+
+  const oldMake=window.make;
+  window.make=function(s,g,t,i){
+    if(g===1 && i===0 && s==="russian") return RU1.map(x=>Object.assign({},x));
+    if(g===1 && i===0 && s==="math") return M1.map(x=>Object.assign({},x));
+    return oldMake(s,g,t,i);
+  };
+
+  function addSourceLabel(){
+    const panel=document.querySelector(".boardLessonPanel");
+    if(!panel || panel.querySelector(".lesson1SourceNote")) return;
+    const head=panel.querySelector(".boardLessonHead");
+    if(!head) return;
+    const n=document.createElement("div");
+    n.className="lesson1SourceNote";
+    n.textContent="Урок 1 · 1 класс. Задания составлены по теме КТП и указанным в материалах видам учебной деятельности. Выполнение — прямо на доске, а практику можно дополнить записью в тетради.";
+    head.appendChild(n);
+  }
+
+  // Небольшая удобная кнопка заметки прямо в инструментах доски.
+  function noteKey(){return "pu_board_notes_lesson1";}
+  function readNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||"[]")}catch(_){return[]}}
+  function writeNotes(x){localStorage.setItem(noteKey(),JSON.stringify(x))}
+  function addNote(text,left,top){
+    const w=document.getElementById("boardWorld"); if(!w)return;
+    const d=document.createElement("div");
+    d.className="boardStickyNote";
+    d.style.left=(left||180)+"px"; d.style.top=(top||140)+"px";
+    d.innerHTML='<div class="stickyHead"><span>📝 Заметка</span><button class="stickyDelete" title="Удалить">×</button></div><textarea placeholder="Напиши заметку..."></textarea>';
+    w.appendChild(d);
+    const ta=d.querySelector("textarea"); ta.value=text||"";
+    const save=()=>{
+      const arr=readNotes(), all=[...document.querySelectorAll(".boardStickyNote")], idx=all.indexOf(d);
+      if(idx<0)return;
+      arr[idx]={text:ta.value,left:parseInt(d.style.left)||0,top:parseInt(d.style.top)||0};
+      writeNotes(arr);
+    };
+    ta.addEventListener("input",save);
+    d.querySelector(".stickyDelete").onclick=function(){
+      const all=[...document.querySelectorAll(".boardStickyNote")], idx=all.indexOf(d);
+      d.remove(); const arr=readNotes(); arr.splice(idx,1); writeNotes(arr);
+    };
+    return d;
+  }
+  function restoreNotes(){
+    const w=document.getElementById("boardWorld"); if(!w || w.dataset.notesLoaded==="1")return;
+    w.dataset.notesLoaded="1";
+    readNotes().forEach(n=>addNote(n.text,n.left,n.top));
+  }
+  function installNoteButton(){
+    const tools=document.querySelector(".tools"); if(!tools || tools.querySelector(".boardNoteBtn"))return;
+    const b=document.createElement("button");
+    b.className="boardNoteBtn"; b.textContent="📝"; b.title="Новая заметка";
+    b.onclick=function(e){e.preventDefault();e.stopPropagation();addNote("",180+document.querySelectorAll(".boardStickyNote").length*18,140+document.querySelectorAll(".boardStickyNote").length*18)};
+    tools.appendChild(b);
+  }
+
+  const oldInit=window.initBoard;
+  window.initBoard=function(){
+    if(oldInit) oldInit();
+    installNoteButton();
+    restoreNotes();
+  };
+
+  const oldOpenBoard=window.openBoardLesson;
+  window.openBoardLesson=function(num,gr){
+    oldOpenBoard(num,gr);
+    if(num===0 && gr===1){
+      addSourceLabel();
+      const panel=document.querySelector(".boardLessonPanel");
+      if(panel){
+        const r=panel.querySelector(".russianChoice"), m=panel.querySelector(".mathChoice"), mv=panel.querySelector(".moveChoice");
+        if(r)r.style.order="1";
+        if(mv)mv.style.order="2";
+        if(m)m.style.order="3";
+      }
+    }
+  };
+
+  // Переустанавливаем глобальную ссылку после обёртки.
+  window.openBoardLesson=window.openBoardLesson;
+
+  // Если доска уже открыта — сразу добавить кнопку заметки.
+  setTimeout(function(){installNoteButton();restoreNotes();},80);
+})();
+</script>
 </body>
 </html>
