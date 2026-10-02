@@ -150,11 +150,9 @@ function initCanvas(){
 }
 function pushHistory(){if(!canvas)return;history=history.slice(0,hi+1);history.push(canvas.toDataURL());hi=history.length-1}
 function restore(i){if(!history[i])return;const im=new Image();im.onload=()=>{const r=canvas.getBoundingClientRect(),d=Math.max(1,devicePixelRatio||1);ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,r.width,r.height);ctx.drawImage(im,0,0,r.width,r.height)};im.src=history[i]}
-$("undo").onclick=()=>{if(hi>0){hi--;restore(hi)}};$("redo").onclick=()=>{if(hi<history.length-1){hi++;restore(hi)}};
 document.addEventListener("keydown",e=>{const editing=e.target&&((e.target.isContentEditable)||["INPUT","TEXTAREA"].includes(e.target.tagName));if(editing)return;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="z"){e.preventDefault();if(hi>0){hi--;restore(hi)}}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="y"){e.preventDefault();if(hi<history.length-1){hi++;restore(hi)}}});
-$("clear").onclick=()=>{if(ctx){const r=canvas.getBoundingClientRect(),d=Math.max(1,devicePixelRatio||1);ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,r.width,r.height);document.querySelectorAll(".boardObject,.sticky,.circle").forEach(x=>x.remove());pushHistory()}};
 $("thick").onclick=()=>size=Math.min(14,size+2);$("thin").onclick=()=>size=Math.max(1,size-2);
-function setTool(t){tool=t;document.querySelectorAll(".tools button").forEach(x=>x.classList.remove("active"));const id=t==="text"?"textTool":t+"Tool";if($(id))$(id).classList.add("active");$("boardMode").textContent={select:"Курсор",hand:"Рука",pen:"Карандаш",marker:"Маркер",eraser:"Ластик",text:"Текст",shape:"Фигура",arrow:"Стрелка",reaction:"Реакция"}[t]||t}
+function setTool(t){tool=t;document.querySelectorAll(".tools button").forEach(x=>x.classList.remove("active"));const id=t==="text"?"textTool":t+"Tool";if($(id))$(id).classList.add("active");if($("boardMode"))$("boardMode").textContent={select:"Курсор",hand:"Рука",pen:"Карандаш",marker:"Маркер",eraser:"Ластик",text:"Текст",shape:"Фигура",arrow:"Стрелка",reaction:"Реакция"}[t]||t}
 ["selectTool","handTool","pen","marker","eraser","textTool","shapeTool","arrowTool","reactionTool"].forEach(id=>{if($(id))$(id).onclick=()=>setTool({selectTool:"select",handTool:"hand",pen:"pen",marker:"marker",eraser:"eraser",textTool:"text",shapeTool:"shape",arrowTool:"arrow",reactionTool:"reaction"}[id])});
 function dragObject(e){
  const el=e.currentTarget;
@@ -175,14 +173,9 @@ $("tableTool").onclick=()=>{setTool("select");addTable()};
 $("fileTool").onclick=()=>$("fileInput").click();
 $("fileInput").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=ev=>{const img=document.createElement("img");img.src=ev.target.result;img.className="boardObject imageObject";img.style.left="20%";img.style.top="20%";img.onpointerdown=dragObject;$("boardArea").appendChild(img)};rd.readAsDataURL(f);e.target.value=""};
 function makeEditableNote(text,left,top){const e=document.createElement("div");e.className="sticky";e.style.left=left||"18%";e.style.top=top||"18%";e.innerHTML='<div class="noteBar"><span>Заметка</span><button title="Удалить">✕</button></div><div class="noteText" contenteditable="true"></div>';e.querySelector(".noteText").textContent=text||"Напиши здесь…";e.querySelector(".noteBar button").onclick=ev=>{ev.stopPropagation();e.remove()};e.onpointerdown=dragObject;e.ondblclick=()=>{const n=e.querySelector(".noteText");n.focus()};$("boardArea").appendChild(e);e.querySelector(".noteText").focus()}
-$("sticky").onclick=()=>makeEditableNote("Напиши здесь…");$("stickerBtn").onclick=()=>addSticker();$("frameBtn").onclick=()=>addFrame();$("duplicateBtn").onclick=()=>duplicateSelected();
-$("circle").onclick=()=>{addShape(150+Math.random()*250,100+Math.random()*180)};
 function setZoom(z){zoom=Math.max(.7,Math.min(1.5,z));$("boardArea").style.transform="scale("+zoom+")";$("boardArea").style.transformOrigin="top left";$("zoomReset").textContent=Math.round(zoom*100)+"%"}
-$("zoomIn").onclick=()=>setZoom(zoom+.1);$("zoomOut").onclick=()=>setZoom(zoom-.1);$("zoomReset").onclick=()=>setZoom(1);
-$("gridDots").onclick=()=>{$("boardArea").style.backgroundImage="radial-gradient(#dfe3ec 1px,transparent 1px)";$("boardArea").style.backgroundSize="18px 18px"};
 $("gridLines").onclick=()=>{$("boardArea").style.backgroundImage="linear-gradient(#edf0f5 1px,transparent 1px),linear-gradient(90deg,#edf0f5 1px,transparent 1px)";$("boardArea").style.backgroundSize="28px 28px"};
 $("gridBlank").onclick=()=>{$("boardArea").style.backgroundImage="none"};
-$("fitBoard").onclick=()=>setZoom(1);
 
 // VK-style board controls
 $("boardTitleBtn").onclick=()=>{const n=prompt("Название доски","Новая доска");if(n)$("boardTitleBtn").textContent=n+" ▾"};
