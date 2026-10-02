@@ -260,7 +260,7 @@ renderStudents();renderProgram();renderLessons();show("home");setTimeout(initBoa
       const dist=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
       zoomAt(pinchScale*(dist/pinchStart.dist),pinchStart.cx,pinchStart.cy);
     },{passive:false});
-    board.addEventListener("touchend",function(){if(event.touches&&event.touches.length<2)pinchStart=null;});
+    board.addEventListener("touchend",function(e){if(!e.touches||e.touches.length<2)pinchStart=null;});
 
     window.boardView.x=-80;
     window.boardView.y=-60;
