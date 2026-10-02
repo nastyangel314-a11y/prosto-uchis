@@ -167,5 +167,115 @@ on("fileTool","click",()=>{const f=$("fileInput");if(f)f.click()});on("fileInput
 window.addEventListener("resize",()=>{if($("boardArea")&&$("boardArea").offsetParent!==null)initBoard()});
 renderStudents();renderProgram();renderLessons();show("home");setTimeout(initBoard,50);
 </script>
+
+<script>
+(function(){
+  function wireWorkingBoard(){
+    const board=document.getElementById("boardArea");
+    const world=document.getElementById("boardWorld");
+    if(!board||!world||board.dataset.wired==="1") return;
+    board.dataset.wired="1";
+    let dragging=false, moved=false, sx=0, sy=0, ox=0, oy=0;
+    let pinchStart=null, pinchScale=1;
+
+    function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
+    function apply(){
+      if(window.applyBoardView) window.applyBoardView();
+      else world.style.transform="translate("+window.boardView.x+"px,"+window.boardView.y+"px) scale("+window.boardView.scale+")";
+    }
+    function zoomAt(next,cx,cy){
+      const old=window.boardView.scale;
+      next=clamp(next,.35,2.5);
+      if(next===old) return;
+      const wx=(cx-window.boardView.x)/old;
+      const wy=(cy-window.boardView.y)/old;
+      window.boardView.scale=next;
+      window.boardView.x=cx-wx*next;
+      window.boardView.y=cy-wy*next;
+      apply();
+    }
+    function point(e){
+      const r=board.getBoundingClientRect();
+      return {x:e.clientX-r.left,y:e.clientY-r.top};
+    }
+
+    board.addEventListener("pointerdown",function(e){
+      if(e.button!==undefined && e.button!==0) return;
+      const interactive=e.target.closest(".courseNode,.boardObject,button,input,select");
+      if(interactive && e.target.closest(".courseNode")) return;
+      if(interactive && !e.target.closest(".board")) return;
+      dragging=true;moved=false;
+      const p=point(e);sx=p.x;sy=p.y;ox=window.boardView.x;oy=window.boardView.y;
+      board.classList.add("panning");
+      try{board.setPointerCapture(e.pointerId)}catch(_){}
+    });
+    board.addEventListener("pointermove",function(e){
+      if(!dragging) return;
+      const p=point(e);
+      const dx=p.x-sx,dy=p.y-sy;
+      if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
+      window.boardView.x=ox+dx;
+      window.boardView.y=oy+dy;
+      apply();
+    });
+    function end(e){
+      if(!dragging)return;
+      dragging=false;board.classList.remove("panning");
+      try{board.releasePointerCapture(e.pointerId)}catch(_){}
+    }
+    board.addEventListener("pointerup",end);
+    board.addEventListener("pointercancel",end);
+
+    board.addEventListener("click",function(e){
+      if(moved){
+        e.preventDefault();e.stopPropagation();
+      }
+    },true);
+
+    board.addEventListener("wheel",function(e){
+      e.preventDefault();
+      const p=point(e);
+      const factor=e.deltaY<0?1.12:.89;
+      zoomAt(window.boardView.scale*factor,p.x,p.y);
+    },{passive:false});
+
+    board.addEventListener("dblclick",function(e){
+      if(e.target.closest(".courseNode")) return;
+      const p=point(e);
+      zoomAt(window.boardView.scale*1.25,p.x,p.y);
+    });
+
+    board.addEventListener("touchstart",function(e){
+      if(e.touches.length!==2)return;
+      const a=e.touches[0],b=e.touches[1];
+      pinchStart={dist:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY),
+        cx:(a.clientX+b.clientX)/2-board.getBoundingClientRect().left,
+        cy:(a.clientY+b.clientY)/2-board.getBoundingClientRect().top};
+      pinchScale=window.boardView.scale;
+    },{passive:true});
+    board.addEventListener("touchmove",function(e){
+      if(e.touches.length!==2||!pinchStart)return;
+      e.preventDefault();
+      const a=e.touches[0],b=e.touches[1];
+      const dist=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+      zoomAt(pinchScale*(dist/pinchStart.dist),pinchStart.cx,pinchStart.cy);
+    },{passive:false});
+    board.addEventListener("touchend",function(){if(event.touches&&event.touches.length<2)pinchStart=null;});
+
+    window.boardView.x=-80;
+    window.boardView.y=-60;
+    window.boardView.scale=.72;
+    apply();
+  }
+
+  const oldInit=window.initBoard;
+  window.initBoard=function(){
+    if(oldInit) oldInit();
+    wireWorkingBoard();
+  };
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",wireWorkingBoard);
+  else setTimeout(wireWorkingBoard,0);
+})();
+</script>
 </body>
 </html>
