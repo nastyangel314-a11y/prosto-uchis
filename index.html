@@ -2407,50 +2407,5 @@ function mathTasks(t,i){
 })();
 </script>
 <style id="fix-board-clicks">.boardLessonPanel,.boardCourseHome{pointer-events:auto}.boardSelectedArea,.boardOpenedSubject,.boardTasks,.clearTask,.clearChoices,.clearChoice,.clearTask button,.clearTask input,.clearTask textarea{pointer-events:auto}</style>
-<style id="hard-interaction-fix">
-/* Interactive lesson controls must always receive mouse/touch input. */
-#taskArea,#taskArea *,#taskArea button,#taskArea input,
-.boardLessonPanel,.boardLessonPanel *,.boardLessonPanel button,.boardLessonPanel input,
-.boardSelectedArea,.boardSelectedArea button,.boardSelectedArea input,
-.boardTasks,.boardTask,.boardChoices,.boardSequence,.boardPairs,
-.boardChoice,.boardSeq,.boardPairL,.boardPairR,
-.lessonChoiceCloud,.lessonChoiceCard{
-  pointer-events:auto!important;
-  touch-action:manipulation!important;
-}
-#taskArea,.boardLessonPanel,.boardSelectedArea{position:relative;z-index:500}
-#taskArea button,.boardLessonPanel button,.boardSelectedArea button{position:relative;z-index:501;cursor:pointer!important}
-#taskArea input,.boardLessonPanel input{position:relative;z-index:501}
-</style>
-<script id="hard-interaction-fix-js">
-(function(){
-  function lessonClick(e){
-    const b=e.target.closest("#taskArea .gameCard,#taskArea .seqItem,#taskArea .matchBtn,#taskArea #check,#taskArea #ord");
-    if(!b || !window.activeLesson) return;
-    // The original handlers are installed by renderTask. This listener only
-    // guarantees a real click path on touch devices; do not duplicate work.
-    if(typeof b.onclick==="function") return;
-    const ev=new MouseEvent("click",{bubbles:false,cancelable:true,view:window});
-    Object.defineProperty(ev,"__hardFix",{value:true});
-    b.dispatchEvent(ev);
-  }
-  document.addEventListener("click",lessonClick,true);
-
-  // On the infinite board, disable only the board's gesture interception
-  // while the pointer is over an actual interactive control.
-  const board=document.getElementById("boardArea");
-  if(board){
-    board.addEventListener("pointerdown",function(e){
-      if(e.target.closest("button,input,textarea,.boardLessonPanel,.boardSelectedArea")){
-        e.stopImmediatePropagation();
-      }
-    },true);
-    board.addEventListener("click",function(e){
-      if(e.target.closest("button,input,textarea,.boardLessonPanel,.boardSelectedArea")){
-        e.stopImmediatePropagation();
-      }
-    },true);
-  }
-})();
-</script></body>
+</body>
 </html>
