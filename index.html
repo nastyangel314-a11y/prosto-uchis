@@ -2014,5 +2014,91 @@ function mathTasks(t,i){
   const lessonNav=document.querySelector('.nav button[data-page="lessons"]');if(lessonNav){lessonNav.innerHTML="📝 Уроки";lessonNav.onclick=function(){show("pairHub");renderHub(document.getElementById("pairHub"))}}
   window.prostoPair={start:startPair,showHub:function(){show("pairHub");renderHub(document.getElementById("pairHub"))}};
 })();
-</script></body>
+</script>
+<style id="student-notebook-ui">
+.studentNotebook{margin-top:18px}.studentNotebookGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.studentNotebookCard{background:#fff;border:1px solid #e9e7f2;border-radius:22px;padding:20px;box-shadow:0 8px 24px rgba(72,54,120,.06)}
+.studentListCard{cursor:pointer;transition:.18s}.studentListCard:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(72,54,120,.10)}
+.studentListHead{display:flex;align-items:center;justify-content:space-between;gap:12px}.studentListAvatar{width:52px;height:52px;border-radius:16px;background:#eee8ff;display:grid;place-items:center;font-size:25px}
+.studentListName{font-size:20px;font-weight:800}.studentMeta{margin-top:3px;color:#77758a}.studentOpen{margin-top:16px}
+.notebookTable{width:100%;border-collapse:separate;border-spacing:0 8px}.notebookTable th{text-align:left;color:#7b788b;font-size:13px;padding:0 10px}.notebookTable td{background:#faf9fd;padding:10px;border-top:1px solid #eeeaf5;border-bottom:1px solid #eeeaf5}.notebookTable td:first-child{border-left:1px solid #eeeaf5;border-radius:12px 0 0 12px}.notebookTable td:last-child{border-right:1px solid #eeeaf5;border-radius:0 12px 12px 0}
+.ratingSelect{border:1px solid #ded9eb;border-radius:10px;padding:8px;background:#fff}.noteInput{width:100%;border:1px solid #ded9eb;border-radius:10px;padding:9px;background:#fff}
+.noteSave{white-space:nowrap}.ratingBadge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-weight:700;font-size:12px}.r1{background:#ffe4e4}.r2{background:#fff0d7}.r3{background:#fff8cf}.r4{background:#e4f7e8}
+.notebookTabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.notebookTab{padding:9px 13px;border-radius:12px;background:#f3f0fa}.notebookTab.active{background:#e7ddff;font-weight:800}
+.quickNote{min-height:120px;resize:vertical;width:100%;border:1px solid #ded9eb;border-radius:14px;padding:12px}
+@media(max-width:900px){.studentNotebookGrid{grid-template-columns:1fr}.notebookTable{font-size:13px}.notebookTable th:nth-child(3),.notebookTable td:nth-child(3){display:none}}
+</style>
+<script>
+(function(){
+  function esc(x){return E(String(x||""))}
+  function noteKey(st){return "pu_notebook_"+st.name}
+  function getNotebook(st){
+    var raw=localStorage.getItem(noteKey(st));
+    if(raw)return JSON.parse(raw);
+    return {ratings:{},notes:""};
+  }
+  function saveNotebook(st,n){localStorage.setItem(noteKey(st),JSON.stringify(n))}
+  function ratingInfo(v){
+    v=+v||0;
+    return v<=3?["🔴","Нужна отработка","r1"]:v<=6?["🟠","Пока неустойчиво","r2"]:v<=8?["🟡","Усвоено","r3"]:["🟢","Уверенно","r4"];
+  }
+  function topicRows(st){
+    var g=Number(String(st.grade).match(/\d+/)?.[0]||1), n=getNotebook(st), rows=[];
+    ["russian","math"].forEach(function(s){
+      var arr=A(s,g)||[];
+      arr.forEach(function(t,i){if(t)rows.push({s:s,i:i,title:t,rating:n.ratings[s+"_"+i]||""})});
+    });
+    return rows;
+  }
+  window.renderStudents=function(){
+    var box=$("studentList");if(!box)return;
+    var ss=students();
+    box.innerHTML=ss.map(function(st,idx){
+      var initial=(st.name||"?").trim().charAt(0).toUpperCase();
+      var nb=getNotebook(st), vals=Object.keys(nb.ratings).map(function(k){return +nb.ratings[k]||0}).filter(Boolean);
+      var avg=vals.length?Math.round(vals.reduce(function(a,b){return a+b},0)/vals.length):0;
+      return '<div class="studentNotebookCard studentListCard" data-student-index="'+idx+'"><div class="studentListHead"><div style="display:flex;gap:14px;align-items:center"><div class="studentListAvatar">'+esc(initial)+'</div><div><div class="studentListName">'+esc(st.name)+'</div><div class="studentMeta">'+esc(st.grade)+' · '+(avg?("средняя отметка "+avg+"/10"):"оценки ещё не внесены")+'</div></div></div><span>→</span></div><div class="studentOpen"><button class="primary" data-open-student="'+idx+'">Открыть дневник</button></div></div>';
+    }).join("");
+  };
+  function openStudentNotebook(st){
+    localStorage.setItem("pu_active_student",st.name);
+    var g=Number(String(st.grade).match(/\d+/)?.[0]||1), nb=getNotebook(st);
+    $("studentProfile").innerHTML='<div class="top"><div><button class="secondary" id="backStudentsNew">← Ученики</button></div><span class="studentTag">'+esc(st.grade)+'</span></div>'+
+      '<div class="studentNotebook"><div class="studentNotebookGrid">'+
+      '<div class="studentNotebookCard"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><h1 style="margin:0">'+esc(st.name)+'</h1><div class="muted">Рабочий дневник репетитора · '+esc(st.grade)+'</div></div><button class="primary" id="studentBoardNew">▶ Начать занятие</button></div>'+
+      '<div class="notebookTabs"><button class="notebookTab active" data-nb-sub="russian">🔤 Русский</button><button class="notebookTab" data-nb-sub="math">➗ Математика</button></div>'+
+      '<div id="notebookTopics"></div></div>'+
+      '<div><div class="studentNotebookCard"><h2 style="margin-top:0">📝 Заметки репетитора</h2><div class="muted">Пиши сюда всё, что важно помнить на следующем занятии.</div><textarea id="studentQuickNote" class="quickNote" placeholder="Например: путает Е и Ё; вернуться к слогам...">'+esc(nb.notes)+'</textarea><button class="primary" id="saveQuickNote" style="margin-top:10px">Сохранить заметку</button><div id="noteSaved" class="muted" style="margin-top:8px"></div></div>'+
+      '<div class="studentNotebookCard" style="margin-top:16px"><h2 style="margin-top:0">Как отмечать усвоение</h2><div class="muted">Это личная оценка репетитора, а не автоматическая оценка сайта.</div><p>🔴 1–3 · нужна отработка</p><p>🟠 4–6 · пока неустойчиво</p><p>🟡 7–8 · усвоено</p><p>🟢 9–10 · уверенно</p></div></div></div></div>';
+    show("studentProfile");
+    function renderSub(sub){
+      var arr=A(sub,g)||[];
+      var html='<table class="notebookTable"><thead><tr><th>Тема КТП</th><th>Усвоение</th><th>Заметка по теме</th><th></th></tr></thead><tbody>';
+      arr.forEach(function(t,i){
+        var key=sub+"_"+i, v=nb.ratings[key]||"", info=ratingInfo(v), tn=nb.topicNotes&&nb.topicNotes[key]||"";
+        html+='<tr><td><b>'+(i+1)+'.</b> '+esc(t)+'</td><td><select class="ratingSelect" data-rate="'+key+'"><option value="">—</option>'+Array.from({length:10},(_,j)=>'<option value="'+(j+1)+'" '+(+v===j+1?"selected":"")+'>'+(j+1)+'/10</option>').join("")+'</select>'+(v?'<div class="ratingBadge '+info[2]+'">'+info[0]+' '+info[1]+'</div>':'')+'</td><td><input class="noteInput" data-topic-note="'+key+'" value="'+esc(tn)+'" placeholder="Короткая пометка"></td><td><button class="secondary noteSave" data-save-topic="'+key+'">Сохранить</button></td></tr>';
+      });
+      html+='</tbody></table>';
+      $("notebookTopics").innerHTML=html;
+      $("notebookTopics").querySelectorAll("[data-save-topic]").forEach(function(b){b.onclick=function(){
+        var key=b.dataset.saveTopic, sel=$('[data-rate="'+key+'"]'), inp=$('[data-topic-note="'+key+'"]');
+        nb.ratings[key]=sel.value?+sel.value:0;nb.topicNotes=nb.topicNotes||{};nb.topicNotes[key]=inp.value.trim();saveNotebook(st,nb);renderSub(sub);
+      }});
+    }
+    renderSub("russian");
+    document.querySelectorAll("[data-nb-sub]").forEach(function(b){b.onclick=function(){document.querySelectorAll("[data-nb-sub]").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderSub(b.dataset.nbSub)}});
+    on("backStudentsNew","click",function(){renderStudents();show("students")});
+    on("saveQuickNote","click",function(){nb.notes=$("studentQuickNote").value;saveNotebook(st,nb);$("noteSaved").textContent="✓ Сохранено"});
+    on("studentBoardNew","click",function(){show("board");setTimeout(function(){syncBoardFilters();initBoard()},40)});
+  }
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-open-student]");
+    if(b){e.preventDefault();e.stopPropagation();var st=students()[+b.dataset.openStudent];if(st)openStudentNotebook(st)}
+  },true);
+  var oldStudents=window.students;
+  if(!window.students){window.students=function(){return JSON.parse(localStorage.getItem("pu_students")||JSON.stringify([{name:"Маша",grade:"1 класс",progress:72},{name:"Артём",grade:"2 класс",progress:58},{name:"София",grade:"3 класс",progress:84}]))}}
+  window.addEventListener("load",function(){renderStudents()});
+})();
+</script>
+</body>
 </html>
