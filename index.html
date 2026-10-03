@@ -2593,6 +2593,8 @@ window.openBoardLesson=function(num,gr){
   var area=panel.querySelector(".boardSelectedArea");
   var russian=panel.querySelector(".russianChoice"), move=panel.querySelector(".moveChoice"), math=panel.querySelector(".mathChoice");
   var oldR=russian&&russian.onclick,oldM=move&&move.onclick,oldMath=math&&math.onclick;
+  if(move)move.disabled=true;
+  if(math)math.disabled=true;
   var state={r:false,move:false,math:false};
   function bar(active){
     return '<div class="flowBar"><span class="flowStep '+(active==="r"?"active":"")+(state.r?" done":"")+'">1. 📖 Русский</span><span class="flowStep '+(active==="move"?"active":"")+(state.move?" done":"")+'">2. 🎲 Физкультминутка</span><span class="flowStep '+(active==="math"?"active":"")+(state.math?" done":"")+'">3. 🔢 Математика</span></div>';
