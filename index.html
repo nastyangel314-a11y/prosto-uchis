@@ -246,7 +246,7 @@ const $=id=>document.getElementById(id);
 const moods=[["😊","Готовимся"],["🤩","Сегодня получится!"],["🌟","Пробуем новое"],["🧠","Включаем внимание"],["🚀","Поехали!"]];
 const warmups=[["Потянись к солнышку","Встань и потянись вверх 3 раза."],["Весёлые хлопки","Хлопни 5 раз над головой и 5 раз перед собой."],["Дерево","Покачайся вправо-влево 6 раз."],["Пружинка","Сделай 5 лёгких приседаний."],["Самолёт","Разведи руки и сделай 3 плавных поворота."],["Дождик","Постучи пальцами по ладони и потянись вверх."],["Котёнок","Потянись всем телом и расслабь плечи."],["Смешная зарядка","Шагай на месте, меняя руки каждые 2 шага."],["Замри!","Двигайся 10 секунд, потом замри в смешной позе."],["Ладошки","Ритм: 2 хлопка, пауза, 3 хлопка."],["Глазки отдыхают","Посмотри вдаль, затем на палец. Повтори 3 раза."],["Финишная волна","Потянись вверх, встряхни кистями и улыбнись."]];
 var activeLesson=window.activeLesson={s:"russian",t:"Наша речь",tasks:[],index:0,answered:false};
-function students(){return JSON.parse(localStorage.getItem("pu_students")||JSON.stringify([{name:"Маша",grade:"1 класс",progress:72},{name:"Артём",grade:"2 класс",progress:58},{name:"София",grade:"3 класс",progress:84}]))}
+function students(){return JSON.parse(localStorage.getItem("pu_students")||"[]")}
 function saveStudents(x){localStorage.setItem("pu_students",JSON.stringify(x))}
 function studentState(st){const key="pu_student_"+st.name;return JSON.parse(localStorage.getItem(key)||JSON.stringify({russian:st.progress||0,math:Math.max(0,(st.progress||0)-4),topics:0,results:[],boardId:"class-"+st.grade[0]}))}
 function saveStudentState(st,state){localStorage.setItem("pu_student_"+st.name,JSON.stringify(state))}
@@ -263,7 +263,7 @@ on("addStudentBtn","click",()=>$("modal").classList.add("show"));on("backStudent
 on("studentProgramBtn","click",()=>{const s=currentStudent();if(s){$("grade").value=s.grade;show("program")}});
 on("openStudentBoard","click",()=>{const s=currentStudent();if(s){show("board");setTimeout(()=>{syncBoardFilters();initBoard()},40)}});
 on("closeModal","click",()=>$("modal").classList.remove("show"));
-on("saveStudent","click",()=>{const n=$("newName").value.trim(),g=$("newGrade").value.trim()||"1 класс";if(!n)return;$("newName").value="";$("newGrade").value="";const s=students();s.push({name:n,grade:g,progress:0});saveStudents(s);$("modal").classList.remove("show");renderStudents()});
+on("saveStudent","click",()=>{if(window.addTutorStudent)window.addTutorStudent()});
 on("backLessons","click",()=>show("program"));on("prevTask","click",()=>{if(activeLesson.index>0){activeLesson.index--;renderTask()}});
 on("nextTask","click",()=>{if(!activeLesson.answered){$("result").textContent="Сначала выбери ответ 😊";$("result").className="taskExplain show";return}if(activeLesson.index<activeLesson.tasks.length-1){activeLesson.index++;renderTask()}else{$("successBox").classList.add("show")}});
 on("rollDice","click",rollWarmup);on("openBoardFromLesson","click",()=>{show("board");setTimeout(()=>{syncBoardFilters();initBoard()},40)});
@@ -2097,7 +2097,7 @@ function mathTasks(t,i){
     if(b){e.preventDefault();e.stopPropagation();var st=students()[+b.dataset.openStudent];if(st)openStudentNotebook(st)}
   },true);
   var oldStudents=window.students;
-  if(!window.students){window.students=function(){return JSON.parse(localStorage.getItem("pu_students")||JSON.stringify([{name:"Маша",grade:"1 класс",progress:72},{name:"Артём",grade:"2 класс",progress:58},{name:"София",grade:"3 класс",progress:84}]))}}
+  if(!window.students){window.students=function(){return JSON.parse(localStorage.getItem("pu_students")||"[]")}}
   window.addEventListener("load",function(){renderStudents()});
 })();
 </script>
@@ -2569,7 +2569,15 @@ function mathTasks(t,i){
   }
 })();
 </script>
-</body>
+<style id="TUTOR-AUTH-STUDENT-UI">
+body:not(.tutor-auth-ok) .app{display:none!important}
+#tutorAuth{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#f4f0ff,#fff7fb 55%,#eef8ff)}
+.tutorAuthCard{width:min(460px,100%);background:#fff;border:1px solid #e5def3;border-radius:28px;padding:30px;box-shadow:0 24px 70px rgba(65,48,110,.12)}
+.tutorLogo{font-size:25px;font-weight:900;color:#2f2d3a}.tutorLogo span{color:#7158f5}.tutorAuthKicker{margin-top:26px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#7158f5}.tutorAuthCard h1{margin:7px 0;font-size:30px}.tutorAuthCard>p{color:#77758a;line-height:1.45}
+#authForm{display:grid;gap:12px;margin-top:22px}.tutorAuthCard label{display:grid;gap:6px;font-size:13px;font-weight:800;color:#4e4a5d}.tutorAuthCard input{width:100%;padding:13px 14px;border:1px solid #ddd8ea;border-radius:13px;background:#fff;outline:none}.tutorAuthCard input:focus{border-color:#8c78ef;box-shadow:0 0 0 3px #8c78ef1f}.authError{min-height:20px;color:#c34b61;font-size:13px;font-weight:800}.authSwitch{margin-top:15px;width:100%;background:#f1edff;color:#6249cf;padding:11px 14px;border-radius:12px;font-weight:800}.authLocalNote{margin-top:16px;padding:11px 13px;border-radius:12px;background:#f7f5fa;color:#77758a;font-size:11px;line-height:1.4}
+#tutorLogout{margin-top:18px!important;background:#fff0f2!important;color:#c34b61!important}.emptyStudents{grid-column:1/-1;background:#fff;border:2px dashed #ddd7ed;border-radius:22px;padding:42px 24px;text-align:center}.emptyIcon{font-size:44px}.emptyStudents h2{margin:10px 0 6px}.emptyStudents p{color:#77758a;margin:0 0 18px}.studentOpen{display:flex;gap:8px;flex-wrap:wrap}.studentDelete{padding:11px 14px}
+@media(max-width:600px){.tutorAuthCard{padding:22px}.tutorAuthCard h1{font-size:25px}}
+</style><script src="tutor-auth-students-v1.js"></script></body>
 </html>
 
 
