@@ -2579,3 +2579,80 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 })();
 </script><script id="topic-tasks-v5-loader">if(!document.querySelector('script[src$="topic-tasks-v5.js"]')){var s=document.createElement("script");s.src="topic-tasks-v5.js";document.head.appendChild(s)}</script></body>
 </html>
+
+<style id="lesson-flow-v6">.flowBar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.flowStep{padding:7px 11px;border-radius:999px;background:#f1eff8;color:#77758a;font-size:12px;font-weight:900}.flowStep.active{background:#e9e5ff;color:#5d49c8}.flowStep.done{background:#e7f8ef;color:#26754d}.nextFlow{margin-top:14px;display:flex;justify-content:flex-end}.nextFlow button{border:0;border-radius:12px;padding:10px 15px;font-weight:900;cursor:pointer}.diceFace{font-size:72px;text-align:center;margin:12px}.moveInstruction{font-size:20px;font-weight:900;text-align:center;padding:12px}.boardLessonPanel .lessonChoiceCard[disabled]{opacity:.55}</style>
+<script id="LESSON-FLOW-STABLE-V6">(function(){
+var baseOpen=window.openBoardLesson;
+var faces=["⚀","⚁","⚂","⚃","⚄","⚅"];
+var moves=["Потянись к солнышку — 3 раза вверх.","Хлопки — 5 хлопков над головой.","Дерево — покачайся вправо-влево 10 секунд.","Пружинка — 5 лёгких приседаний.","Самолёт — 3 поворота с разведёнными руками.","Замри — двигайся 10 секунд и замри."];
+window.openBoardLesson=function(num,gr){
+  baseOpen(num,gr);
+  var m=document.getElementById("courseMap"); if(!m)return;
+  var panel=m.querySelector(".boardLessonPanel"); if(!panel)return;
+  var choices=panel.querySelector(".lessonChoiceCloud"); if(!choices)return;
+  var area=panel.querySelector(".boardSelectedArea");
+  var russian=panel.querySelector(".russianChoice"), move=panel.querySelector(".moveChoice"), math=panel.querySelector(".mathChoice");
+  var oldR=russian&&russian.onclick,oldM=move&&move.onclick,oldMath=math&&math.onclick;
+  var state={r:false,move:false,math:false};
+  function bar(active){
+    return '<div class="flowBar"><span class="flowStep '+(active==="r"?"active":"")+(state.r?" done":"")+'">1. 📖 Русский</span><span class="flowStep '+(active==="move"?"active":"")+(state.move?" done":"")+'">2. 🎲 Физкультминутка</span><span class="flowStep '+(active==="math"?"active":"")+(state.math?" done":"")+'">3. 🔢 Математика</span></div>';
+  }
+  function showMathGate(){
+    if(math){math.disabled=false;math.classList.remove("disabled");}
+  }
+  function finish(kind){
+    state[kind]=true;
+    if(kind==="r"){showMathGate(); if(move)move.disabled=false;}
+  }
+  if(russian)russian.onclick=function(e){
+    if(oldR)oldR.call(this,e);
+    setTimeout(function(){
+      finish("r");
+      var top=area.querySelector(".openedSubjectTop");
+      if(top)top.insertAdjacentHTML("afterbegin",bar("r"));
+      var close=area.querySelector(".closeBoardSubject");
+      if(close){close.onclick=function(){area.innerHTML="";};}
+      var wrap=area.querySelector(".boardTasks");
+      if(wrap&&!wrap.querySelector(".nextFlow")){
+        var n=document.createElement("div");n.className="nextFlow";
+        n.innerHTML='<button class="primary">Готово с русским → 🎲 Физкультминутка</button>';
+        wrap.appendChild(n);
+        n.querySelector("button").onclick=function(){move&&move.click();};
+      }
+    },30);
+  };
+  if(move)move.onclick=function(e){
+    if(oldM)oldM.call(this,e);
+    setTimeout(function(){
+      state.move=true;
+      var sec=area.querySelector(".movePanel"); if(!sec)return;
+      var face=Math.floor(Math.random()*6), n=face+1;
+      sec.innerHTML='<div class="openedSubjectTop"><div><span class="n">🎲 Физкультминутка</span><h3>Шаг 2 из 3</h3></div><button class="secondary closeMove">Свернуть</button></div>'+bar("move")+'<div class="diceFace">'+faces[face]+'</div><div class="moveInstruction">'+E(moves[face])+'</div><div class="nextFlow"><button class="primary goMath">Готово → 🔢 Математика</button></div>';
+      sec.querySelector(".goMath").onclick=function(){math&&math.click();};
+      sec.querySelector(".closeMove").onclick=function(){area.innerHTML=""};
+      area.scrollIntoView({behavior:"smooth",block:"start"});
+    },30);
+  };
+  if(math)math.onclick=function(e){
+    if(oldMath)oldMath.call(this,e);
+    setTimeout(function(){
+      finish("math");
+      var top=area.querySelector(".openedSubjectTop");
+      if(top)top.insertAdjacentHTML("afterbegin",bar("math"));
+      var wrap=area.querySelector(".boardTasks");
+      if(wrap&&!wrap.querySelector(".lessonComplete")){
+        var done=document.createElement("div");done.className="nextFlow lessonComplete";
+        done.innerHTML='<button class="primary">✓ Урок '+(num+1)+' завершён</button>';
+        wrap.appendChild(done);
+        done.querySelector("button").onclick=function(){
+          var next=num+1;
+          if(next<132)window.openBoardLesson(next,gr);else window.renderBoardCourse();
+        };
+      }
+    },30);
+  };
+  var note=document.createElement("div");note.className="flowBar";
+  note.innerHTML=bar("r");
+  panel.querySelector(".boardLessonHead").appendChild(note);
+};
+})();</script>
