@@ -6,7 +6,7 @@ function save(x){localStorage.setItem("pu_students",JSON.stringify(x))}
 function gradeNumber(st){return Number(String(st.grade||"1").match(/\d+/)?.[0]||1)}
 function notebook(st){try{return JSON.parse(localStorage.getItem("pu_notebook_"+st.name)||"{}")}catch(e){return{}}}
 function avg(st){var n=notebook(st),v=Object.keys(n.ratings||{}).map(function(k){return +n.ratings[k]||0}).filter(Boolean);return v.length?Math.round(v.reduce(function(a,b){return a+b},0)/v.length):0}
-function cleanOptions(){
+function normalizeStudents(){var a=list(),changed=false;a.forEach(function(st){if(st.grade!=="1 класс"){st.grade="1 класс";changed=true}});if(changed)save(a)}\nfunction cleanOptions(){
  document.querySelectorAll("#grade,#boardGrade,#newGrade").forEach(function(sel){
    if(!sel)return;
    if(sel.id==="newGrade"){
