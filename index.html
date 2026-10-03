@@ -89,7 +89,7 @@ body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-wid
 <div class="taskDeck"><div class="deckHead"><div><div class="phaseLabel">🎮 23–35 минут • Игровая практика</div><h2>Миссии для героя</h2><div class="muted">Меняем механику, чтобы ребёнок не просто кликал один и тот же тест.</div></div><div class="taskDots" id="taskDots"></div></div><div class="visualTask"><span class="taskBadge" id="taskBadge">Миссия 1</span><div class="taskPrompt" id="question"></div><div id="taskArea"></div><div class="taskExplain" id="result"></div><div class="taskNav"><button class="secondary" id="prevTask">← Назад</button><button class="primary" id="nextTask">Дальше →</button></div></div><div class="successBox" id="successBox"><div class="successStars">⭐ ⭐ ⭐</div><h2>Миссия выполнена!</h2><p>Ты прошёл урок. Теперь можно выбрать следующую тему.</p></div></div>
 <div class="boardPractice"><div><div class="phaseLabel">🏁 35–40 минут • Финиш</div><h2 style="margin:0 0 6px">Финальная битва</h2><div class="muted">Нарисуй ответ, объясни правило или разберись с последней ошибкой на доске.</div></div><button class="primary" id="openBoardFromLesson">Открыть доску</button></div>
 </div></div></div></section>
-<section id="board" class="page" style="display:none"><div class="top"><div><h1>Интерактивная доска</h1><div class="muted">Рисуй, пиши, добавляй картинки и стикеры</div></div></div><div class="boardWrap"><div class="boardTop"><button class="secondary" id="boardTitleBtn">Новая доска</button><div class="boardZoom"><button class="secondary" id="zoomOut">−</button><span id="zoomLabel">100%</span><button class="secondary" id="zoomIn">+</button><button class="secondary" id="zoomReset">100%</button><button class="secondary" id="boardHome">⌂ Центр</button></div><span class="muted">Бесконечная доска • перетаскивай полотно и меняй масштаб</span><button class="secondary" id="downloadBoard">⇩ Скачать</button><div class="boardCourseFilters"><select id="boardGrade"><option value="1">1 класс</option><option value="2">2 класс</option><option value="3">3 класс</option><option value="4">4 класс</option></select><select id="boardSubject"><option value="russian">Русский язык</option><option value="math">Математика</option></select><button class="primary" id="boardCourseBtn">📚 Курс</button></div></div><div class="boardJumps"><span>Быстрый переход:</span><button data-jump="1">Урок 1</button><button data-jump="2">Урок 2</button><button data-jump="3">Урок 3</button><button data-jump="4">Урок 4</button><button data-jump="5">Урок 5</button></div><div class="boardLayout"><div class="tools"><button id="selectTool" class="active">↖️</button><button id="handTool">✋</button><button id="pen">🖊️</button><button id="eraser">⌫</button><button id="shapeTool">◯</button><button id="textTool">T</button><button id="stickerBtn">😊</button><button id="tableTool">▦</button><button id="reactionTool">👍</button><input id="color" type="color" value="#7158f5"><button id="thick">＋</button><button id="thin">−</button><input id="fileInput" type="file" accept="image/*" hidden><button id="fileTool">↥</button></div><div class="board" id="boardArea"><div class="boardWorld" id="boardWorld"><canvas id="canvas"></canvas><div class="courseMap" id="courseMap"></div></div><div class="boardHint">🖐️ Перемещай доску • колёсико — масштаб • Shift+колёсико — горизонтально</div></div></div></div></section>
+<section id="board" class="page" style="display:none"><div class="top"><div><h1>Интерактивная доска</h1><div class="muted">Рисуй, пиши, добавляй картинки и стикеры</div></div></div><div class="boardWrap"><div class="boardTop"><button class="secondary" id="boardTitleBtn">Новая доска</button><div class="boardZoom"><button class="secondary" id="zoomOut">−</button><span id="zoomLabel">100%</span><button class="secondary" id="zoomIn">+</button><button class="secondary" id="zoomReset">100%</button><button class="secondary" id="boardHome">⌂ Центр</button></div><span class="muted">Бесконечная доска • перетаскивай полотно и меняй масштаб</span><button class="secondary" id="downloadBoard">⇩ Скачать</button><div class="boardCourseFilters"><select id="boardGrade"><option value="1">1 класс</option><option value="2">2 класс</option><option value="3">3 класс</option><option value="4">4 класс</option></select><select id="boardSubject"><option value="russian">Русский язык</option><option value="math">Математика</option></select><button class="primary" id="boardCourseBtn">📚 Курс</button></div></div><div class="boardJumps" id="boardQuickJumps"><span>Быстрый переход:</span></div><div class="boardLayout"><div class="tools"><button id="selectTool" class="active">↖️</button><button id="handTool">✋</button><button id="pen">🖊️</button><button id="eraser">⌫</button><button id="shapeTool">◯</button><button id="textTool">T</button><button id="stickerBtn">😊</button><button id="tableTool">▦</button><button id="reactionTool">👍</button><input id="color" type="color" value="#7158f5"><button id="thick">＋</button><button id="thin">−</button><input id="fileInput" type="file" accept="image/*" hidden><button id="fileTool">↥</button></div><div class="board" id="boardArea"><div class="boardWorld" id="boardWorld"><canvas id="canvas"></canvas><div class="courseMap" id="courseMap"></div></div><div class="boardHint">🖐️ Перемещай доску • колёсико — масштаб • Shift+колёсико — горизонтально</div></div></div></div></section>
 </main></div>
 <div id="modal" class="modal"><div class="modalbox"><h2>Новый ученик</h2><input id="newName" placeholder="Имя ученика"><input id="newGrade" placeholder="Класс, например 2 класс"><div class="actions"><button class="primary" id="saveStudent">Добавить</button><button class="secondary" id="closeModal">Отмена</button></div></div></div>
 <script id="lesson-engine">
@@ -2577,7 +2577,39 @@ const oldR=window.renderBoardCourse;if(oldR&&!oldR.__stable){window.renderBoardC
 const oldO=window.openBoardLesson;if(oldO&&!oldO.__stable){window.openBoardLesson=function(n,g){oldO.apply(this,arguments);setTimeout(()=>{$(".boardLessonPanel")?.querySelectorAll("button").forEach(b=>b.style.pointerEvents="auto")},0)};window.openBoardLesson.__stable=true}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();setTimeout(boot,200);
 })();
-</script><script id="topic-tasks-v5-loader">if(!document.querySelector('script[src$="topic-tasks-v5.js"]')){var s=document.createElement("script");s.src="topic-tasks-v5.js";document.head.appendChild(s)}</script></body>
+</script><script id="topic-tasks-v5-loader">if(!document.querySelector('script[src$="topic-tasks-v5.js"]')){var s=document.createElement("script");s.src="topic-tasks-v5.js";document.head.appendChild(s)}</script><style id="BOARD-STABLE-CLEAN">#boardQuickJumps{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;white-space:nowrap;gap:7px;padding:8px 12px;scrollbar-width:thin;touch-action:pan-x;position:relative;z-index:20}#boardQuickJumps button{flex:0 0 auto;cursor:pointer;pointer-events:auto}#boardQuickJumps::-webkit-scrollbar{height:8px}#boardQuickJumps::-webkit-scrollbar-thumb{background:#c9c4dd;border-radius:8px}.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea,.boardLessonPanel select{pointer-events:auto!important;cursor:pointer}.boardLessonPanel .boardInput,.boardLessonPanel textarea{cursor:text}</style>
+<script id="BOARD-STABLE-CLEAN">(function(){
+"use strict";
+function q(s){return document.querySelector(s)}
+function fillQuick(){
+ var box=q("#boardQuickJumps");if(!box)return;
+ if(box.dataset.ready==="1")return;
+ box.innerHTML="<span>Быстрый переход:</span>";
+ for(var n=1;n<=132;n++){
+  var b=document.createElement("button");b.type="button";b.className="quickLessonBtn";b.dataset.jump=n;b.textContent="Урок "+n;box.appendChild(b);
+ }
+ box.dataset.ready="1";
+ box.onclick=function(e){
+  var b=e.target.closest(".quickLessonBtn");if(!b)return;
+  e.preventDefault();e.stopPropagation();
+  var n=Math.max(1,Math.min(132,+b.dataset.jump||1));
+  if(typeof window.openBoardLesson==="function")window.openBoardLesson(n-1,+(q("#boardGrade")||{}).value||1);
+ };
+}
+function restoreButtons(){
+ var board=q("#boardArea");if(!board)return;
+ board.querySelectorAll("button,input,select,textarea").forEach(function(el){el.style.pointerEvents="auto";});
+ fillQuick();
+}
+var oldRender=window.renderBoardCourse;
+if(oldRender&&!oldRender.__cleanStable){
+ window.renderBoardCourse=function(){oldRender.apply(this,arguments);setTimeout(restoreButtons,0)};
+ window.renderBoardCourse.__cleanStable=true;
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",restoreButtons);else restoreButtons();
+setTimeout(restoreButtons,100);
+setTimeout(restoreButtons,500);
+})();</script></body>
 </html>
 
 <style id="lesson-flow-v6">.flowBar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.flowStep{padding:7px 11px;border-radius:999px;background:#f1eff8;color:#77758a;font-size:12px;font-weight:900}.flowStep.active{background:#e9e5ff;color:#5d49c8}.flowStep.done{background:#e7f8ef;color:#26754d}.nextFlow{margin-top:14px;display:flex;justify-content:flex-end}.nextFlow button{border:0;border-radius:12px;padding:10px 15px;font-weight:900;cursor:pointer}.diceFace{font-size:72px;text-align:center;margin:12px}.moveInstruction{font-size:20px;font-weight:900;text-align:center;padding:12px}.boardLessonPanel .lessonChoiceCard[disabled]{opacity:.55}</style>
