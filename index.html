@@ -2722,7 +2722,6 @@ document.addEventListener("pointerdown",function(e){
 document.addEventListener("click",function(e){
  var t=e.target.closest("#boardArea .quickLessonBtn,.boardLessonCard,.lessonChoiceCard,.courseNode,.boardLessonPanel button");
  if(!t)return;
- if(t.classList.contains("boardBack"))return;
  e.preventDefault();e.stopPropagation();
  directClick(t);
 },true);
