@@ -2672,3 +2672,71 @@ function fixBoardClicks(){
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",fixBoardClicks);else fixBoardClicks();
 setInterval(fixBoardClicks,500);
 })();</script>
+<style id="BOARD-STABLE-V7-CSS">
+#boardArea .boardJumps{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;gap:7px!important;pointer-events:auto!important;touch-action:pan-x!important;position:relative!important;z-index:10000!important}
+#boardArea .boardJumps .quickLessonBtn{display:inline-flex!important;flex:0 0 auto!important;pointer-events:auto!important;cursor:pointer!important}
+#boardArea .boardLessonPanel,.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea{pointer-events:auto!important}
+</style>
+<script id="BOARD-STABLE-V7">
+(function(){
+"use strict";
+function qs(s){return document.querySelector(s)}
+function grade(){return +(qs("#boardGrade")||{}).value||1}
+function build132(){
+ var box=qs(".boardJumps"); if(!box)return;
+ if(box.dataset.v7==="132")return;
+ box.innerHTML='<span class="quickLabel">Быстрый переход:</span>';
+ for(var n=1;n<=132;n++){
+   var b=document.createElement("button");
+   b.type="button";b.className="quickLessonBtn";b.dataset.jump=n;b.textContent="Урок "+n;
+   box.appendChild(b);
+ }
+ box.dataset.v7="132";
+}
+function prepare(){
+ build132();
+ var board=qs("#boardArea"); if(!board)return;
+ board.querySelectorAll("button,input,textarea,select,.boardLessonCard,.lessonChoiceCard,.moveChoice,.boardChoice,.boardInput,.boardCheck,.boardDone,.boardPairL,.boardPairR,.boardSeq,.boardColorWord,.boardCheckColor,.boardCheckSeq").forEach(function(el){
+   el.style.pointerEvents="auto";
+ });
+}
+function directClick(el){
+ if(!el)return;
+ var q=el.closest(".quickLessonBtn");
+ if(q){window.openBoardLesson(Math.max(0,Math.min(131,+q.dataset.jump-1)),grade());return true}
+ var card=el.closest(".boardLessonCard");
+ if(card){window.openBoardLesson(+(card.dataset.i||0),grade());return true}
+ var choice=el.closest(".lessonChoiceCard");
+ if(choice && !choice.disabled && typeof choice.onclick==="function"){choice.onclick({preventDefault:function(){},stopPropagation:function(){}});return true}
+ var node=el.closest(".courseNode");
+ if(node && typeof node.onclick==="function"){node.onclick({preventDefault:function(){},stopPropagation:function(){}});return true}
+ var btn=el.closest("button");
+ if(btn && typeof btn.onclick==="function"){btn.onclick({preventDefault:function(){},stopPropagation:function(){}});return true}
+ return false;
+}
+document.addEventListener("pointerdown",function(e){
+ if(e.target.closest("#boardArea .boardJumps,.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea,.boardLessonPanel select,.boardLessonCard,.courseNode,.boardChoice,.boardCheck,.boardDone,.boardPairL,.boardPairR,.boardSeq,.boardColorWord,.boardCheckColor,.boardCheckSeq")){
+   e.stopPropagation();
+ }
+},true);
+document.addEventListener("click",function(e){
+ var t=e.target.closest("#boardArea .quickLessonBtn,.boardLessonCard,.lessonChoiceCard,.courseNode,.boardLessonPanel button");
+ if(!t)return;
+ if(t.classList.contains("boardBack"))return;
+ e.preventDefault();e.stopPropagation();
+ directClick(t);
+},true);
+function boot(){
+ prepare();
+ var map=qs("#courseMap");
+ if(map && !map.dataset.v7observer){
+   map.dataset.v7observer="1";
+   new MutationObserver(function(){setTimeout(prepare,0)}).observe(map,{childList:true,subtree:true});
+ }
+ var jumps=qs(".boardJumps");
+ if(jumps)jumps.scrollLeft=0;
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+setTimeout(boot,100);setTimeout(boot,500);setTimeout(boot,1500);
+})();
+</script>
