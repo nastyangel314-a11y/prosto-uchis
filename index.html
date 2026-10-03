@@ -1532,7 +1532,7 @@ function mathTasks(t,i){
       a.querySelectorAll(".gameCard").forEach(b=>b.onclick=()=>{a.querySelectorAll(".gameCard").forEach(x=>x.classList.remove("correct","wrong"));const ok=+b.dataset.i===t.c;b.classList.add(ok?"correct":"wrong");finish(ok,ok?"Верно!":"Проверь вычисление ещё раз.")});
     }else if(t.type==="i"){
       a.innerHTML='<div class="actions"><input id="ans" style="padding:14px;border:2px solid #e5e1ef;border-radius:15px;min-width:260px" placeholder="Запиши ответ"><button class="primary" id="check">Проверить</button></div>';
-      document.getElementById("check").onclick=()=>finish(document.getElementById("ans").value.trim().toLowerCase()===t.a.toLowerCase(),document.getElementById("ans").value.trim().toLowerCase()===t.a.toLowerCase()?"Верно!":"Сверь пример и попробуй ещё раз.");
+      document.getElementById("check").onclick=()=>{const inp=document.getElementById("ans"),ok=inp.value.trim().toLowerCase()===t.a.toLowerCase();inp.style.borderColor=ok?"#43c98a":"#ff718d";inp.style.background=ok?"#eafff3":"#fff0f3";finish(ok,ok?"Верно!":"Сверь пример и попробуй ещё раз.")};
     }else if(t.type==="t"||t.type==="draw"){
       a.innerHTML='<div class="tip">📝 Это не тест: ребёнок выполняет задание в тетради или на доске.</div><button class="primary" id="teacherDone" style="margin-top:12px">Готово, проверили вместе</button>';
       document.getElementById("teacherDone").onclick=()=>finish(true,"Задание отмечено. Теперь разберите способ решения.");
