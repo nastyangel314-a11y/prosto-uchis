@@ -89,7 +89,7 @@ body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-wid
 <div class="taskDeck"><div class="deckHead"><div><div class="phaseLabel">🎮 23–35 минут • Игровая практика</div><h2>Миссии для героя</h2><div class="muted">Меняем механику, чтобы ребёнок не просто кликал один и тот же тест.</div></div><div class="taskDots" id="taskDots"></div></div><div class="visualTask"><span class="taskBadge" id="taskBadge">Миссия 1</span><div class="taskPrompt" id="question"></div><div id="taskArea"></div><div class="taskExplain" id="result"></div><div class="taskNav"><button class="secondary" id="prevTask">← Назад</button><button class="primary" id="nextTask">Дальше →</button></div></div><div class="successBox" id="successBox"><div class="successStars">⭐ ⭐ ⭐</div><h2>Миссия выполнена!</h2><p>Ты прошёл урок. Теперь можно выбрать следующую тему.</p></div></div>
 <div class="boardPractice"><div><div class="phaseLabel">🏁 35–40 минут • Финиш</div><h2 style="margin:0 0 6px">Финальная битва</h2><div class="muted">Нарисуй ответ, объясни правило или разберись с последней ошибкой на доске.</div></div><button class="primary" id="openBoardFromLesson">Открыть доску</button></div>
 </div></div></div></section>
-<section id="board" class="page" style="display:none"><div class="top"><div><h1>Интерактивная доска</h1><div class="muted">Рисуй, пиши, добавляй картинки и стикеры</div></div></div><div class="boardWrap"><div class="boardTop"><button class="secondary" id="boardTitleBtn">Новая доска</button><div class="boardZoom"><button class="secondary" id="zoomOut">−</button><span id="zoomLabel">100%</span><button class="secondary" id="zoomIn">+</button><button class="secondary" id="zoomReset">100%</button><button class="secondary" id="boardHome">⌂ Центр</button></div><span class="muted">Бесконечная доска • перетаскивай полотно и меняй масштаб</span><button class="secondary" id="downloadBoard">⇩ Скачать</button><div class="boardCourseFilters"><select id="boardGrade"><option value="1">1 класс</option><option value="2">2 класс</option><option value="3">3 класс</option><option value="4">4 класс</option></select><select id="boardSubject"><option value="russian">Русский язык</option><option value="math">Математика</option></select><button class="primary" id="boardCourseBtn">📚 Курс</button></div></div><div class="boardJumps" id="boardQuickJumps"><span>Быстрый переход:</span></div><div class="boardLayout"><div class="tools"><button id="selectTool" class="active">↖️</button><button id="handTool">✋</button><button id="pen">🖊️</button><button id="eraser">⌫</button><button id="shapeTool">◯</button><button id="textTool">T</button><button id="stickerBtn">😊</button><button id="tableTool">▦</button><button id="reactionTool">👍</button><input id="color" type="color" value="#7158f5"><button id="thick">＋</button><button id="thin">−</button><input id="fileInput" type="file" accept="image/*" hidden><button id="fileTool">↥</button></div><div class="board" id="boardArea"><div class="boardWorld" id="boardWorld"><canvas id="canvas"></canvas><div class="courseMap" id="courseMap"></div></div><div class="boardHint">🖐️ Перемещай доску • колёсико — масштаб • Shift+колёсико — горизонтально</div></div></div></div></section>
+<section id="board" class="page" style="display:none"><div class="top"><div><h1>Интерактивная доска</h1><div class="muted">Рисуй, пиши, добавляй картинки и стикеры</div></div></div><div class="boardWrap"><div class="boardTop"><button class="secondary" id="boardTitleBtn" style="display:none">Новая доска</button><div class="boardZoom" style="display:none"><button class="secondary" id="zoomOut">−</button><span id="zoomLabel">100%</span><button class="secondary" id="zoomIn">+</button><button class="secondary" id="zoomReset">100%</button><button class="secondary" id="boardHome">⌂ Центр</button></div><span class="muted" style="display:none">Бесконечная доска • перетаскивай полотно и меняй масштаб</span><button class="secondary" id="downloadBoard" style="display:none">⇩ Скачать</button><div class="boardCourseFilters"><select id="boardGrade"><option value="1">1 класс</option><option value="2">2 класс</option><option value="3">3 класс</option><option value="4">4 класс</option></select><select id="boardSubject"><option value="russian">Русский язык</option><option value="math">Математика</option></select><button class="primary" id="boardCourseBtn">📚 Курс</button></div></div><div class="boardJumps" id="boardQuickJumps"><span>Быстрый переход:</span></div><div class="boardLayout"><div class="tools"><button id="selectTool" class="active">↖️</button><button id="handTool">✋</button><button id="pen">🖊️</button><button id="eraser">⌫</button><button id="shapeTool">◯</button><button id="textTool">T</button><button id="stickerBtn">😊</button><button id="tableTool">▦</button><button id="reactionTool">👍</button><input id="color" type="color" value="#7158f5"><button id="thick">＋</button><button id="thin">−</button><input id="fileInput" type="file" accept="image/*" hidden><button id="fileTool">↥</button></div><div class="board" id="boardArea"><div class="boardWorld" id="boardWorld"><canvas id="canvas"></canvas><div class="courseMap" id="courseMap"></div></div><div class="boardHint">🖐️ Перемещай доску • колёсико — масштаб • Shift+колёсико — горизонтально</div></div></div></div></section>
 </main></div>
 <div id="modal" class="modal"><div class="modalbox"><h2>Новый ученик</h2><input id="newName" placeholder="Имя ученика"><input id="newGrade" placeholder="Класс, например 2 класс"><div class="actions"><button class="primary" id="saveStudent">Добавить</button><button class="secondary" id="closeModal">Отмена</button></div></div></div>
 <script id="lesson-engine">
@@ -2482,292 +2482,98 @@ function mathTasks(t,i){
 .boardSubjectFlow .flowBreak{font-size:20px}
 @media(max-width:700px){.boardLessonList{grid-template-columns:1fr!important}.boardSubjectFlow{grid-template-columns:1fr}.boardSubjectFlow .flowBreak{transform:rotate(90deg)}}
 </style>
-<script id="board-course-refresh-script">
+
+
+<script src="topic-tasks-v5.js"></script>
+
+<style id="BOARD-CLEAN-UI">
+.boardTop{justify-content:flex-end;min-height:56px}
+.boardCourseFilters{margin-left:auto}
+#boardQuickJumps{display:flex!important;align-items:center!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;gap:7px!important;padding:8px 12px!important;min-height:50px!important;scrollbar-width:thin!important;touch-action:pan-x!important}
+#boardQuickJumps>span{flex:0 0 auto}
+#boardQuickJumps .quickLessonBtn{display:inline-flex!important;flex:0 0 auto!important;pointer-events:auto!important;cursor:pointer!important}
+#boardQuickJumps::-webkit-scrollbar{height:8px}
+#boardQuickJumps::-webkit-scrollbar-thumb{background:#c9c4dd;border-radius:8px}
+.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea,.boardLessonPanel select{pointer-events:auto!important}
+.boardLessonPanel,.boardLessonPanel *{pointer-events:auto}
+.courseMap{pointer-events:none}
+.boardCourseHome,.boardLessonPanel{pointer-events:auto}
+</style>
+<script id="BOARD-CLEAN-CONTROLLER">
 (function(){
-  const oldRenderBoardCourse=window.renderBoardCourse;
-  const oldOpenBoardLesson=window.openBoardLesson;
+  "use strict";
+  function el(id){return document.getElementById(id)}
+  function grade(){return +(el("boardGrade")||{}).value||1}
 
-  function decorateCourse(){
-    const home=document.querySelector(".boardCourseHome");
-    if(!home)return;
-    const title=home.querySelector(".boardCourseTitle");
-    const list=home.querySelector(".boardLessonList");
-    if(!list)return;
+  function buildQuickLessons(){
+    var box=el("boardQuickJumps");
+    if(!box)return;
+    box.innerHTML="";
+    var label=document.createElement("span");
+    label.textContent="Быстрый переход:";
+    box.appendChild(label);
 
-    const cards=[...list.querySelectorAll(".boardLessonCard")];
-    const total=cards.length;
-    const oldText=home.querySelector(".muted");
-    if(title)title.outerHTML='<div class="boardCourseTop"><div><div class="boardCourseTitle">📚 Карта курса · 1 класс</div><div class="boardCourseSubtitle">Все уроки КТП собраны на одной доске. Открывай урок и проходи маршрут: <b>русский язык → физкультминутка → математика</b>.</div></div><div class="boardCourseStats"><span class="boardCourseStat">132 урока</span><span class="boardCourseStat">40 тем русского</span><span class="boardCourseStat">132 темы математики</span></div></div>';
-    if(oldText)oldText.remove();
-
-    if(!home.querySelector(".boardRoute")){
-      const route=document.createElement("div");
-      route.className="boardRoute";
-      route.innerHTML='<span class="boardRouteStep">📖 Русский язык · ~20 мин</span><span class="boardRouteArrow">→</span><span class="boardRouteStep">🎲 Физкультминутка · 2–3 мин</span><span class="boardRouteArrow">→</span><span class="boardRouteStep">🔢 Математика · ~20 мин</span>';
-      home.insertBefore(route,list);
+    for(var n=1;n<=132;n++){
+      var b=document.createElement("button");
+      b.type="button";
+      b.className="quickLessonBtn";
+      b.dataset.jump=String(n);
+      b.textContent="Урок "+n;
+      b.onclick=(function(num){
+        return function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          if(typeof window.openBoardLesson==="function"){
+            window.openBoardLesson(num-1,grade());
+          }
+        };
+      })(n);
+      box.appendChild(b);
     }
+    box.scrollLeft=0;
+  }
 
-    cards.forEach((card,i)=>{
-      if(card.dataset.refreshDecorated==="1")return;
-      card.dataset.refreshDecorated="1";
-      const rr=card.querySelector("small"), mm=card.querySelector("em");
-      const rText=rr?rr.textContent.replace(/^📖 Русский язык ·\s*/,""):"";
-      const mText=mm?mm.textContent.replace(/^🔢 Математика ·\s*/,""):"";
-      card.innerHTML='<div class="lessonCardTop"><span class="lessonNumber">УРОК '+(i+1)+'</span><span class="lessonOpen">Открыть →</span></div>'+
-        '<span class="boardRuTitle"><b>📖 РУССКИЙ</b><br>'+E(rText)+'</span>'+
-        '<span class="boardMathTitle"><b>🔢 МАТЕМАТИКА</b><br>'+E(mText)+'</span>'+
-        (i>=40?'<span class="reviewBadge">↻ Русский: повторение и закрепление</span>':'');
+  function unlockBoardControls(){
+    var board=el("boardArea");
+    if(!board)return;
+    board.querySelectorAll("button,input,select,textarea").forEach(function(x){
+      x.style.pointerEvents="auto";
     });
   }
 
-  window.renderBoardCourse=function(){
-    oldRenderBoardCourse();
-    setTimeout(decorateCourse,0);
-  };
-
-  function decorateLesson(){
-    const panel=document.querySelector(".boardLessonPanel");
-    if(!panel || panel.dataset.refreshDecorated==="1")return;
-    panel.dataset.refreshDecorated="1";
-    const head=panel.querySelector(".boardLessonHead");
-    const choice=panel.querySelector(".lessonChoiceCloud");
-    if(head){
-      const n=head.querySelector(".n")?.textContent||"";
-      const num=(n.match(/\d+/)||[""])[0];
-      const meta=document.createElement("div");
-      meta.className="boardLessonMeta";
-      meta.innerHTML='<span>📖 Сначала русский</span><span>🎲 Затем физпауза 2–3 мин</span><span>🔢 Потом математика</span>';
-      head.appendChild(meta);
-      if(+num>=41){
-        const note=document.createElement("div");
-        note.className="lesson1SourceNote";
-        note.textContent="После 40 тем русского языка этот блок работает как повторение и закрепление, пока математика продолжает идти по своему КТП.";
-        head.appendChild(note);
-      }
-    }
-    if(choice && !panel.querySelector(".boardSubjectFlow")){
-      const flow=document.createElement("div");
-      flow.className="boardSubjectFlow";
-      flow.innerHTML='<div class="flowItem">📖 Русский язык<br><small>~20 минут</small></div><div class="flowBreak">→ 🎲 →</div><div class="flowItem">🔢 Математика<br><small>~20 минут</small></div>';
-      choice.parentNode.insertBefore(flow,choice);
-    }
+  function boot(){
+    buildQuickLessons();
+    unlockBoardControls();
   }
 
-  window.openBoardLesson=function(num,gr){
-    oldOpenBoardLesson(num,gr);
-    setTimeout(decorateLesson,0);
-  };
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",boot);
+  }else{
+    boot();
+  }
 
-  setTimeout(function(){
-    if(document.querySelector(".boardCourseHome"))decorateCourse();
-  },50);
+  setTimeout(boot,100);
+  setTimeout(boot,500);
+
+  var gradeSelect=el("boardGrade");
+  if(gradeSelect)gradeSelect.addEventListener("change",function(){setTimeout(buildQuickLessons,0)});
+
+  var oldRender=window.renderBoardCourse;
+  if(oldRender && !oldRender.__cleanCourseNav){
+    window.renderBoardCourse=function(){
+      oldRender.apply(this,arguments);
+      setTimeout(buildQuickLessons,0);
+      setTimeout(unlockBoardControls,0);
+    };
+    window.renderBoardCourse.__cleanCourseNav=true;
+  }
 })();
 </script>
-
-<script id="BOARD-INTERACTIVE-STABLE-V4">
-(function(){
-"use strict";
-const $=s=>document.querySelector(s);
-function rebuildQuick(){const box=$(".boardJumps");if(!box)return;box.innerHTML='<span class="quickLabel">Быстрый переход:</span>';for(let n=1;n<=132;n++){const b=document.createElement("button");b.type="button";b.className="quickLessonBtn";b.dataset.jump=n;b.textContent="Урок "+n;box.appendChild(b)}}
-function openJump(n){n=Math.max(1,Math.min(132,Number(n)||1));const g=Number($("#boardGrade")?.value||1);if(typeof window.openBoardLesson==="function"){window.openBoardLesson(n-1,g);return}const c=document.querySelector('.boardLessonCard[data-i="'+(n-1)+'"]');if(c)c.click()}
-function boot(){rebuildQuick();const box=$(".boardJumps");if(box&&!box.dataset.stable){box.dataset.stable="1";box.addEventListener("pointerdown",e=>{if(e.target.closest(".quickLessonBtn"))e.stopPropagation()},true);box.addEventListener("click",e=>{const b=e.target.closest(".quickLessonBtn");if(!b)return;e.preventDefault();e.stopPropagation();openJump(b.dataset.jump)},true)}
-const board=$("#boardArea");if(board&&!board.dataset.stable){board.dataset.stable="1";board.addEventListener("pointerdown",e=>{if(e.target.closest("button,input,select,textarea,.boardLessonCard,.lessonChoiceCard,.courseNode,.boardSubjectHead,.moveChoice,.clearTask,.boardObject,.quickLessonBtn"))e.stopPropagation()},true)}
-}
-const oldR=window.renderBoardCourse;if(oldR&&!oldR.__stable){window.renderBoardCourse=function(){oldR.apply(this,arguments);setTimeout(boot,0)};window.renderBoardCourse.__stable=true}
-const oldO=window.openBoardLesson;if(oldO&&!oldO.__stable){window.openBoardLesson=function(n,g){oldO.apply(this,arguments);setTimeout(()=>{$(".boardLessonPanel")?.querySelectorAll("button").forEach(b=>b.style.pointerEvents="auto")},0)};window.openBoardLesson.__stable=true}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();setTimeout(boot,200);
-})();
-</script><script id="topic-tasks-v5-loader">if(!document.querySelector('script[src$="topic-tasks-v5.js"]')){var s=document.createElement("script");s.src="topic-tasks-v5.js";document.head.appendChild(s)}</script><style id="BOARD-STABLE-CLEAN">#boardQuickJumps{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;white-space:nowrap;gap:7px;padding:8px 12px;scrollbar-width:thin;touch-action:pan-x;position:relative;z-index:20}#boardQuickJumps button{flex:0 0 auto;cursor:pointer;pointer-events:auto}#boardQuickJumps::-webkit-scrollbar{height:8px}#boardQuickJumps::-webkit-scrollbar-thumb{background:#c9c4dd;border-radius:8px}.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea,.boardLessonPanel select{pointer-events:auto!important;cursor:pointer}.boardLessonPanel .boardInput,.boardLessonPanel textarea{cursor:text}</style>
-<script id="BOARD-STABLE-CLEAN">(function(){
-"use strict";
-function q(s){return document.querySelector(s)}
-function fillQuick(){
- var box=q("#boardQuickJumps");if(!box)return;
- if(box.dataset.ready==="1")return;
- box.innerHTML="<span>Быстрый переход:</span>";
- for(var n=1;n<=132;n++){
-  var b=document.createElement("button");b.type="button";b.className="quickLessonBtn";b.dataset.jump=n;b.textContent="Урок "+n;box.appendChild(b);
- }
- box.dataset.ready="1";
- box.onclick=function(e){
-  var b=e.target.closest(".quickLessonBtn");if(!b)return;
-  e.preventDefault();e.stopPropagation();
-  var n=Math.max(1,Math.min(132,+b.dataset.jump||1));
-  if(typeof window.openBoardLesson==="function")window.openBoardLesson(n-1,+(q("#boardGrade")||{}).value||1);
- };
-}
-function restoreButtons(){
- var board=q("#boardArea");if(!board)return;
- board.querySelectorAll("button,input,select,textarea").forEach(function(el){el.style.pointerEvents="auto";});
- fillQuick();
-}
-var oldRender=window.renderBoardCourse;
-if(oldRender&&!oldRender.__cleanStable){
- window.renderBoardCourse=function(){oldRender.apply(this,arguments);setTimeout(restoreButtons,0)};
- window.renderBoardCourse.__cleanStable=true;
-}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",restoreButtons);else restoreButtons();
-setTimeout(restoreButtons,100);
-setTimeout(restoreButtons,500);
-})();</script></body>
+</body>
 </html>
 
-<style id="lesson-flow-v6">.flowBar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.flowStep{padding:7px 11px;border-radius:999px;background:#f1eff8;color:#77758a;font-size:12px;font-weight:900}.flowStep.active{background:#e9e5ff;color:#5d49c8}.flowStep.done{background:#e7f8ef;color:#26754d}.nextFlow{margin-top:14px;display:flex;justify-content:flex-end}.nextFlow button{border:0;border-radius:12px;padding:10px 15px;font-weight:900;cursor:pointer}.diceFace{font-size:72px;text-align:center;margin:12px}.moveInstruction{font-size:20px;font-weight:900;text-align:center;padding:12px}.boardLessonPanel .lessonChoiceCard[disabled]{opacity:.55}</style>
-<script id="LESSON-FLOW-STABLE-V6">(function(){
-var baseOpen=window.openBoardLesson;
-var faces=["⚀","⚁","⚂","⚃","⚄","⚅"];
-var moves=["Потянись к солнышку — 3 раза вверх.","Хлопки — 5 хлопков над головой.","Дерево — покачайся вправо-влево 10 секунд.","Пружинка — 5 лёгких приседаний.","Самолёт — 3 поворота с разведёнными руками.","Замри — двигайся 10 секунд и замри."];
-window.openBoardLesson=function(num,gr){
-  baseOpen(num,gr);
-  var m=document.getElementById("courseMap"); if(!m)return;
-  var panel=m.querySelector(".boardLessonPanel"); if(!panel)return;
-  var choices=panel.querySelector(".lessonChoiceCloud"); if(!choices)return;
-  var area=panel.querySelector(".boardSelectedArea");
-  var russian=panel.querySelector(".russianChoice"), move=panel.querySelector(".moveChoice"), math=panel.querySelector(".mathChoice");
-  var oldR=russian&&russian.onclick,oldM=move&&move.onclick,oldMath=math&&math.onclick;
-  if(move)move.disabled=true;
-  if(math)math.disabled=true;
-  var state={r:false,move:false,math:false};
-  function bar(active){
-    return '<div class="flowBar"><span class="flowStep '+(active==="r"?"active":"")+(state.r?" done":"")+'">1. 📖 Русский</span><span class="flowStep '+(active==="move"?"active":"")+(state.move?" done":"")+'">2. 🎲 Физкультминутка</span><span class="flowStep '+(active==="math"?"active":"")+(state.math?" done":"")+'">3. 🔢 Математика</span></div>';
-  }
-  function showMathGate(){
-    if(math){math.disabled=false;math.classList.remove("disabled");}
-  }
-  function finish(kind){
-    state[kind]=true;
-    if(kind==="r"){showMathGate(); if(move)move.disabled=false;}
-  }
-  if(russian)russian.onclick=function(e){
-    if(oldR)oldR.call(this,e);
-    setTimeout(function(){
-      finish("r");
-      var top=area.querySelector(".openedSubjectTop");
-      if(top)top.insertAdjacentHTML("afterbegin",bar("r"));
-      var close=area.querySelector(".closeBoardSubject");
-      if(close){close.onclick=function(){area.innerHTML="";};}
-      var wrap=area.querySelector(".boardTasks");
-      if(wrap&&!wrap.querySelector(".nextFlow")){
-        var n=document.createElement("div");n.className="nextFlow";
-        n.innerHTML='<button class="primary">Готово с русским → 🎲 Физкультминутка</button>';
-        wrap.appendChild(n);
-        n.querySelector("button").onclick=function(){move&&move.click();};
-      }
-    },30);
-  };
-  if(move)move.onclick=function(e){
-    if(oldM)oldM.call(this,e);
-    setTimeout(function(){
-      state.move=true;
-      var sec=area.querySelector(".movePanel"); if(!sec)return;
-      var face=Math.floor(Math.random()*6), n=face+1;
-      sec.innerHTML='<div class="openedSubjectTop"><div><span class="n">🎲 Физкультминутка</span><h3>Шаг 2 из 3</h3></div><button class="secondary closeMove">Свернуть</button></div>'+bar("move")+'<div class="diceFace">'+faces[face]+'</div><div class="moveInstruction">'+E(moves[face])+'</div><div class="nextFlow"><button class="primary goMath">Готово → 🔢 Математика</button></div>';
-      sec.querySelector(".goMath").onclick=function(){math&&math.click();};
-      sec.querySelector(".closeMove").onclick=function(){area.innerHTML=""};
-      area.scrollIntoView({behavior:"smooth",block:"start"});
-    },30);
-  };
-  if(math)math.onclick=function(e){
-    if(oldMath)oldMath.call(this,e);
-    setTimeout(function(){
-      finish("math");
-      var top=area.querySelector(".openedSubjectTop");
-      if(top)top.insertAdjacentHTML("afterbegin",bar("math"));
-      var wrap=area.querySelector(".boardTasks");
-      if(wrap&&!wrap.querySelector(".lessonComplete")){
-        var done=document.createElement("div");done.className="nextFlow lessonComplete";
-        done.innerHTML='<button class="primary">✓ Урок '+(num+1)+' завершён</button>';
-        wrap.appendChild(done);
-        done.querySelector("button").onclick=function(){
-          var next=num+1;
-          if(next<132)window.openBoardLesson(next,gr);else window.renderBoardCourse();
-        };
-      }
-    },30);
-  };
-  var note=document.createElement("div");note.className="flowBar";
-  note.innerHTML=bar("r");
-  panel.querySelector(".boardLessonHead").appendChild(note);
-};
-})();</script>
-<style id="BOARD-CLICKABLE-LINKS-FIX">#boardArea .boardJumps,#boardArea .boardJumps *{pointer-events:auto!important}#boardArea .boardJumps{position:relative;z-index:1000}#boardArea button,#boardArea a,#boardArea input,#boardArea select,#boardArea textarea{pointer-events:auto!important;position:relative;z-index:50}.boardLessonPanel,.boardLessonPanel *{pointer-events:auto}.boardJumps::-webkit-scrollbar{height:8px}.boardJumps::-webkit-scrollbar-thumb{background:#c9c4dd;border-radius:8px}</style>
-<script id="BOARD-CLICKABLE-LINKS-FIX-SCRIPT">(function(){
-function fixBoardClicks(){
- var board=document.getElementById("boardArea"); if(!board)return;
- var jump=board.querySelector(".boardJumps");
- if(jump){
-  jump.style.pointerEvents="auto";
-  jump.querySelectorAll("button").forEach(function(b){b.style.pointerEvents="auto";b.style.cursor="pointer";});
- }
- board.querySelectorAll("button,a,input,select,textarea").forEach(function(el){el.style.pointerEvents="auto";});
-}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",fixBoardClicks);else fixBoardClicks();
-setInterval(fixBoardClicks,500);
-})();</script>
-<style id="BOARD-STABLE-V7-CSS">
-#boardArea .boardJumps{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;gap:7px!important;pointer-events:auto!important;touch-action:pan-x!important;position:relative!important;z-index:10000!important}
-#boardArea .boardJumps .quickLessonBtn{display:inline-flex!important;flex:0 0 auto!important;pointer-events:auto!important;cursor:pointer!important}
-#boardArea .boardLessonPanel,.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea{pointer-events:auto!important}
-</style>
-<script id="BOARD-STABLE-V7">
-(function(){
-"use strict";
-function qs(s){return document.querySelector(s)}
-function grade(){return +(qs("#boardGrade")||{}).value||1}
-function build132(){
- var box=qs(".boardJumps"); if(!box)return;
- if(box.dataset.v7==="132")return;
- box.innerHTML='<span class="quickLabel">Быстрый переход:</span>';
- for(var n=1;n<=132;n++){
-   var b=document.createElement("button");
-   b.type="button";b.className="quickLessonBtn";b.dataset.jump=n;b.textContent="Урок "+n;
-   box.appendChild(b);
- }
- box.dataset.v7="132";
-}
-function prepare(){
- build132();
- var board=qs("#boardArea"); if(!board)return;
- board.querySelectorAll("button,input,textarea,select,.boardLessonCard,.lessonChoiceCard,.moveChoice,.boardChoice,.boardInput,.boardCheck,.boardDone,.boardPairL,.boardPairR,.boardSeq,.boardColorWord,.boardCheckColor,.boardCheckSeq").forEach(function(el){
-   el.style.pointerEvents="auto";
- });
-}
-function directClick(el){
- if(!el)return;
- var q=el.closest(".quickLessonBtn");
- if(q){window.openBoardLesson(Math.max(0,Math.min(131,+q.dataset.jump-1)),grade());return true}
- var card=el.closest(".boardLessonCard");
- if(card){window.openBoardLesson(+(card.dataset.i||0),grade());return true}
- var choice=el.closest(".lessonChoiceCard");
- if(choice && !choice.disabled && typeof choice.onclick==="function"){choice.onclick({preventDefault:function(){},stopPropagation:function(){}});return true}
- var node=el.closest(".courseNode");
- if(node && typeof node.onclick==="function"){node.onclick({preventDefault:function(){},stopPropagation:function(){}});return true}
- var btn=el.closest("button");
- if(btn && typeof btn.onclick==="function"){btn.onclick({preventDefault:function(){},stopPropagation:function(){}});return true}
- return false;
-}
-document.addEventListener("pointerdown",function(e){
- if(e.target.closest("#boardArea .boardJumps,.boardLessonPanel button,.boardLessonPanel input,.boardLessonPanel textarea,.boardLessonPanel select,.boardLessonCard,.courseNode,.boardChoice,.boardCheck,.boardDone,.boardPairL,.boardPairR,.boardSeq,.boardColorWord,.boardCheckColor,.boardCheckSeq")){
-   e.stopPropagation();
- }
-},true);
-document.addEventListener("click",function(e){
- var t=e.target.closest("#boardArea .quickLessonBtn,.boardLessonCard,.lessonChoiceCard,.courseNode,.boardLessonPanel button");
- if(!t)return;
- e.preventDefault();e.stopPropagation();
- directClick(t);
-},true);
-function boot(){
- prepare();
- var map=qs("#courseMap");
- if(map && !map.dataset.v7observer){
-   map.dataset.v7observer="1";
-   new MutationObserver(function(){setTimeout(prepare,0)}).observe(map,{childList:true,subtree:true});
- }
- var jumps=qs(".boardJumps");
- if(jumps)jumps.scrollLeft=0;
-}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
-setTimeout(boot,100);setTimeout(boot,500);setTimeout(boot,1500);
-})();
-</script>
+
+
+
+
+
