@@ -46,13 +46,11 @@ body.pairPresent .side{display:none}body.pairPresent .main{margin-left:0;max-wid
 <button data-page="home">🏠 Главная</button><button data-page="students">👩‍🎓 Ученики</button><button data-page="program">📚 Программа</button><button data-page="lessons">📝 Уроки</button><button data-page="board">🖊️ Доска</button>
 </div></aside>
 <main class="main">
-<section id="home" class="page"><div class="top"><div><h1>Просто учись 👋</h1><div class="muted">Твоя библиотека уроков для 1–4 классов</div></div><button class="primary" id="addHome">+ Добавить ученика</button></div>
-<div class="grid"><div class="card stat">Ученики<b id="count">0</b></div><div class="card stat">Уроков за неделю<b>12</b></div><div class="card stat">Завершено<b>86%</b></div><div class="card stat">Средний результат<b>4,6</b></div></div>
+<section id="home" class="page"><div class="top"><div><h1>Просто учись 👋</h1><div class="muted">Твоя библиотека уроков для 1 класса</div></div><button class="primary" id="addHome">+ Добавить ученика</button></div>
+<div class="grid"><div class="card stat">Ученики<b id="count">0</b></div><div class="card stat">Уроков за неделю<b>0</b></div><div class="card stat">Завершено<b>0%</b></div><div class="card stat">Средний результат<b>—</b></div></div>
 <div class="section"><h2>Предметы</h2><div class="grid">
 <div class="card subject"><div class="ico">➗</div><h3>Математика</h3><div class="muted">Числа, вычисления, задачи</div><br><button class="secondary subjectBtn" data-subject="math">Открыть программу</button></div>
 <div class="card subject"><div class="ico">🔤</div><h3>Русский язык</h3><div class="muted">Речь, грамматика, правописание</div><br><button class="secondary subjectBtn" data-subject="russian">Открыть программу</button></div>
-<div class="card subject"><div class="ico">📖</div><h3>Литературное чтение</h3><div class="muted">Чтение, сказки, рассказы, стихи</div><br><button class="secondary subjectBtn" data-subject="reading">Открыть программу</button></div>
-<div class="card subject"><div class="ico">🌍</div><h3>Окружающий мир</h3><div class="muted">Природа, человек, история</div><br><button class="secondary subjectBtn" data-subject="world">Открыть программу</button></div>
 </div></div></section>
 <section id="students" class="page" style="display:none"><div class="top"><div><h1>Мои ученики</h1><div class="muted">Выбирай ученика и начинай урок</div></div><button class="primary" id="addStudentBtn">+ Добавить</button></div><div id="studentList" class="students"></div></section>
 <section id="studentProfile" class="page" style="display:none">
